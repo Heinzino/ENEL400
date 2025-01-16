@@ -1,69 +1,75 @@
-#include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
+// Tutorial https://www.youtube.com/watch?v=ssokvToiYU0 
+#include <Arduino.h>
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
 
-const int x = 128; // Define display width
-const int y = 64;  // Define display height
-const int reset = -1;
+#define SERVICE_UUID        "12345678-1234-1234-1234-1234567890ab" // A random UUID for your service
+#define CHARACTERISTIC_UUID "87654321-4321-4321-4321-ba0987654321" // A random UUID for your characteristic
 
-uint32_t potentiometer = 0;
+BLECharacteristic *pCharacteristic;
 
-Adafruit_SSD1306 display(x, y, &Wire, reset); // Assign the above attributes to the display
+// Optional callback if you want to observe central connections
+class MyServerCallbacks: public BLEServerCallbacks {
+  void onConnect(BLEServer* pServer) {
+    Serial.println("Client connected");
+  }
+  void onDisconnect(BLEServer* pServer) {
+    Serial.println("Client disconnected");
+    // By default, the ESP32 stops advertising after a client disconnects
+    pServer->getAdvertising()->start();
+  }
+};
 
 void setup() {
-  Serial.begin(115200); // Begin serial monitor at 115200 baud
+  Serial.begin(115200);
 
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Check if init failed
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;);
-  }
+  // 1) Initialize BLE
+  BLEDevice::init("ESP32_Power_Sensor");  // This is the device name that will appear in iOS scanning
 
-  display.clearDisplay(); // Reset to start display in known state
+  // 2) Create a BLE Server
+  BLEServer *pServer = BLEDevice::createServer();
+  pServer->setCallbacks(new MyServerCallbacks()); //Optional callback
+ 
+  // 3) Create the BLE Service
+  BLEService *pService = pServer->createService(SERVICE_UUID);
 
-  // Battery rectangle
-  display.fillRect(8, 8, 104, 48, WHITE); 
-  display.fillRect(10, 10, 100, 44, BLACK);
+  // 4) Create a BLE Characteristic
+  pCharacteristic = pService->createCharacteristic(
+                      CHARACTERISTIC_UUID,
+                      BLECharacteristic::PROPERTY_READ   |
+                      BLECharacteristic::PROPERTY_NOTIFY 
+                    );
 
-  // Anode rectangle
-  display.fillRect(112, 24, 8, 16, WHITE);
-  display.fillRect(112, 26, 6, 12, BLACK);
+  // Optionally, set descriptors like the Client Characteristic Configuration (CCC) if needed
 
-  display.display(); 
+  // 5) Start the service
+  pService->start();
 
+  // 6) Start advertising
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->setScanResponse(true);
+  pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections
+  pAdvertising->setMinPreferred(0x12);
+  pServer->getAdvertising()->start();
+  Serial.println("BLE advertising started...");
 }
 
 void loop() {
+  // Generate a random power reading between 0 and 300 W (for example)
+  int powerValue = random(0, 300);
 
-  potentiometer = 1023; 
-  Serial.println(potentiometer);
+  // Convert it to a string or raw bytes
+  char powerStr[8];
+  sprintf(powerStr, "%d", powerValue);
 
-  display.fillRect(11, 11, 98, 42, BLACK);
-  display.fillRect(11, 11, (potentiometer * 99) >> 10, 42, WHITE);
-
-  display.fillRect(41, 24, 38, 16, BLACK);
+  // Set the characteristic value
+  pCharacteristic->setValue(powerStr);
   
-  if (potentiometer > 1013){
-    display.setTextColor(WHITE);
-    display.setTextSize(2);
-    display.setCursor(43, 25);
-    display.print((potentiometer  * 101) >> 10);
-  }
-  else if (potentiometer < 101) {
-    display.setTextColor(WHITE);
-    display.setTextSize(2);
-    display.setCursor(55, 25);
-    display.print((potentiometer  * 101) >> 10);
-  }
-  else {
-    display.setTextColor(WHITE);
-    display.setTextSize(2);
-    display.setCursor(49, 25);
-    display.print((potentiometer  * 101) >> 10);
-  }
+  // Notify if there are any connected clients
+  pCharacteristic->notify();
 
-
-  display.display(); 
-  delay(50);
-
+  // Wait a bit before sending the next reading
+  delay(2000);
 }
