@@ -1,5 +1,7 @@
 /**
  * Example: BLE Fitness Machine Service (Indoor Bike Data) for ESP32
+ * Other Reference: https://github.com/mobilars/RSC/blob/main/RSC.ino 
+ * https://github.com/imwitti/FootpodMimic/blob/master/Reedswitchfootpodmimic.cpp 
  *
  * This sample creates:
  * - A BLE device named "MyWoosh-ESP32"
