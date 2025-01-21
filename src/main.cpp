@@ -32,7 +32,7 @@ void setup()
   lv_init();
 
   tftDisplay.begin();
-  tftDisplay.setRotation(1);
+  tftDisplay.setRotation(0);
 
   // Initialize display buffer and driver
   static lv_disp_draw_buf_t draw_buf;
