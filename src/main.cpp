@@ -32,7 +32,7 @@ void setup()
   lv_init();
 
   tftDisplay.begin();
-  tftDisplay.setRotation(0);
+  tftDisplay.setRotation(1);
 
   // Initialize display buffer and driver
   static lv_disp_draw_buf_t draw_buf;
@@ -41,8 +41,8 @@ void setup()
 
   static lv_disp_drv_t disp_drv;     // Display driver
   lv_disp_drv_init(&disp_drv);       // Basic initialization
-  disp_drv.hor_res = 320;            // Set horizontal resolution
-  disp_drv.ver_res = 480;            // Set vertical resolution
+  disp_drv.hor_res = 480;            // Set horizontal resolution
+  disp_drv.ver_res = 320;            // Set vertical resolution
   disp_drv.flush_cb = my_disp_flush; // Set flush callback
   disp_drv.draw_buf = &draw_buf;     // Assign the buffer to the driver
   lv_disp_drv_register(&disp_drv);   // Register the driver
