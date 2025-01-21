@@ -1606,7 +1606,7 @@
     "uiExportFolderPath": "C:\\Users\\heinz\\Desktop\\REPO\\ENEL400\\UI_Assets",
     "projectExportFolderPath": "",
     "custom_variable_prefix": "uic",
-    "backup_cnt": 6,
+    "backup_cnt": 8,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "C_FILE",
