@@ -1,69 +1,57 @@
-#include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
+#include <Arduino.h>
+#include "TFT_eSPI.h"
+#include "User_Setup.h"
+#include <lvgl.h>
+#include "ui.h"
 
-const int x = 128; // Define display width
-const int y = 64;  // Define display height
-const int reset = -1;
+TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 
-uint32_t potentiometer = 0;
+void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
+{
+  uint16_t c;
 
-Adafruit_SSD1306 display(x, y, &Wire, reset); // Assign the above attributes to the display
+  tftDisplay.startWrite();
+  tftDisplay.setAddrWindow(area->x1, area->y1, (area->x2 - area->x1 + 1), (area->y2 - area->y1 + 1));
 
-void setup() {
-  Serial.begin(115200); // Begin serial monitor at 115200 baud
-
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Check if init failed
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;);
+  for (int y = area->y1; y <= area->y2; y++)
+  {
+    for (int x = area->x1; x <= area->x2; x++)
+    {
+      c = color_p->full; // Convert color
+      tftDisplay.pushColor(c);
+      color_p++;
+    }
   }
+  tftDisplay.endWrite();
 
-  display.clearDisplay(); // Reset to start display in known state
-
-  // Battery rectangle
-  display.fillRect(8, 8, 104, 48, WHITE); 
-  display.fillRect(10, 10, 100, 44, BLACK);
-
-  // Anode rectangle
-  display.fillRect(112, 24, 8, 16, WHITE);
-  display.fillRect(112, 26, 6, 12, BLACK);
-
-  display.display(); 
-
+  lv_disp_flush_ready(disp); // Tell LVGL that flushing is done
 }
 
-void loop() {
+void setup()
+{
+  lv_init();
 
-  potentiometer = 1023; 
-  Serial.println(potentiometer);
+  tftDisplay.begin();
+  tftDisplay.setRotation(1);
 
-  display.fillRect(11, 11, 98, 42, BLACK);
-  display.fillRect(11, 11, (potentiometer * 99) >> 10, 42, WHITE);
+  // Initialize display buffer and driver
+  static lv_disp_draw_buf_t draw_buf;
+  static lv_color_t buf[LV_HOR_RES_MAX * 10]; // Buffer for 10 lines
+  lv_disp_draw_buf_init(&draw_buf, buf, NULL, LV_HOR_RES_MAX * 10);
 
-  display.fillRect(41, 24, 38, 16, BLACK);
-  
-  if (potentiometer > 1013){
-    display.setTextColor(WHITE);
-    display.setTextSize(2);
-    display.setCursor(43, 25);
-    display.print((potentiometer  * 101) >> 10);
-  }
-  else if (potentiometer < 101) {
-    display.setTextColor(WHITE);
-    display.setTextSize(2);
-    display.setCursor(55, 25);
-    display.print((potentiometer  * 101) >> 10);
-  }
-  else {
-    display.setTextColor(WHITE);
-    display.setTextSize(2);
-    display.setCursor(49, 25);
-    display.print((potentiometer  * 101) >> 10);
-  }
+  static lv_disp_drv_t disp_drv;     // Display driver
+  lv_disp_drv_init(&disp_drv);       // Basic initialization
+  disp_drv.hor_res = 320;            // Set horizontal resolution
+  disp_drv.ver_res = 480;            // Set vertical resolution
+  disp_drv.flush_cb = my_disp_flush; // Set flush callback
+  disp_drv.draw_buf = &draw_buf;     // Assign the buffer to the driver
+  lv_disp_drv_register(&disp_drv);   // Register the driver
 
+  ui_init();
+}
 
-  display.display(); 
-  delay(50);
-
+void loop()
+{
+  lv_timer_handler();
+  delay(5);
 }
