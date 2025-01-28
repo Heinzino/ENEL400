@@ -3,6 +3,12 @@
 #include "User_Setup.h"
 #include <lvgl.h>
 #include "ui.h"
+#include "esp_adc_cal.h"
+#include "driver/adc.h"
+
+#define ADC_VOLTAGE_CHANNEL ADC1_CHANNEL_6 // GPIO34 (Safe for ADC1)
+#define ADC_CURRENT_CHANNEL ADC1_CHANNEL_7 // GPIO35 (Safe for ADC1)
+
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 
@@ -27,9 +33,55 @@ void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color
   lv_disp_flush_ready(disp); // Tell LVGL that flushing is done
 }
 
+void update_ui()
+{
+    static float last_voltage = -1, last_current = -1, last_power = -1;
+
+    int adc_voltage_raw = adc1_get_raw(ADC_VOLTAGE_CHANNEL);
+    int adc_current_raw = adc1_get_raw(ADC_CURRENT_CHANNEL);
+
+    float voltage = (adc_voltage_raw / 4095.0) * 3.3;
+    float current = (adc_current_raw / 4095.0) * 5.0;
+    float power = voltage * current;
+
+    if (fabs(voltage - last_voltage) > 0.02)
+    {
+        static char voltage_str[16];
+        snprintf(voltage_str, sizeof(voltage_str), "%.2f V", voltage);
+        lv_label_set_text(ui_Label6, voltage_str);
+        last_voltage = voltage;
+    }
+
+    if (fabs(current - last_current) > 0.02)
+    {
+        static char current_str[16];
+        snprintf(current_str, sizeof(current_str), "%.2f A", current);
+        lv_label_set_text(ui_Label5, current_str);
+        last_current = current;
+    }
+
+    if (fabs(power - last_power) > 0.02)
+    {
+        static char power_str[16];
+        snprintf(power_str, sizeof(power_str), "%.2f W", power);
+        lv_label_set_text(ui_Label1, power_str);
+        last_power = power;
+    }
+
+    lv_arc_set_value(ui_Arc3, (int)(voltage * 100 / 3.3)); 
+    lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / 5.0)); 
+    lv_arc_set_value(ui_Arc2, (int)(power * 100 / (3.3 * 5.0))); 
+
+    lv_refr_now(NULL);  // ✅ Force LVGL to refresh display
+}
+
 void setup()
 {
   lv_init();
+
+  adc1_config_width(ADC_WIDTH_BIT_12);
+  adc1_config_channel_atten(ADC_VOLTAGE_CHANNEL, ADC_ATTEN_DB_11);
+  adc1_config_channel_atten(ADC_CURRENT_CHANNEL, ADC_ATTEN_DB_11);
 
   tftDisplay.begin();
   tftDisplay.setRotation(1);
@@ -52,6 +104,7 @@ void setup()
 
 void loop()
 {
+  update_ui();
   lv_timer_handler();
   delay(5);
 }
