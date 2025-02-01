@@ -10,6 +10,9 @@
 #define ADC_CURRENT_CHANNEL ADC1_CHANNEL_7 // GPIO35 (Safe for ADC1)
 
 
+#define ESP32_RX_PIN 16
+#define ESP32_TX_PIN 17  
+
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
@@ -33,15 +36,9 @@ void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color
   lv_disp_flush_ready(disp); // Tell LVGL that flushing is done
 }
 
-void update_ui()
+void update_ui(float voltage, float current)
 {
     static float last_voltage = -1, last_current = -1, last_power = -1;
-
-    int adc_voltage_raw = adc1_get_raw(ADC_VOLTAGE_CHANNEL);
-    int adc_current_raw = adc1_get_raw(ADC_CURRENT_CHANNEL);
-
-    float voltage = (adc_voltage_raw / 4095.0) * 3.3;
-    float current = (adc_current_raw / 4095.0) * 5.0;
     float power = voltage * current;
 
     if (fabs(voltage - last_voltage) > 0.02)
@@ -72,16 +69,14 @@ void update_ui()
     lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / 5.0)); 
     lv_arc_set_value(ui_Arc2, (int)(power * 100 / (3.3 * 5.0))); 
 
-    lv_refr_now(NULL);  // ✅ Force LVGL to refresh display
+    lv_refr_now(NULL);  
 }
 
 void setup()
 {
   lv_init();
 
-  adc1_config_width(ADC_WIDTH_BIT_12);
-  adc1_config_channel_atten(ADC_VOLTAGE_CHANNEL, ADC_ATTEN_DB_11);
-  adc1_config_channel_atten(ADC_CURRENT_CHANNEL, ADC_ATTEN_DB_11);
+  Serial2.begin(115200,SERIAL_8N1,ESP32_RX_PIN,ESP32_TX_PIN);
 
   tftDisplay.begin();
   tftDisplay.setRotation(1);
@@ -104,7 +99,16 @@ void setup()
 
 void loop()
 {
-  update_ui();
+  if(Serial2.available()){
+    String input = Serial2.readStringUntil('\n'); // Read the incoming message until newline
+    float voltage, current;
+
+    // Parse the string in the format "%f %f"
+    if (sscanf(input.c_str(), "%f %f", &voltage, &current) == 2) {
+        update_ui(voltage, current); // Use the parsed values
+    } else {
+        Serial.println("Invalid data received");
+    }
+  }
   lv_timer_handler();
-  delay(5);
 }
