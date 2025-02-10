@@ -5,15 +5,15 @@
 #include "ui.h"
 #include "esp_adc_cal.h"
 #include "driver/adc.h"
+#include "driver/uart.h"
+#include "uart.hpp"
 
 #define ADC_VOLTAGE_CHANNEL ADC1_CHANNEL_6 // GPIO34 (Safe for ADC1)
 #define ADC_CURRENT_CHANNEL ADC1_CHANNEL_7 // GPIO35 (Safe for ADC1)
 
-
-#define ESP32_RX_PIN 16
-#define ESP32_TX_PIN 17  
-
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
+float voltage, current;
+
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -36,7 +36,7 @@ void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color
   lv_disp_flush_ready(disp); // Tell LVGL that flushing is done
 }
 
-void update_ui(float voltage, float current)
+void update_ui()
 {
     static float last_voltage = -1, last_current = -1, last_power = -1;
     float power = voltage * current;
@@ -76,10 +76,13 @@ void setup()
 {
   lv_init();
 
-  Serial2.begin(115200,SERIAL_8N1,ESP32_RX_PIN,ESP32_TX_PIN);
+  // Serial2.begin(115200,SERIAL_8N1,ESP32_RX_PIN,ESP32_TX_PIN);
+  Serial.begin(115200);
 
   tftDisplay.begin();
   tftDisplay.setRotation(1);
+
+  setupUART2();
 
   // Initialize display buffer and driver
   static lv_disp_draw_buf_t draw_buf;
@@ -99,16 +102,7 @@ void setup()
 
 void loop()
 {
-  if(Serial2.available()){
-    String input = Serial2.readStringUntil('\n'); // Read the incoming message until newline
-    float voltage, current;
-
-    // Parse the string in the format "%f %f"
-    if (sscanf(input.c_str(), "%f %f", &voltage, &current) == 2) {
-        update_ui(voltage, current); // Use the parsed values
-    } else {
-        Serial.println("Invalid data received");
-    }
-  }
+  readUART2(&voltage,&current);
+  update_ui();
   lv_timer_handler();
 }
