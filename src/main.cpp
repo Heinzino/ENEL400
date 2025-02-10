@@ -14,7 +14,6 @@
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 float voltage, current;
 
-
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
   uint16_t c;
@@ -102,7 +101,15 @@ void setup()
 
 void loop()
 {
-  readUART2(&voltage,&current);
-  update_ui();
-  lv_timer_handler();
+  if(UART_INTERRUPT_OCCURRED){
+    UART_INTERRUPT_OCCURRED = false;
+
+    Serial.println("Handling UART data...");
+    readUART2(&voltage,&current);
+    update_ui();
+    lv_timer_handler();
+  } else{
+    Serial.println("Going to sleep");
+    esp_light_sleep_start();
+  }
 }

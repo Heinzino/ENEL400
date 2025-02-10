@@ -1,5 +1,13 @@
 #include "uart.hpp"
 
+volatile bool UART_INTERRUPT_OCCURRED = false;
+
+static void IRAM_ATTR uartISR(void *arg) {
+    UART_INTERRUPT_OCCURRED = true;
+    uart_clear_intr_status(UART_NUM, UART_RXFIFO_FULL_INT_CLR|UART_RXFIFO_TOUT_INT_CLR); //clearing the interrupt flags
+    Serial.println("UART Interrupt Triggered");
+}
+
 void setupUART2() {
     uart_config_t uart_config = {
         .baud_rate = 115200,
@@ -9,12 +17,26 @@ void setupUART2() {
         .flow_ctrl = UART_HW_FLOWCTRL_DISABLE
     };
 
+    uart_intr_config_t uart_intr_conf = {.rxfifo_full_thresh = 1};
+
     // Configure UART parameters
-    uart_param_config(UART_NUM, &uart_config);
+    ESP_ERROR_CHECK(uart_param_config(UART_NUM, &uart_config));
     // Set UART2 pins (TX=17, RX=16)
-    uart_set_pin(UART_NUM, UART_TX_PIN, UART_RX_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    ESP_ERROR_CHECK(uart_set_pin(UART_NUM, UART_TX_PIN, UART_RX_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
     // Install UART driver with buffer size
-    uart_driver_install(UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10, NULL, 0);
+    ESP_ERROR_CHECK(uart_driver_install(UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10, NULL, 0));
+
+    //Interrupt Setup
+    ESP_ERROR_CHECK(uart_intr_config(UART_NUM, &uart_intr_conf));
+    ESP_ERROR_CHECK(uart_isr_free(UART_NUM));
+    ESP_ERROR_CHECK(uart_isr_register(UART_NUM, uartISR, NULL, ESP_INTR_FLAG_IRAM | ESP_INTR_FLAG_LEVEL3, NULL));
+    // ESP_ERROR_CHECK(uart_isr_register(UART_NUM, uartISR , NULL, ESP_INTR_FLAG_LOWMED, NULL));
+    ESP_ERROR_CHECK(uart_enable_rx_intr(UART_NUM));
+
+    //Enable UART wake-up from light sleep
+    //Reference: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/uart.html#_CPPv225uart_set_wakeup_threshold11uart_port_ti
+    uart_set_wakeup_threshold(UART_NUM, 3);  // Wake on any received byte
+    esp_sleep_enable_uart_wakeup(UART_NUM);
 
     Serial.print("UART2 setup complete");
 }
