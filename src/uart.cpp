@@ -21,7 +21,7 @@ void setupUART2() {
 
 void readUART2(float *voltage, float *current) {
     uint8_t data[BUF_SIZE];
-    int len = uart_read_bytes(UART_NUM, data, BUF_SIZE - 1, 100 / portTICK_PERIOD_MS);
+    int len = uart_read_bytes(UART_NUM, data, BUF_SIZE - 1, READ_UART_DELAY_MS / portTICK_PERIOD_MS);
 
     if (len > 0) {
         data[len] = '\0';  // Null-terminate the received data

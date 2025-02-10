@@ -10,6 +10,7 @@
 #define UART_TX_PIN 17       
 #define UART_RX_PIN 16       
 #define BUF_SIZE 1024
+#define READ_UART_DELAY_MS 10 
 
 void setupUART2();
 void readUART2(float *voltage, float *current);
