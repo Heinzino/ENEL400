@@ -106,8 +106,8 @@ void setup()
   }
 
   //TODO: tftDisplay.begin() SPI Config conflicts with SD Card
-  // tftDisplay.begin();
-  // tftDisplay.setRotation(1);
+  tftDisplay.begin();
+  tftDisplay.setRotation(1);
 
   setupUART2();
 
@@ -129,9 +129,8 @@ void setup()
 
 void loop()
 {
-  // NOTE: Experimenting with display , SD Card logging and Wifi Timestamping. Adding RTOS and interactivity with screen to better schedule everything
-  // readUART2(&voltage,&current);
-  // update_ui();
+  readUART2(&voltage,&current);
+  update_ui();
 
   updateSDLog();
     // Update NTP time every hour.
