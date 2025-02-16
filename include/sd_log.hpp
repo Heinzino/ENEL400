@@ -20,7 +20,7 @@ void initSDLog();
 void updateSDLog();
 
 // Updates the NTP time by querying the NTP servers.
-// This function sets the baseline for the ESP’s clock (ntp_last_time) and is normally
+// This function sets the baseline for the ESP’s clock (ntp_last_time_t) and is normally
 // called once at startup (or less frequently if desired).
 void updateNTPTime();
 
