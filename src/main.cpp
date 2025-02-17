@@ -7,13 +7,16 @@
 #include "driver/adc.h"
 #include "driver/uart.h"
 #include "uart.hpp"
-
-#define ADC_VOLTAGE_CHANNEL ADC1_CHANNEL_6 // GPIO34 (Safe for ADC1)
-#define ADC_CURRENT_CHANNEL ADC1_CHANNEL_7 // GPIO35 (Safe for ADC1)
+#include "secrets.hpp"
+#include "Wifi.h"
+#include "sd_log.hpp"
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 float voltage, current;
 
+
+const unsigned long NTP_UPDATE_INTERVAL = 3600000; // Update NTP every hour
+unsigned long lastNTPCall = 0;
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -79,6 +82,29 @@ void setup()
   // Serial2.begin(115200,SERIAL_8N1,ESP32_RX_PIN,ESP32_TX_PIN);
   Serial.begin(115200);
 
+  WiFi.begin(ssid,password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("WiFi connected");
+
+  initSDLog();
+
+   struct tm timeinfo;
+  if (getLocalTime(&timeinfo)) {
+    Serial.println("Time Set Successfully");
+    Serial.print("Current time: ");
+    Serial.print(timeinfo.tm_hour);  // Print hour
+    Serial.print(":");
+    Serial.print(timeinfo.tm_min);   // Print minutes
+    Serial.print(":");
+    Serial.println(timeinfo.tm_sec); // Print seconds
+  } else {
+    Serial.println("Failed to obtain time");
+  }
+
   tftDisplay.begin();
   tftDisplay.setRotation(1);
 
@@ -104,5 +130,13 @@ void loop()
 {
   readUART2(&voltage,&current);
   update_ui();
+
+  updateSDLog();
+    // Update NTP time every hour.
+  if (millis() - lastNTPCall >= NTP_UPDATE_INTERVAL) {
+    updateNTPTime();
+    lastNTPCall = millis();
+  }
+
   lv_timer_handler();
 }
