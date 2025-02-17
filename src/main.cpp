@@ -105,7 +105,6 @@ void setup()
     Serial.println("Failed to obtain time");
   }
 
-  //TODO: tftDisplay.begin() SPI Config conflicts with SD Card
   tftDisplay.begin();
   tftDisplay.setRotation(1);
 
