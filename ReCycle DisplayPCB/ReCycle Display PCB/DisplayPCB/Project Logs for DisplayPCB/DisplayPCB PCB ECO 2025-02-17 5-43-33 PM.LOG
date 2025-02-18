@@ -1,0 +1,29 @@
+Removed Pin From Net: NetName=+5V_EXT Pin=J1-1
+Removed Pin From Net: NetName=GND_EXT Pin=J1-2
+Removed Pin From Net: NetName=ARDUINO_TX_CON Pin=J1-3
+Removed Pin From Net: NetName=ARDUINO_RX_CON Pin=J1-4
+Added Component: Designator=J1(JST_B4B-XH-A(LF)(SN))
+Add component (AddParameter): Name = "Category"; Value = "Headers and Wire Housings"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "https://media.digikey.com/pdf/Data%20Sheets/JST%20PDFs/PH%20Series.pdf?src-supplier=Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://media.digikey.com/pdf/Data%20Sheets/JST%20PDFs/PH%20Series.pdf?src-supplier=Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "JST"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "S4B-PH-K-S"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pricing"; Value = "1=0.19, 10=0.158, 100=0.134, 500=0.1196, 1000=0.11389, 5000=0.10165, 10000=0.09679 (USD)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHS"; Value = "Yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Stock"; Value = "152539"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digikey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number"; Value = "455-1721-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "455-B4B-XH-A-ND"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+5V_EXT Pin=J1-1
+Added Pin To Net: NetName=GND_EXT Pin=J1-2
+Added Pin To Net: NetName=ARDUINO_TX_CON Pin=J1-3
+Added Pin To Net: NetName=ARDUINO_RX_CON Pin=J1-4
+Add Pin To Net: Unknown Pin: Pin J3-S1
+Add Pin To Net: Unknown Pin: Pin J3-S2
+Add Pin To Net: Unknown Pin: Pin J3-S3
+Add Pin To Net: Unknown Pin: Pin J3-S4
+Add Pin To Net: Unknown Pin: Pin J4-S1
+Add Pin To Net: Unknown Pin: Pin J4-S2
+Add Pin To Net: Unknown Pin: Pin J4-S3
+Add Pin To Net: Unknown Pin: Pin J4-S4
