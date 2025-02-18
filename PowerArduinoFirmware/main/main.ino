@@ -3,5 +3,6 @@ void setup() {
 }
 
 void loop() {
-
+  get_data();
+  send_data();
 }

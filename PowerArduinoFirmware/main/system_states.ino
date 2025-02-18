@@ -6,6 +6,7 @@ uint8_t system_state_variable = 0;
 #define SYSTEM_INIT 0
 #define GET_DATA 1
 #define SEND_DATA 2
+#define SYSTEM_SLEEP 3
 
 void system_init(){
 
@@ -50,6 +51,10 @@ void send_data(){
 
   // Send generator current with 2 decimal places accuracy, and a newline
   Serial.println(generator_current, 2);
+}
+
+void system_sleep(){
+  
 }
 
 #endif
