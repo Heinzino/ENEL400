@@ -7,16 +7,26 @@
 #include "driver/adc.h"
 #include "driver/uart.h"
 #include "uart.hpp"
-#include "secrets.hpp"
+// #include "secrets.hpp"
 #include "Wifi.h"
 #include "sd_log.hpp"
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 float voltage, current;
 
+const int LED_PIN = 21; //NOTE: Use GPIO pin number not actual pin number
+const int USER_LED_PIN = 22;
+const int BUTTON_PIN = 34;
+
 
 const unsigned long NTP_UPDATE_INTERVAL = 3600000; // Update NTP every hour
 unsigned long lastNTPCall = 0;
+
+unsigned long lastUserLEDCall = 0;
+int USER_LED_STATE = 0;
+
+int lastState = HIGH;
+int currentState;
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -81,29 +91,32 @@ void setup()
 
   // Serial2.begin(115200,SERIAL_8N1,ESP32_RX_PIN,ESP32_TX_PIN);
   Serial.begin(115200);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(USER_LED_PIN, OUTPUT); //NOTE Active LOW
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
 
-  WiFi.begin(ssid,password);
+  // WiFi.begin(ssid,password);
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("WiFi connected");
+  // while (WiFi.status() != WL_CONNECTED) {
+  //   delay(500);
+  //   Serial.print(".");
+  // }
+  // Serial.println("WiFi connected");
 
-  initSDLog();
+  // initSDLog();
 
-   struct tm timeinfo;
-  if (getLocalTime(&timeinfo)) {
-    Serial.println("Time Set Successfully");
-    Serial.print("Current time: ");
-    Serial.print(timeinfo.tm_hour);  // Print hour
-    Serial.print(":");
-    Serial.print(timeinfo.tm_min);   // Print minutes
-    Serial.print(":");
-    Serial.println(timeinfo.tm_sec); // Print seconds
-  } else {
-    Serial.println("Failed to obtain time");
-  }
+  //  struct tm timeinfo;
+  // if (getLocalTime(&timeinfo)) {
+  //   Serial.println("Time Set Successfully");
+  //   Serial.print("Current time: ");
+  //   Serial.print(timeinfo.tm_hour);  // Print hour
+  //   Serial.print(":");
+  //   Serial.print(timeinfo.tm_min);   // Print minutes
+  //   Serial.print(":");
+  //   Serial.println(timeinfo.tm_sec); // Print seconds
+  // } else {
+  //   Serial.println("Failed to obtain time");
+  // }
 
   tftDisplay.begin();
   tftDisplay.setRotation(1);
@@ -128,15 +141,25 @@ void setup()
 
 void loop()
 {
-  readUART2(&voltage,&current);
+  // readUART2(&voltage,&current);
+  digitalWrite(LED_PIN,HIGH);
   update_ui();
 
-  updateSDLog();
-    // Update NTP time every hour.
-  if (millis() - lastNTPCall >= NTP_UPDATE_INTERVAL) {
-    updateNTPTime();
-    lastNTPCall = millis();
-  }
+  currentState = digitalRead(BUTTON_PIN);
+  digitalWrite(USER_LED_PIN, currentState);
+
+  // if (millis() - lastUserLEDCall >= 5000) {
+  //   lastUserLEDCall = millis();
+  //   digitalWrite(USER_LED_PIN, USER_LED_STATE);
+  //   USER_LED_STATE ^= 1;
+  // }
+
+  // updateSDLog();
+  //   // Update NTP time every hour.
+  // if (millis() - lastNTPCall >= NTP_UPDATE_INTERVAL) {
+  //   updateNTPTime();
+  //   lastNTPCall = millis();
+  // }
 
   lv_timer_handler();
 }
