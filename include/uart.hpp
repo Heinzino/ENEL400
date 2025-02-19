@@ -5,10 +5,9 @@
 #include "esp_log.h"
 #include <string.h>  // For strtok and string manipulation
 #include <stdlib.h>  // For atof
+#include "pins.hpp"
 
 #define UART_NUM UART_NUM_2
-#define UART_TX_PIN 17       
-#define UART_RX_PIN 16       
 #define BUF_SIZE 1024
 #define READ_UART_DELAY_MS 10 
 

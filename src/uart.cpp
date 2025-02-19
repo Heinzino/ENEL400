@@ -12,7 +12,7 @@ void setupUART2() {
     // Configure UART parameters
     uart_param_config(UART_NUM, &uart_config);
     // Set UART2 pins (TX=17, RX=16)
-    uart_set_pin(UART_NUM, UART_TX_PIN, UART_RX_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    uart_set_pin(UART_NUM, ESP32_UART2_TX, ESP32_UART2_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
     // Install UART driver with buffer size
     uart_driver_install(UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10, NULL, 0);
 

@@ -10,6 +10,7 @@
 #include "secrets.hpp"
 #include "Wifi.h"
 #include "sd_log.hpp"
+#include "pins.hpp"
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 float voltage, current;
