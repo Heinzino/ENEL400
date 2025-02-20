@@ -20,7 +20,11 @@ static time_t current_ntp_time_t = 0;
 // Used to schedule log entries.
 static unsigned long lastLogTime = 0;
 
+#ifdef ESP32S3
+SPIClass SPI_SD(HSPI); // Use the alternate SPI bus (VSPI)
+#else
 SPIClass SPI_SD(VSPI); // Use the alternate SPI bus (VSPI)
+#endif 
 
 void initSDLog()
 {
