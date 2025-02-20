@@ -1,9 +1,4 @@
 #include "sd_log.hpp"
-#include <SD.h>
-#include <SPI.h>
-#include <WiFi.h>
-#include <time.h>
-#include "User_Setup.h"
 
 #define GMT_OFFSET_SEC (-7 * 3600) // UTC-7 hours in seconds
 #define DAYLIGHT_OFFSET_SEC (3600) // Add 1 hour (3600 sec) for daylight savings
@@ -32,10 +27,10 @@ void initSDLog()
   // Initialize the SD card on SPI using our dedicated CS pin.
 
   delay(1000);
-  SPI_SD.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
+  SPI_SD.begin(SD_CARD_CLK, SD_CARD_MISO, SD_CARD_MOSI, SD_CARD_CS);
 
   // Initialize SD card using VSPI bus
-  if (!SD.begin(SD_CS, SPI_SD))
+  if (!SD.begin(SD_CARD_CS, SPI_SD))
   {
     Serial.println("SD Card Mount Failed");
   }
