@@ -135,6 +135,11 @@ void loop()
   readUART2(&voltage,&current);
   update_ui();
 
+  // voltage += 0.1;
+  // if(voltage >= 3.3){
+  //   voltage = 0;
+  // }
+
   updateSDLog();
     // Update NTP time every hour.
   if (millis() - lastNTPCall >= NTP_UPDATE_INTERVAL) {
