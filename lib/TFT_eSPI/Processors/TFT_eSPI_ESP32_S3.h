@@ -14,6 +14,7 @@
 #include "soc/spi_reg.h"
 #include "driver/spi_master.h"
 #include "hal/gpio_ll.h"
+#include "hal/spi_types.h"
 
 #if !defined(CONFIG_IDF_TARGET_ESP32S3) && !defined(CONFIG_IDF_TARGET_ESP32S2) && !defined(CONFIG_IDF_TARGET_ESP32)
   #define CONFIG_IDF_TARGET_ESP32
@@ -70,7 +71,7 @@ SPI3_HOST = 2
   #ifdef CONFIG_IDF_TARGET_ESP32
     #define SPI_PORT HSPI  //HSPI is port 2 on ESP32
   #else
-    #define SPI_PORT 3     //HSPI is port 3 on ESP32 S2
+    #define SPI_PORT SPI3_HOST     //HSPI is port 3 on ESP32 S2
   #endif
 #elif defined(USE_FSPI_PORT)
     #define SPI_PORT 2 //FSPI(ESP32 S2)

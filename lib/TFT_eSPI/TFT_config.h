@@ -22,6 +22,7 @@
 #define TFT_CONFIG_H
 
 #include "sdkconfig.h"
+// #include "pins.hpp"
 
 /***************************************************************************************
 **                         Others

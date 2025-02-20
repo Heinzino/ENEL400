@@ -8,6 +8,7 @@
 #include <time.h>
 #include "User_Setup.h"
 #include "pins.hpp"
+#include "hal/spi_types.h"
 
 
 // Initializes the SD card and performs an initial NTP update.

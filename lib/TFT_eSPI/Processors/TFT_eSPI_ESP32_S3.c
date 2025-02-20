@@ -20,7 +20,7 @@
     #endif
   #else
     #ifdef USE_HSPI_PORT
-      SPIClass spi = SPIClass(HSPI);
+      SPIClass spi = SPIClass(SPI3_HOST);
     #elif defined(USE_FSPI_PORT)
       SPIClass spi = SPIClass(FSPI);
     #else // use FSPI port

@@ -21,7 +21,7 @@ static time_t current_ntp_time_t = 0;
 static unsigned long lastLogTime = 0;
 
 #ifdef ESP32S3
-SPIClass SPI_SD(HSPI); // Use the alternate SPI bus (VSPI)
+SPIClass SPI_SD(SPI2_HOST); // Use the alternate SPI bus (VSPI)
 #else
 SPIClass SPI_SD(VSPI); // Use the alternate SPI bus (VSPI)
 #endif 
