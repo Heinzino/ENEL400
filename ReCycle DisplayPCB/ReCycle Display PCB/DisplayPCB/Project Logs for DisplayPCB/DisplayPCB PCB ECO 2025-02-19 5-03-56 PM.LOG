@@ -1,0 +1,68 @@
+Change Component Designator: OldDesignator=R? NewDesignator=R21
+Change Component Designator: OldDesignator=R? NewDesignator=R22
+Added Component: Designator=U5(TFT_SCREEN)
+Add Pin To Net: Unknown Pin: Pin J3-S1
+Add Pin To Net: Unknown Pin: Pin J3-S2
+Add Pin To Net: Unknown Pin: Pin J3-S3
+Add Pin To Net: Unknown Pin: Pin J3-S4
+Add Pin To Net: Unknown Pin: Pin J4-S1
+Add Pin To Net: Unknown Pin: Pin J4-S2
+Add Pin To Net: Unknown Pin: Pin J4-S3
+Add Pin To Net: Unknown Pin: Pin J4-S4
+Add Pin To Net: Unknown Pin: Pin U5-1
+Add Pin To Net: Unknown Pin: Pin U5-2
+Added Pin To Net: NetName=TFT_Screen_CS Pin=U5-3
+Add Pin To Net: Unknown Pin: Pin U5-4
+Add Pin To Net: Unknown Pin: Pin U5-5
+Added Pin To Net: NetName=TFT_MOSI Pin=U5-6
+Added Pin To Net: NetName=TFT_CLK Pin=U5-7
+Added Pin To Net: NetName=TFT_Screen_LED Pin=U5-8
+Add Pin To Net: Unknown Pin: Pin U5-9
+Added Pin To Net: NetName=TFT_CLK Pin=U5-10
+Added Pin To Net: NetName=Touch_Screen_CS Pin=U5-11
+Added Pin To Net: NetName=TFT_MOSI Pin=U5-12
+Added Pin To Net: NetName=TFT_MISO Pin=U5-13
+Added Pin To Net: NetName=Touch_Interrupt_Signal Pin=U5-14
+Added Pin To Net: NetName=SD_CARD_CS Pin=U5-15
+Added Pin To Net: NetName=SD_CARD_MOSI Pin=U5-16
+Added Pin To Net: NetName=SD_CARD_MISO Pin=U5-17
+Added Pin To Net: NetName=SD_CARD_CLK Pin=U5-18
+Added Pin To Net: NetName=NetJ3_A8 Pin=J3-A8
+Added Net: Name=NetJ3_A8
+Added Pin To Net: NetName=NetJ3_B8 Pin=J3-B8
+Added Net: Name=NetJ3_B8
+Added Pin To Net: NetName=NetJ4_A8 Pin=J4-A8
+Added Net: Name=NetJ4_A8
+Added Pin To Net: NetName=NetJ4_B8 Pin=J4-B8
+Added Net: Name=NetJ4_B8
+Added Pin To Net: NetName=NetU1_16 Pin=U1-16
+Added Net: Name=NetU1_16
+Added Pin To Net: NetName=NetU1_24 Pin=U1-24
+Added Net: Name=NetU1_24
+Added Pin To Net: NetName=NetU1_25 Pin=U1-25
+Added Net: Name=NetU1_25
+Added Pin To Net: NetName=NetU1_26 Pin=U1-26
+Added Net: Name=NetU1_26
+Added Pin To Net: NetName=NetU1_28 Pin=U1-28
+Added Net: Name=NetU1_28
+Added Pin To Net: NetName=NetU1_29 Pin=U1-29
+Added Net: Name=NetU1_29
+Added Pin To Net: NetName=NetU1_30 Pin=U1-30
+Added Net: Name=NetU1_30
+Added Pin To Net: NetName=NetU2_5 Pin=U2-5
+Added Net: Name=NetU2_5
+Added Pin To Net: NetName=NetU2_7 Pin=U2-7
+Added Net: Name=NetU2_7
+Added Pin To Net: NetName=NetU2_8 Pin=U2-8
+Added Net: Name=NetU2_8
+Added Pin To Net: NetName=NetU2_9 Pin=U2-9
+Added Net: Name=NetU2_9
+Added Pin To Net: NetName=NetU2_10 Pin=U2-10
+Added Net: Name=NetU2_10
+Added Pin To Net: NetName=NetU2_17 Pin=U2-17
+Added Net: Name=NetU2_17
+Added Pin To Net: NetName=NetU2_18 Pin=U2-18
+Added Net: Name=NetU2_18
+Added Pin To Net: NetName=NetU2_19 Pin=U2-19
+Added Net: Name=NetU2_19
+Added Member To Class: ClassName=U_Peripherals Member=Component U5 TFT_SPI_SCREEN
