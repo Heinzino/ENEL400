@@ -1,21 +1,29 @@
 #ifndef CHARGE_STATES_INO
 #define CHARGE_STATES_INO
 
-uint8_t charge_state_variable = 0;
-
-#define BULK       7
-#define ABSORPTION 8
-#define FLOATING   9
-
+/*---------------------------------------Bulk Charge State---------------------------------------*/
 void bulk(){
 
 }
 
+
+
+/*------------------------------------Absorption Charge State------------------------------------*/
 void absorption(){
 
 }
 
+
+
+/*-------------------------------------Floating Charge State-------------------------------------*/
 void floating(){
+
+}
+
+
+
+/*----------------------------------Discharge (No Charge) State----------------------------------*/
+void discharge(){
 
 }
 

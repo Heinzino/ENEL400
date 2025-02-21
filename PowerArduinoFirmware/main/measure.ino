@@ -1,6 +1,7 @@
 #ifndef MEASURE_INO
 #define MEASURE_INO
 
+/*-----------------------------------Measure Generator Voltage-----------------------------------*/
 // Function to measure generator voltage
 float measure_generator_voltage(){
 
@@ -14,6 +15,9 @@ float measure_generator_voltage(){
   return generator_volts;
 }
 
+
+
+/*------------------------------------Measure Battery Voltage------------------------------------*/
 // Function to measure battery voltage
 float measure_battery_voltage(){
 
@@ -27,6 +31,9 @@ float measure_battery_voltage(){
   return battery_volts;
 }
 
+
+
+/*-----------------------------------Measure Generator Current-----------------------------------*/
 // Function to measure generator current
 float measure_generator_current(){
 
@@ -40,6 +47,9 @@ float measure_generator_current(){
   return generator_current_A;
 }
 
+
+
+/*-------------------------------------Measure Load Current--------------------------------------*/
 // Function to measure load current
 float measure_load_current(){
 
@@ -53,6 +63,9 @@ float measure_load_current(){
   return load_current_A;
 }
 
+
+
+/*----------------------------------Measure Battery Temperature----------------------------------*/
 // Function to measure battery temperature
 int measure_battery_temperature(){
 
