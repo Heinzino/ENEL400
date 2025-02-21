@@ -1,0 +1,32 @@
+Remove Pin=U5-4 From Net=TFT_Screen_RESET
+Remove Pin=U5-5 From Net=TFT_Screen_DC
+Remove Pin=U5-9 From Net=TFT_MISO
+Change Component Footprint: Designator=U5 Old Footprint=TFT_SCREEN New Footprint=
+Change Component Designator: OldDesignator=TP1 NewDesignator=
+Change Component Designator: OldDesignator=TP2 NewDesignator=
+Change Component Designator: OldDesignator=TP3 NewDesignator=
+Change Component Designator: OldDesignator=TP4 NewDesignator=
+Change Component Designator: OldDesignator=TP5 NewDesignator=
+Change Component Designator: OldDesignator=TP6 NewDesignator=
+Change Component Designator: OldDesignator=TP7 NewDesignator=
+Change Component Designator: OldDesignator=TP8 NewDesignator=
+Change Component Designator: OldDesignator=TP9 NewDesignator=
+Change Component Designator: OldDesignator=TP10 NewDesignator=
+Change Component Designator: OldDesignator=TP11 NewDesignator=
+Change Component Designator: OldDesignator=TP16 NewDesignator=
+Change Component Designator: OldDesignator=TP17 NewDesignator=
+Change Component Designator: OldDesignator=TP18 NewDesignator=
+Change Component Designator: OldDesignator=TP19 NewDesignator=
+Change Component Designator: OldDesignator=TP20 NewDesignator=
+Change Component Designator: OldDesignator=TP21 NewDesignator=
+Change Component Designator: OldDesignator=TP22 NewDesignator=
+Change Component Designator: OldDesignator=TP23 NewDesignator=
+Change Component Designator: OldDesignator=TP24 NewDesignator=
+Change Component Designator: OldDesignator=TP25 NewDesignator=
+Change Component Designator: OldDesignator=TP26 NewDesignator=
+Change Component Designator: OldDesignator=TP27 NewDesignator=
+Change Component Designator: OldDesignator=TP28 NewDesignator=
+Change Component Designator: OldDesignator=TP29 NewDesignator=
+Change Component Designator: OldDesignator=TP30 NewDesignator=
+Change Component Designator: OldDesignator=TP31 NewDesignator=
+Change Component Designator: OldDesignator=TP32 NewDesignator=

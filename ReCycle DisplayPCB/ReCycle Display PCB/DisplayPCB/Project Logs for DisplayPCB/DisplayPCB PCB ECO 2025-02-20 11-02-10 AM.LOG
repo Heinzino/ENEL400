@@ -1,0 +1,88 @@
+Added Component: Designator=FD1(FIDUCIAL-1MM)
+Added Component: Designator=FD2(FIDUCIAL-1MM)
+Added Component: Designator=FD3(FIDUCIAL-1MM)
+Added Component: Designator=H1(Mounting Holes-Footprint-1)
+Added Component: Designator=H2(Mounting Holes-Footprint-1)
+Added Component: Designator=H3(Mounting Holes-Footprint-1)
+Added Component: Designator=H4(Mounting Holes-Footprint-1)
+Added Component: Designator=TP1(Probe-Point)
+Added Component: Designator=TP2(Probe-Point)
+Added Component: Designator=TP3(Probe-Point)
+Added Component: Designator=TP4(Probe-Point)
+Added Component: Designator=TP5(Probe-Point)
+Added Component: Designator=TP6(Probe-Point)
+Added Component: Designator=TP7(Probe-Point)
+Added Component: Designator=TP8(Probe-Point)
+Added Component: Designator=TP9(Probe-Point)
+Added Component: Designator=TP10(Probe-Point)
+Added Component: Designator=TP11(Probe-Point)
+Added Component: Designator=TP12(Probe-Point)
+Added Component: Designator=TP13(Probe-Point)
+Added Component: Designator=TP14(Probe-Point)
+Added Component: Designator=TP15(Probe-Point)
+Added Component: Designator=TP16(Probe-Point)
+Added Component: Designator=TP17(Probe-Point)
+Added Component: Designator=TP18(Probe-Point)
+Added Component: Designator=TP19(Probe-Point)
+Added Component: Designator=TP20(Probe-Point)
+Added Component: Designator=TP21(Probe-Point)
+Added Component: Designator=TP22(Probe-Point)
+Added Component: Designator=TP23(Probe-Point)
+Added Component: Designator=TP24(Probe-Point)
+Added Component: Designator=TP25(Probe-Point)
+Added Component: Designator=TP26(Probe-Point)
+Added Component: Designator=TP27(Probe-Point)
+Added Component: Designator=TP28(Probe-Point)
+Added Component: Designator=TP29(Probe-Point)
+Added Component: Designator=TP30(Probe-Point)
+Added Component: Designator=TP31(Probe-Point)
+Added Component: Designator=TP32(Probe-Point)
+Added Pin To Net: NetName=GND Pin=H1-0
+Added Pin To Net: NetName=GND Pin=H2-0
+Added Pin To Net: NetName=GND Pin=H3-0
+Added Pin To Net: NetName=GND Pin=H4-0
+Add Pin To Net: Unknown Pin: Pin J3-S1
+Add Pin To Net: Unknown Pin: Pin J3-S2
+Add Pin To Net: Unknown Pin: Pin J3-S3
+Add Pin To Net: Unknown Pin: Pin J3-S4
+Add Pin To Net: Unknown Pin: Pin J4-S1
+Add Pin To Net: Unknown Pin: Pin J4-S2
+Add Pin To Net: Unknown Pin: Pin J4-S3
+Add Pin To Net: Unknown Pin: Pin J4-S4
+Added Pin To Net: NetName=+5V_VBUS1 Pin=TP1-1
+Added Pin To Net: NetName=+5V_VBUS2 Pin=TP2-1
+Added Pin To Net: NetName=GND Pin=TP3-1
+Added Pin To Net: NetName=GND Pin=TP4-1
+Added Pin To Net: NetName=+VCC Pin=TP5-1
+Added Pin To Net: NetName=+3V3_REG Pin=TP6-1
+Added Pin To Net: NetName=+VIN Pin=TP7-1
+Added Pin To Net: NetName=GND Pin=TP8-1
+Added Pin To Net: NetName=GND Pin=TP9-1
+Added Pin To Net: NetName=GND_EXT Pin=TP10-1
+Added Pin To Net: NetName=ARDUINO_TX_CON Pin=TP11-1
+Added Pin To Net: NetName=+3V3 Pin=TP12-1
+Added Pin To Net: NetName=TFT_Screen_CS Pin=TP13-1
+Added Pin To Net: NetName=TFT_Screen_RESET Pin=TP14-1
+Added Pin To Net: NetName=GND Pin=TP15-1
+Added Pin To Net: NetName=BTN1 Pin=TP16-1
+Added Pin To Net: NetName=BTN2 Pin=TP17-1
+Added Pin To Net: NetName=ARDUINO_RX Pin=TP18-1
+Added Pin To Net: NetName=ARDUINO_TX Pin=TP19-1
+Added Pin To Net: NetName=TFT_Screen_DC Pin=TP20-1
+Added Pin To Net: NetName=TFT_CLK Pin=TP21-1
+Added Pin To Net: NetName=BTN3 Pin=TP22-1
+Added Pin To Net: NetName=Touch_Screen_CS Pin=TP23-1
+Added Pin To Net: NetName=BTN4 Pin=TP24-1
+Added Pin To Net: NetName=GPIO0 Pin=TP25-1
+Added Pin To Net: NetName=Touch_Interrupt_Signal Pin=TP26-1
+Added Pin To Net: NetName=SD_CARD_MISO Pin=TP27-1
+Added Pin To Net: NetName=SD_CARD_MOSI Pin=TP28-1
+Added Pin To Net: NetName=SD_CARD_CLK Pin=TP29-1
+Added Pin To Net: NetName=SD_CARD_CS Pin=TP30-1
+Added Pin To Net: NetName=TFT_MISO Pin=TP31-1
+Added Pin To Net: NetName=TFT_MOSI Pin=TP32-1
+Add Pin To Net: Unknown Pin: Pin U5-1
+Add Pin To Net: Unknown Pin: Pin U5-2
+Add Pin To Net: Unknown Pin: Pin U5-4
+Add Pin To Net: Unknown Pin: Pin U5-5
+Add Pin To Net: Unknown Pin: Pin U5-9
