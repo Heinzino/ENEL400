@@ -85,28 +85,28 @@ void setup()
   pinMode(TFT_SCREEN_LED,OUTPUT);
   digitalWrite(TFT_SCREEN_LED,HIGH);
 
-  WiFi.begin(ssid,password);
+  // WiFi.begin(ssid,password);
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("WiFi connected");
+  // while (WiFi.status() != WL_CONNECTED) {
+  //   delay(500);
+  //   Serial.print(".");
+  // }
+  // Serial.println("WiFi connected");
 
-  initSDLog();
+  // initSDLog();
 
-   struct tm timeinfo;
-  if (getLocalTime(&timeinfo)) {
-    Serial.println("Time Set Successfully");
-    Serial.print("Current time: ");
-    Serial.print(timeinfo.tm_hour);  // Print hour
-    Serial.print(":");
-    Serial.print(timeinfo.tm_min);   // Print minutes
-    Serial.print(":");
-    Serial.println(timeinfo.tm_sec); // Print seconds
-  } else {
-    Serial.println("Failed to obtain time");
-  }
+  //  struct tm timeinfo;
+  // if (getLocalTime(&timeinfo)) {
+  //   Serial.println("Time Set Successfully");
+  //   Serial.print("Current time: ");
+  //   Serial.print(timeinfo.tm_hour);  // Print hour
+  //   Serial.print(":");
+  //   Serial.print(timeinfo.tm_min);   // Print minutes
+  //   Serial.print(":");
+  //   Serial.println(timeinfo.tm_sec); // Print seconds
+  // } else {
+  //   Serial.println("Failed to obtain time");
+  // }
 
   tftDisplay.begin();
   tftDisplay.setRotation(1);
@@ -140,12 +140,12 @@ void loop()
   //   voltage = 0;
   // }
 
-  updateSDLog();
-    // Update NTP time every hour.
-  if (millis() - lastNTPCall >= NTP_UPDATE_INTERVAL) {
-    updateNTPTime();
-    lastNTPCall = millis();
-  }
+  // updateSDLog();
+  //   // Update NTP time every hour.
+  // if (millis() - lastNTPCall >= NTP_UPDATE_INTERVAL) {
+  //   updateNTPTime();
+  //   lastNTPCall = millis();
+  // }
 
   lv_timer_handler();
 }
