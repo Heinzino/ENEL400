@@ -9,8 +9,8 @@
 #define PWM_MOSFET_PIN  3
 #define LOAD_MOSFET_PIN 5
 //#define TEMP_SENSOR_PIN 9
-#define GENERATOR_VOLTAGE_PIN A1
-#define BATTERY_VOLTAGE_PIN   A2
+#define BATTERY_VOLTAGE_PIN   A1
+#define GENERATOR_VOLTAGE_PIN A2
 #define GENERATOR_CURRENT_PIN A6
 #define LOAD_CURRENT_PIN   A7
 
@@ -74,7 +74,8 @@ void loop() {
   // Implements system FSM
   switch(system_state_variable){
     case SYSTEM_SLEEP:
-      system_sleep();
+      //system_sleep();
+      get_data();
       break;
     case GET_DATA:
       get_data();

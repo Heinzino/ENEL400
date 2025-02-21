@@ -9,6 +9,7 @@ void system_init(){
   pinMode(PWM_MOSFET_PIN, OUTPUT);
   pinMode(LOAD_MOSFET_PIN, OUTPUT);
 
+  // Attach Digital pin 2 to the hardware digital input interrupt, rising edge triggered
   attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), digital_input_ISR, RISING);
 
   // Setup analog input pins
@@ -22,6 +23,9 @@ void system_init(){
 
   // Calibrate the load current sensor
   ACS_load.autoMidPoint();
+
+  // Begin the serial at 
+  Serial.begin(115200);
 }
 
 
@@ -67,13 +71,15 @@ void send_data(){
   system_state_variable = CHARGE_FSM;
 
   // Send generator voltage with 2 decimal places accuracy
-  Serial.print(generator_voltage, 2);
+  //Serial.print(generator_voltage, 2);
+  delay(1000);
+  Serial.println(battery_voltage, 2);
 
   // Send a space seperator
-  Serial.print(" ");
+  //Serial.print(" ");
 
   // Send generator current with 2 decimal places accuracy, and a newline
-  Serial.println(generator_current, 2);
+  //Serial.println(generator_current, 2);
 }
 
 
