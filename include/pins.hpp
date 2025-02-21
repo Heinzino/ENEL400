@@ -20,9 +20,9 @@
 #define TOUCH_INTERRUPT_SIGNAL 9
 
 #define SD_CARD_CS 13
-#define SD_CARD_CLK 12
-#define SD_CARD_MOSI 11
-#define SD_CARD_MISO 10
+#define SD_CARD_MOSI 12
+#define SD_CARD_MISO 11
+#define SD_CARD_CLK 10
 
 #define ESP32_UART2_TX 6
 #define ESP32_UART2_RX 7
