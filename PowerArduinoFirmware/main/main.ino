@@ -1,6 +1,8 @@
 /*------------------------------------------LIBRARIES--------------------------------------------*/
 #include <ACS712.h> // Handles drivers for the ACS712 current sensor
 #include <avr/sleep.h> // Handles putting the CPU to sleep for low power modes
+#include <avr/io.h> // Handles AVR style I/O
+#include <avr/interrupt.h> // Handles AVR style interrupts (for timers)
 
 
 
@@ -59,6 +61,11 @@ float load_current;
 volatile uint8_t system_state_variable = 0;
 volatile uint8_t charge_state_variable = 0;
 
+// Variables to handle system sleep mode (within the timer ISR, therefore volatile)
+volatile uint16_t timer_ISR_counter = 0;
+volatile bool in_program_state = false;
+volatile float generator_voltage_sum = 0.0;
+
 
 
 /*-----------------------------------------System Setup------------------------------------------*/
@@ -74,8 +81,7 @@ void loop() {
   // Implements system FSM
   switch(system_state_variable){
     case SYSTEM_SLEEP:
-      //system_sleep();
-      get_data();
+      system_sleep();
       break;
     case GET_DATA:
       get_data();

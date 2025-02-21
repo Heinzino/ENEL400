@@ -26,6 +26,12 @@ void system_init(){
 
   // Begin the serial at 
   Serial.begin(115200);
+
+  // Set up timer 1, which handles sampling rate and automatic sleep mode
+  setupTimer1();
+
+  // Unconditional transition, go to system sleep state
+  system_state_variable = SYSTEM_SLEEP;
 }
 
 
@@ -33,13 +39,34 @@ void system_init(){
 /*--------------------------------------System Sleep (Idle)--------------------------------------*/
 void system_sleep(){
   
-  // Set up for state transition
-  system_state_variable = GET_DATA;
+  // If the timer ISR has been called 600 times or more times (60 seconds has passed)
+  if (timer_ISR_counter >= 600){
 
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    // If the average generator voltage for the past 60 seconds is less than 0.5 Volts
+    if ((generator_voltage_sum / 600.0) < 0.5){
+
+      // Set the in program state variable to false, to reflect that the system will
+      // go to sleep until started by a higher generator voltage later
+      in_program_state = false;
+
+      // Reset the generator voltage sum variable
+      generator_voltage_sum = 0.0;
+    }
+
+    // Reset the ISR call counter
+    timer_ISR_counter = 0;
+  }
+
+  // Enable interrupts
+  sei();
+  
+  // Handle putting the Arduino in Idle mode
+  set_sleep_mode(SLEEP_MODE_IDLE);
   sleep_enable();
   sleep_mode();
 
+  // Disable interrupts
+  cli();
 }
 
 
@@ -71,15 +98,13 @@ void send_data(){
   system_state_variable = CHARGE_FSM;
 
   // Send generator voltage with 2 decimal places accuracy
-  //Serial.print(generator_voltage, 2);
-  delay(1000);
-  Serial.println(battery_voltage, 2);
+  Serial.print(generator_voltage, 2);
 
   // Send a space seperator
-  //Serial.print(" ");
+  Serial.print(" ");
 
   // Send generator current with 2 decimal places accuracy, and a newline
-  //Serial.println(generator_current, 2);
+  Serial.println(generator_current, 2);
 }
 
 
