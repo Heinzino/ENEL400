@@ -1,107 +1,164 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc
 Date     : 2025-02-23
-Time     : 12:33:28 PM
+Time     : 3:11:16 PM
 
-Processing Rule : Clearance Constraint (Gap=10mil) (All),(All)
+Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
 Rule Violations :0
 
-Processing Rule : Clearance Constraint (Gap=0mil) (All),(All)
+Processing Rule : Clearance Constraint (Gap=0mm) (All),(All)
 Rule Violations :0
 
 Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
-Rule Violations :0
+   Violation between Short-Circuit Constraint: Between Pad J3-(48.738mm,68.515mm) on Multi-Layer And Track (49.254mm,67.466mm)(49.254mm,68.729mm) on L1 Location : [X = 49.064mm][Y = 68.515mm]
+   Violation between Short-Circuit Constraint: Between Pad J4-(48.738mm,6.859mm) on Multi-Layer And Track (49.254mm,6.245mm)(49.254mm,7.908mm) on L1 Location : [X = 49.064mm][Y = 6.859mm]
+   Violation between Short-Circuit Constraint: Between Pad J4-(54.518mm,6.859mm) on Multi-Layer And Track (54.003mm,6.042mm)(54.003mm,7.908mm) on L1 Location : [X = 54.192mm][Y = 6.859mm]
+Rule Violations :3
 
 Processing Rule : Un-Routed Net Constraint ( (All) )
-   Violation between Un-Routed Net Constraint: Net GPIO0 Between Pad BOOT-1(3031.536mil,1936.418mil) on L1 And Pad U1-27(3105mil,620mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON2_USB_N Between Pad D4-1(2020.04mil,570mil) on L1 And Pad R15-1(2025.04mil,422.402mil) on L1 
-   Violation between Un-Routed Net Constraint: Net GND Between Pad D4-2(2020.04mil,595.59mil) on L1 And Pad D5-2(2130.04mil,595.59mil) on L1 
-   Violation between Un-Routed Net Constraint: Net GND Between Via (1925.04mil,553.96mil) from L1 to L4 And Pad D4-2(2020.04mil,595.59mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON2_USB_P Between Pad R16-1(2130.04mil,422.402mil) on L1 And Pad D5-1(2130.04mil,570mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON1_USB_N Between Pad D7-1(1699mil,2525mil) on L1 And Pad R1-1(1962mil,2515.598mil) on L1 
-   Violation between Un-Routed Net Constraint: Net GND Between Via (1673mil,2595mil) from L1 to L4 And Pad D7-2(1673.408mil,2525mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON1_USB_P Between Pad D8-1(1863.796mil,2592mil) on L1 And Pad J3-B6(2003.072mil,2655.118mil) on L1 
-   Violation between Un-Routed Net Constraint: Net GND Between Pad D8-2(1838.204mil,2592mil) on L1 And Track (1831.418mil,2677.756mil)(1854.056mil,2655.118mil) on L1 
-   Violation between Un-Routed Net Constraint: Net NetJ3_A5 Between Pad J3-A5(2081.812mil,2655.118mil) on L1 And Pad R7-2(2145.04mil,2517.598mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON1_USB_P Between Pad J3-B6(2003.072mil,2655.118mil) on L1 And Pad J3-A6(2042.442mil,2655.118mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON1_USB_P Between Pad R2-1(2040.04mil,2517.598mil) on L1 And Pad J3-A6(2042.442mil,2655.118mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON1_USB_N Between Pad J3-A7(2022.756mil,2655.118mil) on L1 And Pad J3-B7(2062.126mil,2655.118mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON1_USB_N Between Pad R1-1(1962mil,2515.598mil) on L1 And Pad J3-A7(2022.756mil,2655.118mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON2_USB_P Between Pad J4-A6(2022.756mil,312.362mil) on L1 And Pad J4-B6(2062.126mil,312.362mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON2_USB_N Between Pad J4-B7(2003.072mil,312.362mil) on L1 And Pad J4-A7(2042.442mil,312.362mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON2_USB_N Between Pad R15-1(2025.04mil,422.402mil) on L1 And Pad J4-A7(2042.442mil,312.362mil) on L1 
-   Violation between Un-Routed Net Constraint: Net CON2_USB_P Between Pad J4-B6(2062.126mil,312.362mil) on L1 And Pad R16-1(2130.04mil,422.402mil) on L1 
-   Violation between Un-Routed Net Constraint: Net U0RXD Between Pad R11-1(1602.442mil,2150mil) on L1 And Via (3555mil,694mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net FTDI_USB_N Between Pad R1-2(1962mil,2440.402mil) on L1 And Pad U2-12(1975.04mil,2155mil) on L1 
-   Violation between Un-Routed Net Constraint: Net ESP_USB_N Between Pad R15-2(2025.04mil,497.598mil) on L1 And Pad U1-13(3155mil,1308.976mil) on L1 
-   Violation between Un-Routed Net Constraint: Net ESP_USB_P Between Pad R16-2(2130.04mil,497.598mil) on L1 And Pad U1-14(3105mil,1308.976mil) on L1 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Pad R18-2(1530.04mil,242.598mil) on L1 And Via (2603mil,266mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net FTDI_USB_P Between Pad U2-11(2000.04mil,2155mil) on L1 And Pad R2-2(2040.04mil,2442.402mil) on L1 
-   Violation between Un-Routed Net Constraint: Net GND Between Pad R4-1(2230.04mil,497.598mil) on L1 And Via (2293mil,384mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net +3V3_FTDI Between Pad U2-3(1825.04mil,1964.982mil) on L1 And Track (1920.04mil,2225.359mil)(1950.04mil,2195.359mil) on L1 
-   Violation between Un-Routed Net Constraint: Net +VCC Between Pad U3-1(1224.488mil,876.968mil) on L1 And Track (2373.519mil,2030.519mil)(2555mil,2212mil) on L1 
-   Violation between Un-Routed Net Constraint: Net TFT_MOSI Between Pad U5-12(170.638mil,1371.598mil) on Multi-Layer And Pad U5-06(170.638mil,1971.598mil) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net TFT_CLK Between Track (70mil,1575mil)(170.638mil,1575mil) on L1 And Pad U5-07(170.638mil,1871.598mil) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net TFT_MISO Between Pad U5-13(170.638mil,1271.598mil) on Multi-Layer And Pad U5-09(170.638mil,1671.598mil) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net TFT_MOSI Between Pad U5-12(170.638mil,1371.598mil) on Multi-Layer And Via (3404mil,688mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net TFT_MISO Between Pad U5-13(170.638mil,1271.598mil) on Multi-Layer And Via (3305mil,720mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net +5V_VBUS1 Between Track (1938.11mil,2655.118mil)(1939.115mil,2656.123mil) on L1 And Track (2131.399mil,2612.601mil)(2131.399mil,2650.807mil) on L1 
-   Violation between Un-Routed Net Constraint: Net GND Between Track (2211.339mil,2497.204mil)(2215.04mil,2497.204mil) on L1 And Track (2162.895mil,2659.429mil)(2215.453mil,2659.429mil) on L1 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (2603mil,266mil) from L1 to L4 And Track (3225.04mil,267.402mil)(3225.839mil,268.201mil) on L1 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (1530mil,312mil) from L1 to L4 And Via (1534mil,827mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (835mil,286mil) from L1 to L4 And Via (1530mil,312mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net U0TXD Between Via (2006mil,1711mil) from L1 to L4 And Via (3605mil,737mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (3247mil,1760mil) from L1 to L4 And Via (3482.638mil,1825.362mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (3247mil,1760mil) from L1 to L4 And Via (3704mil,1245mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (3308mil,269mil) from L1 to L4 And Via (3704mil,1245mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (345mil,2561mil) from L1 to L4 And Via (3482.638mil,1825.362mil) from L1 to L4 
-   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (3704mil,1245mil) from L1 to L4 And Via (3869mil,1354mil) from L1 to L4 
-Rule Violations :43
+   Violation between Un-Routed Net Constraint: Net GPIO0 Between Pad BOOT-1(77.001mm,49.185mm) on L1 And Pad U1-27(83.668mm,15.799mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C14-1(90.73mm,59.348mm) on L1 And Pad C15-1(93.524mm,59.348mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Via (78.682mm,53.678mm) from L1 to L4 And Pad C14-1(90.73mm,59.348mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Pad C14-2(90.73mm,57.746mm) on L1 And Pad C15-2(93.524mm,57.746mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (88.459mm,46.364mm) from L1 to L4 And Pad C14-2(90.73mm,57.746mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON2_USB_N Between Pad D4-1(51.309mm,14.478mm) on L1 And Pad R15-1(51.436mm,10.729mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad D4-2(51.309mm,15.128mm) on L1 And Pad D5-2(54.103mm,15.128mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Via (48.896mm,14.071mm) from L1 to L4 And Pad D4-2(51.309mm,15.128mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON2_USB_P Between Pad R16-1(54.103mm,10.729mm) on L1 And Pad D5-1(54.103mm,14.478mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON1_USB_N Between Pad D7-1(43.155mm,64.135mm) on L1 And Pad R1-1(49.835mm,63.896mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Via (42.494mm,65.913mm) from L1 to L4 And Pad D7-2(42.505mm,64.135mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON1_USB_P Between Pad D8-1(47.34mm,65.837mm) on L1 And Pad J3-B6(50.878mm,67.44mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Track (45.709mm,67.206mm)(46.518mm,68.015mm) on L1 And Pad D8-2(46.69mm,65.837mm) on L1 
+   Violation between Un-Routed Net Constraint: Net NetJ3_A5 Between Pad J3-A5(52.878mm,67.44mm) on L1 And Pad R7-2(54.484mm,63.947mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON1_USB_P Between Pad J3-B6(50.878mm,67.44mm) on L1 And Pad J3-A6(51.878mm,67.44mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON1_USB_P Between Pad R2-1(51.817mm,63.947mm) on L1 And Pad J3-A6(51.878mm,67.44mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON1_USB_N Between Pad J3-A7(51.378mm,67.44mm) on L1 And Pad J3-B7(52.378mm,67.44mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON1_USB_N Between Pad R1-1(49.835mm,63.896mm) on L1 And Pad J3-A7(51.378mm,67.44mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON2_USB_P Between Pad J4-A6(51.378mm,7.934mm) on L1 And Pad J4-B6(52.378mm,7.934mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON2_USB_N Between Pad J4-B7(50.878mm,7.934mm) on L1 And Pad J4-A7(51.878mm,7.934mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON2_USB_N Between Pad R15-1(51.436mm,10.729mm) on L1 And Pad J4-A7(51.878mm,7.934mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CON2_USB_P Between Pad J4-B6(52.378mm,7.934mm) on L1 And Pad R16-1(54.103mm,10.729mm) on L1 
+   Violation between Un-Routed Net Constraint: Net U0RXD Between Pad R11-1(40.702mm,54.61mm) on L1 And Pad U1-36(95.098mm,15.799mm) on L1 
+   Violation between Un-Routed Net Constraint: Net FTDI_USB_N Between Pad R1-2(49.835mm,61.986mm) on L1 And Pad U2-12(50.166mm,54.737mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Pad R14-2(88.459mm,44.577mm) on L1 And Pad -TP12(97.867mm,36.398mm) on L1 
+   Violation between Un-Routed Net Constraint: Net ESP_USB_N Between Pad R15-2(51.436mm,12.639mm) on L1 And Pad U1-13(84.938mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net ESP_USB_P Between Pad R16-2(54.103mm,12.639mm) on L1 And Pad U1-14(83.668mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Pad R18-2(38.863mm,6.162mm) on L1 And Via (66.116mm,6.756mm) from L1 to L4 
+   Violation between Un-Routed Net Constraint: Net FTDI_USB_P Between Pad U2-11(50.801mm,54.737mm) on L1 And Pad R2-2(51.817mm,62.037mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad R4-1(56.643mm,12.639mm) on L1 And Via (58.242mm,9.754mm) from L1 to L4 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Pad -TP12(97.867mm,36.398mm) on L1 And Pad U1-2(98.908mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Track (98.299mm,37.377mm)(98.299mm,39.013mm) on L1 And Pad U1-1(100.178mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net SD_CARD_CS Between Track (87.808mm,38.125mm)(87.833mm,38.125mm) on L1 And Pad U1-10(88.748mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net TFT_Screen_CS Between Track (80.467mm,38.151mm)(85.496mm,38.151mm) on L1 And Pad U1-11(87.478mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net TFT_Screen_RESET Between Track (80.315mm,36.271mm)(81.051mm,35.535mm) on L1 And Pad U1-12(86.208mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net TFT_Screen_DC Between Track (77.317mm,28.943mm)(77.617mm,28.943mm) on L1 And Pad U1-17(82.418mm,28.994mm) on L1 
+   Violation between Un-Routed Net Constraint: Net TFT_Screen_LED Between Track (77.317mm,27.673mm)(77.617mm,27.673mm) on L1 And Pad U1-18(82.418mm,27.724mm) on L1 
+   Violation between Un-Routed Net Constraint: Net TFT_CLK Between Track (76.569mm,26.403mm)(77.617mm,26.403mm) on L1 And Pad U1-19(82.418mm,26.454mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (84.023mm,6.833mm) from L1 to L4 And Pad U1-2(98.908mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net Touch_Screen_CS Between Track (76.289mm,25.133mm)(77.617mm,25.133mm) on L1 And Pad U1-20(82.418mm,25.184mm) on L1 
+   Violation between Un-Routed Net Constraint: Net Touch_Interrupt_Signal Between Track (75.375mm,23.863mm)(77.617mm,23.863mm) on L1 And Pad U1-21(82.418mm,23.914mm) on L1 
+   Violation between Un-Routed Net Constraint: Net BTN1 Between Track (76.619mm,22.593mm)(77.617mm,22.593mm) on L1 And Pad U1-22(82.418mm,22.644mm) on L1 
+   Violation between Un-Routed Net Constraint: Net BTN2 Between Track (77.294mm,21mm)(77.617mm,21.323mm) on L1 And Pad U1-23(82.418mm,21.374mm) on L1 
+   Violation between Un-Routed Net Constraint: Net CHIP_PU Between Via (85.192mm,41.021mm) from L1 to L4 And Pad U1-3(97.638mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net TFT_MISO Between Pad U5-13(4.334mm,32.299mm) on Multi-Layer And Pad U1-31(88.748mm,15.799mm) on L1 
+   Violation between Un-Routed Net Constraint: Net TFT_MOSI Between Pad U5-12(4.334mm,34.839mm) on Multi-Layer And Pad U1-33(91.288mm,15.799mm) on L1 
+   Violation between Un-Routed Net Constraint: Net U0TXD Between Via (50.952mm,43.459mm) from L1 to L4 And Pad U1-37(96.368mm,15.799mm) on L1 
+   Violation between Un-Routed Net Constraint: Net BTN3 Between Track (92.558mm,12.903mm)(92.837mm,13.183mm) on L1 And Pad U1-38(97.638mm,15.799mm) on L1 
+   Violation between Un-Routed Net Constraint: Net BTN4 Between Track (93.255mm,8.854mm)(94.107mm,9.706mm) on L1 And Pad U1-39(98.908mm,15.799mm) on L1 
+   Violation between Un-Routed Net Constraint: Net SD_CARD_CLK Between Track (91.567mm,37.338mm)(96.688mm,42.459mm) on L1 And Pad U1-4(96.368mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-49(93.858mm,24.649mm) on L1 And Pad U1-40(100.178mm,15.799mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-41(92.458mm,26.049mm) on L1 And Pad U1-42(93.858mm,26.049mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-41(92.458mm,26.049mm) on L1 And Pad U1-44(92.458mm,27.449mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-48(92.458mm,24.649mm) on L1 And Pad U1-41(92.458mm,26.049mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-44(92.458mm,27.449mm) on L1 And Pad U1-43(93.858mm,27.449mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-46(91.058mm,26.049mm) on L1 And Pad U1-45(91.058mm,27.449mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-47(91.058mm,24.649mm) on L1 And Pad U1-46(91.058mm,26.049mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-47(91.058mm,24.649mm) on L1 And Pad U1-48(92.458mm,24.649mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Via (80.061mm,24.689mm) from L1 to L4 And Pad U1-47(91.058mm,24.649mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-48(92.458mm,24.649mm) on L1 And Pad U1-49(93.858mm,24.649mm) on L1 
+   Violation between Un-Routed Net Constraint: Net SD_CARD_MISO Between Track (90.246mm,38.1mm)(97.145mm,44.999mm) on L1 And Pad U1-5(95.098mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net ESP_UART2_TX Between Track (77.013mm,25.171mm)(79.299mm,25.171mm) on L4 And Pad U1-6(93.828mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net ESP_UART2_RX Between Track (79.299mm,26.416mm)(79.324mm,26.441mm) on L4 And Pad U1-7(92.558mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net \E\S\P\_\U\S\E\R\_\L\E\D\ Between Track (87.325mm,36.297mm)(87.325mm,37.77mm) on L4 And Pad U1-8(91.288mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net SD_CARD_MOSI Between Track (89.002mm,37.333mm)(89.002mm,38.964mm) on L1 And Pad U1-9(90.018mm,33.299mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +3V3_FTDI Between Pad U2-3(46.356mm,49.911mm) on L1 And Track (49.531mm,54.737mm)(49.531mm,55.762mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +VCC Between Pad U3-1(31.102mm,22.275mm) on L1 And Track (60.287mm,51.575mm)(64.897mm,56.185mm) on L1 
+   Violation between Un-Routed Net Constraint: Net TFT_MOSI Between Pad U5-12(4.334mm,34.839mm) on Multi-Layer And Pad U5-06(4.334mm,50.079mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net TFT_CLK Between Track (1.778mm,40.005mm)(4.334mm,40.005mm) on L1 And Pad U5-07(4.334mm,47.539mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net TFT_MISO Between Pad U5-13(4.334mm,32.299mm) on Multi-Layer And Pad U5-09(4.334mm,42.459mm) on Multi-Layer 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (6.776mm,63.011mm) from L1 to L4 And Track (38.355mm,24.218mm)(38.431mm,24.218mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +5V_VBUS1 Between Track (49.254mm,67.466mm)(49.254mm,68.729mm) on L1 And Track (54.028mm,67.44mm)(54.138mm,67.33mm) on L1 
+   Violation between Un-Routed Net Constraint: Net GND Between Track (56.168mm,63.429mm)(56.262mm,63.429mm) on L1 And Track (56.273mm,67.549mm)(56.738mm,68.015mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (66.116mm,6.756mm) from L1 to L4 And Track (81.936mm,6.812mm)(84.003mm,6.812mm) on L1 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (21.209mm,7.264mm) from L1 to L4 And Via (38.862mm,7.925mm) from L1 to L4 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (38.862mm,7.925mm) from L1 to L4 And Via (38.964mm,21.006mm) from L1 to L4 
+   Violation between Un-Routed Net Constraint: Net +3V3 Between Via (82.474mm,44.704mm) from L1 to L4 And Via (88.459mm,46.364mm) from L1 to L4 
+Rule Violations :77
 
 Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (Disabled)(All)
+Processing Rule : Width Constraint (Min=0.254mm) (Max=0.254mm) (Preferred=0.254mm) (Disabled)(All)
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=3.5mil) (Max=39.37mil) (Preferred=10mil) (All)
+Processing Rule : Width Constraint (Min=0.089mm) (Max=1mm) (Preferred=0.254mm) (All)
 Rule Violations :0
 
 Processing Rule : Routing Topology Rule(Topology=Shortest) (All)
 Rule Violations :0
 
-Processing Rule : Power Plane Connect Rule(Direct Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Processing Rule : Power Plane Connect Rule(Direct Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)
 Rule Violations :0
 
-Processing Rule : Hole Size Constraint (Min=1mil) (Max=236.22mil) (All)
+Processing Rule : Hole Size Constraint (Min=0.025mm) (Max=6mm) (All)
 Rule Violations :0
 
-Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Processing Rule : Hole To Hole Clearance (Gap=0.254mm) (All),(All)
 Rule Violations :0
 
-Processing Rule : Minimum Solder Mask Sliver (Gap=3.15mil) (All),(All)
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.08mm) (All),(All)
 Rule Violations :0
 
-Processing Rule : Silk To Solder Mask (Clearance=5.906mil) (IsPad),(All)
+Processing Rule : Silk To Solder Mask (Clearance=0.15mm) (IsPad),(All)
 Rule Violations :0
 
-Processing Rule : Silk to Silk (Clearance=6mil) (All),(All)
+Processing Rule : Silk to Silk (Clearance=0.152mm) (All),(All)
 Rule Violations :0
 
-Processing Rule : Net Antennae (Tolerance=0mil) (All)
-   Violation between Net Antennae: Track (2373.519mil,2030.519mil)(2555mil,2212mil) on L1 
-   Violation between Net Antennae: Track (345mil,2418.474mil)(455.526mil,2418.474mil) on L1 
-   Violation between Net Antennae: Via (1582mil,925mil) from L1 to L4 
-   Violation between Net Antennae: Via (2006mil,1711mil) from L1 to L4 
-   Violation between Net Antennae: Via (3247mil,1760mil) from L1 to L4 
-   Violation between Net Antennae: Via (3305mil,720mil) from L1 to L4 
-   Violation between Net Antennae: Via (345mil,2561mil) from L1 to L4 
-Rule Violations :7
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+   Violation between Net Antennae: Track (60.287mm,51.575mm)(64.897mm,56.185mm) on L1 
+   Violation between Net Antennae: Track (75.375mm,23.863mm)(77.617mm,23.863mm) on L1 
+   Violation between Net Antennae: Track (76.289mm,25.133mm)(77.617mm,25.133mm) on L1 
+   Violation between Net Antennae: Track (76.569mm,26.403mm)(77.617mm,26.403mm) on L1 
+   Violation between Net Antennae: Track (76.619mm,22.593mm)(77.617mm,22.593mm) on L1 
+   Violation between Net Antennae: Track (77.013mm,25.171mm)(79.299mm,25.171mm) on L4 
+   Violation between Net Antennae: Track (77.294mm,21mm)(77.617mm,21.323mm) on L1 
+   Violation between Net Antennae: Track (77.317mm,27.673mm)(77.617mm,27.673mm) on L1 
+   Violation between Net Antennae: Track (77.317mm,28.943mm)(77.617mm,28.943mm) on L1 
+   Violation between Net Antennae: Track (77.394mm,26.416mm)(79.299mm,26.416mm) on L4 
+   Violation between Net Antennae: Track (8.763mm,61.429mm)(11.57mm,61.429mm) on L1 
+   Violation between Net Antennae: Track (80.315mm,36.271mm)(81.051mm,35.535mm) on L1 
+   Violation between Net Antennae: Track (80.467mm,38.151mm)(85.496mm,38.151mm) on L1 
+   Violation between Net Antennae: Track (85.192mm,41.021mm)(87.274mm,41.021mm) on L4 
+   Violation between Net Antennae: Track (87.325mm,36.297mm)(87.325mm,37.77mm) on L4 
+   Violation between Net Antennae: Track (87.833mm,38.125mm)(88.113mm,38.405mm) on L1 
+   Violation between Net Antennae: Track (89.002mm,37.333mm)(89.002mm,38.964mm) on L1 
+   Violation between Net Antennae: Track (90.246mm,38.1mm)(97.145mm,44.999mm) on L1 
+   Violation between Net Antennae: Track (91.567mm,37.338mm)(96.688mm,42.459mm) on L1 
+   Violation between Net Antennae: Track (92.558mm,12.903mm)(92.837mm,13.183mm) on L1 
+   Violation between Net Antennae: Track (93.255mm,8.854mm)(94.107mm,9.706mm) on L1 
+   Violation between Net Antennae: Track (95.505mm,37.377mm)(95.505mm,39.041mm) on L1 
+   Violation between Net Antennae: Track (98.299mm,37.377mm)(98.299mm,39.013mm) on L1 
+   Violation between Net Antennae: Via (40.183mm,23.495mm) from L1 to L4 
+   Violation between Net Antennae: Via (50.952mm,43.459mm) from L1 to L4 
+   Violation between Net Antennae: Via (8.763mm,65.049mm) from L1 to L4 
+   Violation between Net Antennae: Via (82.474mm,44.704mm) from L1 to L4 
+Rule Violations :27
 
-Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
 Rule Violations :0
 
 
-Violations Detected : 50
+Violations Detected : 107
 Waived Violations : 0
 Time Elapsed        : 00:00:00

@@ -1,0 +1,7 @@
+Remove Pin=U5-3 From Net=TFT_Screen_CS
+Remove Pin=U5-4 From Net=TFT_Screen_RESET
+Remove Pin=U5-5 From Net=TFT_Screen_DC
+Remove Pin=U5-6 From Net=TFT_MOSI
+Remove Pin=U5-7 From Net=TFT_CLK
+Remove Pin=U5-8 From Net=TFT_Screen_LED
+Remove Pin=U5-9 From Net=TFT_MISO
