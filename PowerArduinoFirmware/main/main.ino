@@ -58,8 +58,8 @@ float load_current;
 
 // FSM State Variables
 // Make these volatile as they are changed in an ISR
-volatile uint8_t system_state_variable = 0;
-volatile uint8_t charge_state_variable = 0;
+volatile uint8_t system_state_variable = SYSTEM_INIT; 
+volatile uint8_t charge_state_variable = DISCHARGE;
 
 // Variables to handle system sleep mode (within the timer ISR, therefore volatile)
 volatile uint16_t timer_ISR_counter = 0;

@@ -59,7 +59,7 @@ void system_sleep(){
 
   // Enable interrupts
   sei();
-  
+
   // Handle putting the Arduino in Idle mode
   set_sleep_mode(SLEEP_MODE_IDLE);
   sleep_enable();

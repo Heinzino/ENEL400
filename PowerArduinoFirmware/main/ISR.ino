@@ -24,11 +24,6 @@ ISR(TIMER1_COMPA_vect) {
     // Increment the counter (to go off after 60 seconds)
     timer_ISR_counter++;
   }
-  // Otherwise, stay asleep
-  else{
-    system_state_variable = SYSTEM_SLEEP;
-  }
-
 }
 
 #endif
