@@ -1,0 +1,494 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD24\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2025-02-23</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">12:33:28 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc" class="file"><acronym title="C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc">C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">50</td></tr>
+</table>
+</td>
+</table><a name="IDTC3T4L25B5WHFELV23QXLYHPONFJDKVPWFRMLWCWFRIWLGIOEGQN"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDJ0KYXRBZ2LEFPSFJG33KYS1XWIR3SG01H2ZIW0EEPWGGSQH3HDC">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTHC0AJXQK3FZNDQM0NXIUE4J1ILNCXXIVDMG14NU5MJUEDAYEFP">Clearance Constraint (Gap=0mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVRMT3ODC1FNOC2MCYSR0BVXSCJNIKMLWNFS3YUIOIUSUI3NCNP0G">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDYFNWZ3WNUGOBKXFVQYJ0Q4YTRCMEBMTHCJRCRCBYK5VER2MPKPJG">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">43</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCASRYGUFMV2BBLGZJJWGSK5XNMBWACQILOWNDFBO11KTRVY1PRBD">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMVGA2ENE21W4JREUFL3IOH0EDMHZGBU2LAX3MKAGM4IIU0I3EQO">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (Disabled)(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRN1400D0WPUULOHK1OTBQODMALBFKONOZ3O1WIHI12IO00O54OHD">Width Constraint (Min=3.5mil) (Max=39.37mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUIXFQEWGXDEQMAQII42P1LKBLHN0BYKQBGUEVBGTVX0TCOGHCX3I">Routing Topology Rule(Topology=Shortest) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDUNPNG1OCXRETKDJABTLT0QOOEBHHG54PV51MOKDOHI4YEOK5AF1H">Power Plane Connect Rule(Direct Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLHPECZ2DWSNACWODI1HVA3H0SZ5HEMBHYJ3FFI3QNOYS2CY3OBP">Hole Size Constraint (Min=1mil) (Max=236.22mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID4Z50K43CEMOSMEA0KZ1PDSZOGI45SWZ4X4ZZDPEHFCE2N14C20MC">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTUP3LFNPJ1PMDOV4ZDHTFBXJTH5PTLLFHI0Z2EBPKG1DQOONOCWD">Minimum Solder Mask Sliver (Gap=3.15mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXMD3ICNX4CJVL34K4BRWLUL1VKPLX1B343DLTRJGWBI1ZNFIII0D">Silk To Solder Mask (Clearance=5.906mil) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEF22LJ01DIIZERLV2VQEZVEXKD53XBYVYTHUTDDVGC1BNCFYOV2K">Silk to Silk (Clearance=6mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWQGWYIRJKXH4M4AGAAXHQGCWBIBVGNTFYAO0WRK0ZD2QHNTCD33N">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">7</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRPAFTZFTAADTSJLDBMJCICYEDKMRZMCA0ZCSUBHMG3KSFWCV0TG">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">50</td>
+</tr>
+</table><br><a name="IDYFNWZ3WNUGOBKXFVQYJ0Q4YTRCMEBMTHCJRCRCBYK5VER2MPKPJG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3001.024mil|Location2.X=3124.716mil|Location1.Y=588.472mil|Location2.Y=1962.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3001.024mil|Location2.X=3124.716mil|Location1.Y=588.472mil|Location2.Y=1962.008mil|Absolute=True">Un-Routed Net Constraint: Net GPIO0 Between Pad BOOT-1(3031.536mil,1936.418mil) on L1 And Pad U1-27(3105mil,620mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1995.875mil|Location2.X=2054.205mil|Location1.Y=402.292mil|Location2.Y=578.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1995.875mil|Location2.X=2054.205mil|Location1.Y=402.292mil|Location2.Y=578.89mil|Absolute=True">Un-Routed Net Constraint: Net CON2_USB_N Between Pad D4-1(2020.04mil,570mil) on L1 And Pad R15-1(2025.04mil,422.402mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2006.229mil|Location2.X=2143.851mil|Location1.Y=586.7mil|Location2.Y=604.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2006.229mil|Location2.X=2143.851mil|Location1.Y=586.7mil|Location2.Y=604.48mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D4-2(2020.04mil,595.59mil) on L1 And Pad D5-2(2130.04mil,595.59mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1911.261mil|Location2.X=2033.851mil|Location1.Y=540.181mil|Location2.Y=604.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1911.261mil|Location2.X=2033.851mil|Location1.Y=540.181mil|Location2.Y=604.48mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Via (1925.04mil,553.96mil) from L1 to L4 And Pad D4-2(2020.04mil,595.59mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2100.875mil|Location2.X=2159.205mil|Location1.Y=402.292mil|Location2.Y=578.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2100.875mil|Location2.X=2159.205mil|Location1.Y=402.292mil|Location2.Y=578.89mil|Absolute=True">Un-Routed Net Constraint: Net CON2_USB_P Between Pad R16-1(2130.04mil,422.402mil) on L1 And Pad D5-1(2130.04mil,570mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1690.11mil|Location2.X=1991.165mil|Location1.Y=2495.488mil|Location2.Y=2538.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1690.11mil|Location2.X=1991.165mil|Location1.Y=2495.488mil|Location2.Y=2538.811mil|Absolute=True">Un-Routed Net Constraint: Net CON1_USB_N Between Pad D7-1(1699mil,2525mil) on L1 And Pad R1-1(1962mil,2515.598mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.22mil|Location2.X=1686.78mil|Location1.Y=2511.189mil|Location2.Y=2608.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.22mil|Location2.X=1686.78mil|Location1.Y=2511.189mil|Location2.Y=2608.78mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Via (1673mil,2595mil) from L1 to L4 And Pad D7-2(1673.408mil,2525mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1854.906mil|Location2.X=2008.977mil|Location1.Y=2578.189mil|Location2.Y=2677.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1854.906mil|Location2.X=2008.977mil|Location1.Y=2578.189mil|Location2.Y=2677.756mil|Absolute=True">Un-Routed Net Constraint: Net CON1_USB_P Between Pad D8-1(1863.796mil,2592mil) on L1 And Pad J3-B6(2003.072mil,2655.118mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1738.204mil|Location2.X=1954.056mil|Location1.Y=2492mil|Location2.Y=2755.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1738.204mil|Location2.X=1954.056mil|Location1.Y=2492mil|Location2.Y=2755.118mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D8-2(1838.204mil,2592mil) on L1 And Track (1831.418mil,2677.756mil)(1854.056mil,2655.118mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2075.907mil|Location2.X=2174.205mil|Location1.Y=2497.488mil|Location2.Y=2677.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2075.907mil|Location2.X=2174.205mil|Location1.Y=2497.488mil|Location2.Y=2677.756mil|Absolute=True">Un-Routed Net Constraint: Net NetJ3_A5 Between Pad J3-A5(2081.812mil,2655.118mil) on L1 And Pad R7-2(2145.04mil,2517.598mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.167mil|Location2.X=2048.347mil|Location1.Y=2632.48mil|Location2.Y=2677.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.167mil|Location2.X=2048.347mil|Location1.Y=2632.48mil|Location2.Y=2677.756mil|Absolute=True">Un-Routed Net Constraint: Net CON1_USB_P Between Pad J3-B6(2003.072mil,2655.118mil) on L1 And Pad J3-A6(2042.442mil,2655.118mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010.875mil|Location2.X=2069.205mil|Location1.Y=2497.488mil|Location2.Y=2677.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2010.875mil|Location2.X=2069.205mil|Location1.Y=2497.488mil|Location2.Y=2677.756mil|Absolute=True">Un-Routed Net Constraint: Net CON1_USB_P Between Pad R2-1(2040.04mil,2517.598mil) on L1 And Pad J3-A6(2042.442mil,2655.118mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2016.851mil|Location2.X=2068.032mil|Location1.Y=2632.48mil|Location2.Y=2677.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2016.851mil|Location2.X=2068.032mil|Location1.Y=2632.48mil|Location2.Y=2677.756mil|Absolute=True">Un-Routed Net Constraint: Net CON1_USB_N Between Pad J3-A7(2022.756mil,2655.118mil) on L1 And Pad J3-B7(2062.126mil,2655.118mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1932.835mil|Location2.X=2028.661mil|Location1.Y=2495.488mil|Location2.Y=2677.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1932.835mil|Location2.X=2028.661mil|Location1.Y=2495.488mil|Location2.Y=2677.756mil|Absolute=True">Un-Routed Net Constraint: Net CON1_USB_N Between Pad R1-1(1962mil,2515.598mil) on L1 And Pad J3-A7(2022.756mil,2655.118mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2016.851mil|Location2.X=2068.032mil|Location1.Y=289.724mil|Location2.Y=335mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2016.851mil|Location2.X=2068.032mil|Location1.Y=289.724mil|Location2.Y=335mil|Absolute=True">Un-Routed Net Constraint: Net CON2_USB_P Between Pad J4-A6(2022.756mil,312.362mil) on L1 And Pad J4-B6(2062.126mil,312.362mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.167mil|Location2.X=2048.347mil|Location1.Y=289.724mil|Location2.Y=335mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.167mil|Location2.X=2048.347mil|Location1.Y=289.724mil|Location2.Y=335mil|Absolute=True">Un-Routed Net Constraint: Net CON2_USB_N Between Pad J4-B7(2003.072mil,312.362mil) on L1 And Pad J4-A7(2042.442mil,312.362mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1995.875mil|Location2.X=2054.205mil|Location1.Y=289.724mil|Location2.Y=442.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1995.875mil|Location2.X=2054.205mil|Location1.Y=289.724mil|Location2.Y=442.512mil|Absolute=True">Un-Routed Net Constraint: Net CON2_USB_N Between Pad R15-1(2025.04mil,422.402mil) on L1 And Pad J4-A7(2042.442mil,312.362mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.22mil|Location2.X=2159.205mil|Location1.Y=289.724mil|Location2.Y=442.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2056.22mil|Location2.X=2159.205mil|Location1.Y=289.724mil|Location2.Y=442.512mil|Absolute=True">Un-Routed Net Constraint: Net CON2_USB_P Between Pad J4-B6(2062.126mil,312.362mil) on L1 And Pad R16-1(2130.04mil,422.402mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1582.332mil|Location2.X=3580.905mil|Location1.Y=668.095mil|Location2.Y=2179.165mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1582.332mil|Location2.X=3580.905mil|Location1.Y=668.095mil|Location2.Y=2179.165mil|Absolute=True">Un-Routed Net Constraint: Net U0RXD Between Pad R11-1(1602.442mil,2150mil) on L1 And Via (3555mil,694mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1932.835mil|Location2.X=1991.165mil|Location1.Y=2106.236mil|Location2.Y=2460.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1932.835mil|Location2.X=1991.165mil|Location1.Y=2106.236mil|Location2.Y=2460.512mil|Absolute=True">Un-Routed Net Constraint: Net FTDI_USB_N Between Pad R1-2(1962mil,2440.402mil) on L1 And Pad U2-12(1975.04mil,2155mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1995.875mil|Location2.X=3174.716mil|Location1.Y=477.488mil|Location2.Y=1340.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1995.875mil|Location2.X=3174.716mil|Location1.Y=477.488mil|Location2.Y=1340.504mil|Absolute=True">Un-Routed Net Constraint: Net ESP_USB_N Between Pad R15-2(2025.04mil,497.598mil) on L1 And Pad U1-13(3155mil,1308.976mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2100.875mil|Location2.X=3124.716mil|Location1.Y=477.488mil|Location2.Y=1340.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2100.875mil|Location2.X=3124.716mil|Location1.Y=477.488mil|Location2.Y=1340.504mil|Absolute=True">Un-Routed Net Constraint: Net ESP_USB_P Between Pad R16-2(2130.04mil,497.598mil) on L1 And Pad U1-14(3105mil,1308.976mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1500.875mil|Location2.X=2628.905mil|Location1.Y=222.488mil|Location2.Y=291.906mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1500.875mil|Location2.X=2628.905mil|Location1.Y=222.488mil|Location2.Y=291.906mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Pad R18-2(1530.04mil,242.598mil) on L1 And Via (2603mil,266mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1991.635mil|Location2.X=2069.205mil|Location1.Y=2106.236mil|Location2.Y=2462.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1991.635mil|Location2.X=2069.205mil|Location1.Y=2106.236mil|Location2.Y=2462.512mil|Absolute=True">Un-Routed Net Constraint: Net FTDI_USB_P Between Pad U2-11(2000.04mil,2155mil) on L1 And Pad R2-2(2040.04mil,2442.402mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2200.875mil|Location2.X=2302.843mil|Location1.Y=374.158mil|Location2.Y=517.708mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2200.875mil|Location2.X=2302.843mil|Location1.Y=374.158mil|Location2.Y=517.708mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R4-1(2230.04mil,497.598mil) on L1 And Via (2293mil,384mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1725.04mil|Location2.X=2050.04mil|Location1.Y=1864.982mil|Location2.Y=2295.359mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1725.04mil|Location2.X=2050.04mil|Location1.Y=1864.982mil|Location2.Y=2295.359mil|Absolute=True">Un-Routed Net Constraint: Net +3V3_FTDI Between Pad U2-3(1825.04mil,1964.982mil) on L1 And Track (1920.04mil,2225.359mil)(1950.04mil,2195.359mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1124.488mil|Location2.X=2473.519mil|Location1.Y=776.968mil|Location2.Y=2130.519mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1124.488mil|Location2.X=2473.519mil|Location1.Y=776.968mil|Location2.Y=2130.519mil|Absolute=True">Un-Routed Net Constraint: Net +VCC Between Pad U3-1(1224.488mil,876.968mil) on L1 And Track (2373.519mil,2030.519mil)(2555mil,2212mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=130.559mil|Location2.X=210.717mil|Location1.Y=1331.519mil|Location2.Y=2011.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=130.559mil|Location2.X=210.717mil|Location1.Y=1331.519mil|Location2.Y=2011.677mil|Absolute=True">Un-Routed Net Constraint: Net TFT_MOSI Between Pad U5-12(170.638mil,1371.598mil) on Multi-Layer And Pad U5-06(170.638mil,1971.598mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=70.638mil|Location2.X=270.638mil|Location1.Y=1475mil|Location2.Y=1971.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=70.638mil|Location2.X=270.638mil|Location1.Y=1475mil|Location2.Y=1971.598mil|Absolute=True">Un-Routed Net Constraint: Net TFT_CLK Between Track (70mil,1575mil)(170.638mil,1575mil) on L1 And Pad U5-07(170.638mil,1871.598mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=130.559mil|Location2.X=210.717mil|Location1.Y=1231.519mil|Location2.Y=1711.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=130.559mil|Location2.X=210.717mil|Location1.Y=1231.519mil|Location2.Y=1711.677mil|Absolute=True">Un-Routed Net Constraint: Net TFT_MISO Between Pad U5-13(170.638mil,1271.598mil) on Multi-Layer And Pad U5-09(170.638mil,1671.598mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=130.559mil|Location2.X=3429.905mil|Location1.Y=662.095mil|Location2.Y=1411.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=130.559mil|Location2.X=3429.905mil|Location1.Y=662.095mil|Location2.Y=1411.677mil|Absolute=True">Un-Routed Net Constraint: Net TFT_MOSI Between Pad U5-12(170.638mil,1371.598mil) on Multi-Layer And Via (3404mil,688mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=130.559mil|Location2.X=3330.905mil|Location1.Y=694.095mil|Location2.Y=1311.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=130.559mil|Location2.X=3330.905mil|Location1.Y=694.095mil|Location2.Y=1311.677mil|Absolute=True">Un-Routed Net Constraint: Net TFT_MISO Between Pad U5-13(170.638mil,1271.598mil) on Multi-Layer And Via (3305mil,720mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1839.115mil|Location2.X=2231.399mil|Location1.Y=2556.123mil|Location2.Y=2750.807mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1839.115mil|Location2.X=2231.399mil|Location1.Y=2556.123mil|Location2.Y=2750.807mil|Absolute=True">Un-Routed Net Constraint: Net +5V_VBUS1 Between Track (1938.11mil,2655.118mil)(1939.115mil,2656.123mil) on L1 And Track (2131.399mil,2612.601mil)(2131.399mil,2650.807mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2111.339mil|Location2.X=2315.453mil|Location1.Y=2397.204mil|Location2.Y=2759.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2111.339mil|Location2.X=2315.453mil|Location1.Y=2397.204mil|Location2.Y=2759.429mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track (2211.339mil,2497.204mil)(2215.04mil,2497.204mil) on L1 And Track (2162.895mil,2659.429mil)(2215.453mil,2659.429mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2503mil|Location2.X=3325.839mil|Location1.Y=166mil|Location2.Y=368.201mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2503mil|Location2.X=3325.839mil|Location1.Y=166mil|Location2.Y=368.201mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Via (2603mil,266mil) from L1 to L4 And Track (3225.04mil,267.402mil)(3225.839mil,268.201mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1504.094mil|Location2.X=1559.906mil|Location1.Y=286.094mil|Location2.Y=852.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1504.094mil|Location2.X=1559.906mil|Location1.Y=286.094mil|Location2.Y=852.905mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Via (1530mil,312mil) from L1 to L4 And Via (1534mil,827mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=809.095mil|Location2.X=1555.906mil|Location1.Y=260.094mil|Location2.Y=337.906mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=809.095mil|Location2.X=1555.906mil|Location1.Y=260.094mil|Location2.Y=337.906mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Via (835mil,286mil) from L1 to L4 And Via (1530mil,312mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1982.063mil|Location2.X=3630.905mil|Location1.Y=711.095mil|Location2.Y=1734.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1982.063mil|Location2.X=3630.905mil|Location1.Y=711.095mil|Location2.Y=1734.937mil|Absolute=True">Un-Routed Net Constraint: Net U0TXD Between Via (2006mil,1711mil) from L1 to L4 And Via (3605mil,737mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3221.095mil|Location2.X=3508.544mil|Location1.Y=1734.094mil|Location2.Y=1851.267mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3221.095mil|Location2.X=3508.544mil|Location1.Y=1734.094mil|Location2.Y=1851.267mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Via (3247mil,1760mil) from L1 to L4 And Via (3482.638mil,1825.362mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3221.095mil|Location2.X=3729.905mil|Location1.Y=1219.094mil|Location2.Y=1785.906mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3221.095mil|Location2.X=3729.905mil|Location1.Y=1219.094mil|Location2.Y=1785.906mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Via (3247mil,1760mil) from L1 to L4 And Via (3704mil,1245mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3282.095mil|Location2.X=3729.905mil|Location1.Y=243.095mil|Location2.Y=1270.906mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3282.095mil|Location2.X=3729.905mil|Location1.Y=243.095mil|Location2.Y=1270.906mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Via (3308mil,269mil) from L1 to L4 And Via (3704mil,1245mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=319.094mil|Location2.X=3508.544mil|Location1.Y=1799.457mil|Location2.Y=2586.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=319.094mil|Location2.X=3508.544mil|Location1.Y=1799.457mil|Location2.Y=2586.905mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Via (345mil,2561mil) from L1 to L4 And Via (3482.638mil,1825.362mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3678.095mil|Location2.X=3894.905mil|Location1.Y=1219.094mil|Location2.Y=1379.906mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3678.095mil|Location2.X=3894.905mil|Location1.Y=1219.094mil|Location2.Y=1379.906mil|Absolute=True">Un-Routed Net Constraint: Net +3V3 Between Via (3704mil,1245mil) from L1 to L4 And Via (3869mil,1354mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDWQGWYIRJKXH4M4AGAAXHQGCWBIBVGNTFYAO0WRK0ZD2QHNTCD33N"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2362.519mil|Location2.X=2391.55mil|Location1.Y=2019.519mil|Location2.Y=2062.694mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2362.519mil|Location2.X=2391.55mil|Location1.Y=2019.519mil|Location2.Y=2062.694mil|Absolute=True">Net Antennae: Track (2373.519mil,2030.519mil)(2555mil,2212mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=444.526mil|Location2.X=473.557mil|Location1.Y=2407.474mil|Location2.Y=2450.649mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=444.526mil|Location2.X=473.557mil|Location1.Y=2407.474mil|Location2.Y=2450.649mil|Absolute=True">Net Antennae: Track (345mil,2418.474mil)(455.526mil,2418.474mil) on L1 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1552.594mil|Location2.X=1621.693mil|Location1.Y=895.595mil|Location2.Y=1006.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1552.594mil|Location2.X=1621.693mil|Location1.Y=895.595mil|Location2.Y=1006.172mil|Absolute=True">Net Antennae: Via (1582mil,925mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1978.563mil|Location2.X=2043.377mil|Location1.Y=1683.563mil|Location2.Y=1786.903mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1978.563mil|Location2.X=2043.377mil|Location1.Y=1683.563mil|Location2.Y=1786.903mil|Absolute=True">Net Antennae: Via (2006mil,1711mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3217.595mil|Location2.X=3286.693mil|Location1.Y=1730.594mil|Location2.Y=1841.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3217.595mil|Location2.X=3286.693mil|Location1.Y=1730.594mil|Location2.Y=1841.172mil|Absolute=True">Net Antennae: Via (3247mil,1760mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3275.595mil|Location2.X=3344.693mil|Location1.Y=690.595mil|Location2.Y=801.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3275.595mil|Location2.X=3344.693mil|Location1.Y=690.595mil|Location2.Y=801.172mil|Absolute=True">Net Antennae: Via (3305mil,720mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=315.594mil|Location2.X=384.693mil|Location1.Y=2531.595mil|Location2.Y=2642.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=315.594mil|Location2.X=384.693mil|Location1.Y=2531.595mil|Location2.Y=2642.172mil|Absolute=True">Net Antennae: Via (345mil,2561mil) from L1 to L4 </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
