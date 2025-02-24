@@ -1,12 +1,12 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\heinzVeintimilla\Documents\PlatformIO\Projects\ENEL400\ReCycle DisplayPCB\ReCycle Display PCB\DisplayPCB\DisplayPCB.PcbDoc
 Date     : 2025-02-23
-Time     : 7:27:20 PM
-
-Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
-Rule Violations :0
+Time     : 9:04:33 PM
 
 Processing Rule : Clearance Constraint (Gap=0mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
 Rule Violations :0
 
 Processing Rule : Clearance Constraint (Gap=0mm) (InPolygon),(IsPad OR IsVia OR IsTrack)
@@ -21,10 +21,10 @@ Rule Violations :0
 Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=0.089mm) (Max=2.54mm) (Preferred=0.254mm) (All)
+Processing Rule : Width Constraint (Min=0.254mm) (Max=0.254mm) (Preferred=0.254mm) (Disabled)(All)
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=0.254mm) (Max=0.254mm) (Preferred=0.254mm) (Disabled)(All)
+Processing Rule : Width Constraint (Min=0.089mm) (Max=2.54mm) (Preferred=0.254mm) (All)
 Rule Violations :0
 
 Processing Rule : Routing Topology Rule(Topology=Shortest) (All)
@@ -36,10 +36,10 @@ Rule Violations :0
 Processing Rule : Routing Via (MinHoleWidth=0.3mm) (MaxHoleWidth=0.3mm) (PreferredHoleWidth=0.254mm) (MinWidth=0.7mm) (MaxWidth=0.7mm) (PreferedWidth=0.7mm) (All)
 Rule Violations :0
 
-Processing Rule : Routing Via (MinHoleWidth=0.2mm) (MaxHoleWidth=0.711mm) (PreferredHoleWidth=0.2mm) (MinWidth=0.5mm) (MaxWidth=1.27mm) (PreferedWidth=0.5mm) (All)
+Processing Rule : Routing Via (MinHoleWidth=0.711mm) (MaxHoleWidth=0.711mm) (PreferredHoleWidth=0.711mm) (MinWidth=1.27mm) (MaxWidth=1.27mm) (PreferedWidth=1.27mm) (Disabled)(All)
 Rule Violations :0
 
-Processing Rule : Routing Via (MinHoleWidth=0.711mm) (MaxHoleWidth=0.711mm) (PreferredHoleWidth=0.711mm) (MinWidth=1.27mm) (MaxWidth=1.27mm) (PreferedWidth=1.27mm) (Disabled)(All)
+Processing Rule : Routing Via (MinHoleWidth=0.2mm) (MaxHoleWidth=0.711mm) (PreferredHoleWidth=0.2mm) (MinWidth=0.5mm) (MaxWidth=1.27mm) (PreferedWidth=0.5mm) (All)
 Rule Violations :0
 
 Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.508mm) (Air Gap=0.254mm) (Entries=4) (All)
