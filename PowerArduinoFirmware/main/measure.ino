@@ -71,11 +71,13 @@ float measure_load_current(){
 
 /*----------------------------------Measure Battery Temperature----------------------------------*/
 // Function to measure battery temperature
-int measure_battery_temperature(){
+float measure_enclosure_temperature(){
 
-  // PLACEHOLDER UNTIL WE GET A TEMPERATURE SENSOR
+  // Measure the temperature from the LM35 sensor
+  float temperature = enclosure_temp.cel();
 
-  return 0;
+  // Return this value 
+  return temperature;
 }
 
 #endif

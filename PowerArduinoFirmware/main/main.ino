@@ -3,6 +3,7 @@
 #include <avr/sleep.h> // Handles putting the CPU to sleep for low power modes
 #include <avr/io.h> // Handles AVR style I/O
 #include <avr/interrupt.h> // Handles AVR style interrupts (for timers)
+#include <LM35.h> // Handles drivers for the temperature sensor (LM35)
 
 
 
@@ -10,9 +11,9 @@
 #define INTERRUPT_PIN   2
 #define PWM_MOSFET_PIN  3
 #define LOAD_MOSFET_PIN 5
-//#define TEMP_SENSOR_PIN 9
 #define BATTERY_VOLTAGE_PIN   A1
 #define GENERATOR_VOLTAGE_PIN A2
+#define TEMP_SENSOR_PIN A3
 #define GENERATOR_CURRENT_PIN A6
 #define LOAD_CURRENT_PIN   A7
 
@@ -35,12 +36,15 @@
 
 
 
-/*----------------------------------------ACS712 Objects-----------------------------------------*/
-// Declare ACS712 30A sensor to measure generator current. 5V, 1023 steps, 66mV/A
+/*-------------------------------------Instantiate Objects---------------------------------------*/
+// Declare ACS712 30A sensor object to measure generator current. 5V, 1023 steps, 66mV/A
 ACS712  ACS_generator(GENERATOR_CURRENT_PIN, 5.0, 1023, 66);
 
-// Declare ACS712 20A sensor to measure load current. 5V, 1023 steps, 100mV/A
+// Declare ACS712 20A sensor object to measure load current. 5V, 1023 steps, 100mV/A
 ACS712  ACS_load(LOAD_CURRENT_PIN, 5.0, 1023, 100);
+
+// Declare LM35 temperature sensor object to measure enclosure temperature (2C-150C, 10mV/C)
+LM35 enclosure_temp(TEMP_SENSOR_PIN);
 
 
 
@@ -55,6 +59,9 @@ float battery_voltage;
 
 // Variable to hold load current
 float load_current;
+
+// Variable to hold enclosure temperature
+float enclosure_temperature;
 
 // FSM State Variables
 // Make these volatile as they are changed in an ISR

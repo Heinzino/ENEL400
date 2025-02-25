@@ -87,6 +87,9 @@ void get_data(){
 
   // Get load current
   load_current = measure_load_current();
+
+  // Get enclosure temperature
+  enclosure_temperature = measure_enclosure_temperature();
 }
 
 
