@@ -24,7 +24,7 @@ void system_init(){
   // Calibrate the load current sensor
   ACS_load.autoMidPoint();
 
-  // Begin the serial at 
+  // Begin the serial at 115200 baud
   Serial.begin(115200);
 
   // Set up timer 1, which handles sampling rate and automatic sleep mode
