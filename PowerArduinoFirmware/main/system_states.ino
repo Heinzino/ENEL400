@@ -25,7 +25,7 @@ void system_init(){
   ACS_load.autoMidPoint();
 
   // Begin the serial at 115200 baud
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   // Set up timer 1, which handles sampling rate and automatic sleep mode
   setupTimer1();
