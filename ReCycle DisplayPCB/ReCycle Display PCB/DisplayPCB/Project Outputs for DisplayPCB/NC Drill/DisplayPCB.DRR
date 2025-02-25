@@ -1,0 +1,21 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: DisplayPCB.PcbDoc   2025-02-24  1:24:34 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : L1 to L4
+ASCII RoundHoles File : DisplayPCB.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      8mil (0.2mm)                                              Round             77        PTH        17.88inch (454.21mm)
+T2      12mil (0.3mm)                                             Round             110       PTH        29.00inch (736.54mm)
+T3      20mil (0.5mm)                                             Round             3         PTH        0.44inch (11.12mm)
+T4      39mil (1mm)                                               Round             4         PTH        0.30inch (7.50mm)
+T5      40mil (1.02mm)                                            Round             14        PTH        1.30inch (33.02mm)
+T6      41mil (1.04mm)                                            Round             4         PTH        0.30inch (7.62mm)
+T7      126mil (3.2mm)                                            Round             4         PTH        9.99inch (253.84mm)
+T8      26mil (0.65mm)                                            Round             4         NPTH       2.88inch (73.22mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              220
+
+Total Processing Time (hh:mm:ss) : 00:00:00

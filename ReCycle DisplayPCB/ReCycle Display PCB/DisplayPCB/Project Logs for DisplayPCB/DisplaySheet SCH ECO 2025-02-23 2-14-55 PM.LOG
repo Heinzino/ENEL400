@@ -1,0 +1,46 @@
+Remove Pin=U5-3 From Net=TFT_Screen_CS
+Remove Pin=U5-6 From Net=TFT_MOSI
+Remove Pin=U5-7 From Net=TFT_CLK
+Remove Pin=U5-8 From Net=TFT_Screen_LED
+Change Component Designator: OldDesignator=NT1 NewDesignator=
+Change Component Designator: OldDesignator=NT2 NewDesignator=
+Change Component Designator: OldDesignator=NT6 NewDesignator=
+Change Component Designator: OldDesignator=NT7 NewDesignator=
+Change Component Designator: OldDesignator=NT8 NewDesignator=
+Change Component Designator: OldDesignator=SW1 NewDesignator=RESET
+Change Component Designator: OldDesignator=SW2 NewDesignator=BOOT
+Change Component Designator: OldDesignator=SW3 NewDesignator=BTN1
+Change Component Designator: OldDesignator=SW4 NewDesignator=BTN2
+Change Component Designator: OldDesignator=SW5 NewDesignator=BTN3
+Change Component Designator: OldDesignator=SW6 NewDesignator=BTN4
+Change Component Designator: OldDesignator=TP1 NewDesignator=
+Change Component Designator: OldDesignator=TP2 NewDesignator=
+Change Component Designator: OldDesignator=TP3 NewDesignator=
+Change Component Designator: OldDesignator=TP4 NewDesignator=
+Change Component Designator: OldDesignator=TP5 NewDesignator=VIN_REG
+Change Component Designator: OldDesignator=TP6 NewDesignator=
+Change Component Designator: OldDesignator=TP7 NewDesignator=
+Change Component Designator: OldDesignator=TP8 NewDesignator=
+Change Component Designator: OldDesignator=TP9 NewDesignator=
+Change Component Designator: OldDesignator=TP10 NewDesignator=GND
+Change Component Designator: OldDesignator=TP11 NewDesignator=ARD_TX_CONN
+Change Component Designator: OldDesignator=TP12 NewDesignator=
+Change Component Designator: OldDesignator=TP13 NewDesignator=
+Change Component Designator: OldDesignator=TP14 NewDesignator=
+Change Component Designator: OldDesignator=TP15 NewDesignator=
+Change Component Designator: OldDesignator=TP16 NewDesignator=
+Change Component Designator: OldDesignator=TP17 NewDesignator=
+Change Component Designator: OldDesignator=TP18 NewDesignator=ARD_RX
+Change Component Designator: OldDesignator=TP19 NewDesignator=
+Change Component Designator: OldDesignator=TP20 NewDesignator=
+Change Component Designator: OldDesignator=TP21 NewDesignator=
+Change Component Designator: OldDesignator=TP22 NewDesignator=
+Change Component Designator: OldDesignator=TP23 NewDesignator=
+Change Component Designator: OldDesignator=TP24 NewDesignator=
+Change Component Designator: OldDesignator=TP25 NewDesignator=
+Change Component Designator: OldDesignator=TP26 NewDesignator=
+Change Component Designator: OldDesignator=TP30 NewDesignator=
+Change Component Designator: OldDesignator=TP32 NewDesignator=
+Change Component Designator: OldDesignator=TP33 NewDesignator=
+Change Net Color : Net Name= GND Old Net Color=Default New Net Color=Navy
+Modified Rule: Name=Schematic Polygon Connect Style

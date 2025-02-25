@@ -10,6 +10,7 @@
 #include "secrets.hpp"
 #include "Wifi.h"
 #include "sd_log.hpp"
+#include "pins.hpp"
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 float voltage, current;
@@ -81,6 +82,8 @@ void setup()
 
   // Serial2.begin(115200,SERIAL_8N1,ESP32_RX_PIN,ESP32_TX_PIN);
   Serial.begin(115200);
+  pinMode(TFT_SCREEN_LED,OUTPUT);
+  digitalWrite(TFT_SCREEN_LED,HIGH);
 
   WiFi.begin(ssid,password);
 
@@ -124,12 +127,18 @@ void setup()
   lv_disp_drv_register(&disp_drv);   // Register the driver
 
   ui_init();
+  Serial.println("Initialzed Screen");
 }
 
 void loop()
 {
   readUART2(&voltage,&current);
   update_ui();
+
+  // voltage += 0.1;
+  // if(voltage >= 3.3){
+  //   voltage = 0;
+  // }
 
   updateSDLog();
     // Update NTP time every hour.

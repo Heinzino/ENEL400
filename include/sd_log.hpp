@@ -2,12 +2,14 @@
 #define SD_LOG_H
 
 #include <Arduino.h>
+#include <SD.h>
+#include <SPI.h>
+#include <WiFi.h>
+#include <time.h>
+#include "User_Setup.h"
+#include "pins.hpp"
+#include "hal/spi_types.h"
 
-// Define SPI pins for SD card (VSPI)
-#define SD_SCK    14
-#define SD_MISO   27
-#define SD_MOSI   13
-#define SD_CS     5 
 
 // Initializes the SD card and performs an initial NTP update.
 // Call this once (for example, in setup()).
