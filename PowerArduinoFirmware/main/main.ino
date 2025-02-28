@@ -79,7 +79,7 @@ volatile uint8_t charge_state_variable = DISCHARGE;
 // Variables to handle system sleep mode (within the timer ISR, therefore volatile)
 volatile uint16_t timer_ISR_counter = 0;
 volatile bool in_program_state = false;
-volatile float generator_voltage_sum = 0.0;
+volatile uint16_t generator_voltage_sum = 0;
 
 
 

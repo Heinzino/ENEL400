@@ -46,19 +46,20 @@ void system_init(){
 /*--------------------------------------System Sleep (Idle)--------------------------------------*/
 void system_sleep(){
   
-  // If the timer ISR has been called 600 times or more times (60 seconds has passed)
-  if (timer_ISR_counter >= 600){
+  // If the timer ISR has been called 300 times or more times (30 seconds has passed)
+  if (timer_ISR_counter >= 300){
 
-    // If the average generator voltage for the past 60 seconds is less than 0.5 Volts
-    if ((generator_voltage_sum / 600.0) < 0.5){
+    // If the average generator voltage for the past 30 seconds is less than 2 Volts (rounded down)
+    if ((generator_voltage_sum / 300) < 2){
 
       // Set the in program state variable to false, to reflect that the system will
       // go to sleep until started by a higher generator voltage later
       in_program_state = false;
 
-      // Reset the generator voltage sum variable
-      generator_voltage_sum = 0.0;
     }
+
+    // Reset the generator voltage sum variable
+    generator_voltage_sum = 0;
 
     // Reset the ISR call counter
     timer_ISR_counter = 0;
