@@ -104,7 +104,7 @@ void send_data(){
 
   // Unconditional state transition, go to charge state
   system_state_variable = CHARGE_FSM;
-
+  
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(generator_voltage, 2);
 
@@ -113,6 +113,15 @@ void send_data(){
 
   // Send generator current with 2 decimal places accuracy, and a newline
   Serial.println(generator_current, 2);
+  
+  /*
+  Serial.print(generator_voltage, 2);
+  Serial.print(" ");
+  Serial.print(generator_voltage_sum);
+  Serial.print(" ");
+  Serial.println(timer_ISR_counter);
+  */
+
 }
 
 
@@ -128,7 +137,7 @@ void set_difficulty(){
 void charge_FSM(){
 
   // Unconditional state transitio, go to get data state
-  system_state_variable = GET_DATA;
+  system_state_variable = SYSTEM_SLEEP;
 
   // Implements factored charging FSM
   switch(charge_state_variable){
