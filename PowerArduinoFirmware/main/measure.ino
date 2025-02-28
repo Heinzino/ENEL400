@@ -26,7 +26,7 @@ float measure_battery_voltage(){
   uint16_t digital_battery_voltage = analogRead(BATTERY_VOLTAGE_PIN);
 
   // Convert the 10 bit value to a float representing the voltage in volts (maps 1023 to 20V)
-  float calibrated_value = 51.15; // Uncalibrated value: 51.15
+  float calibrated_value = 49.69; // Uncalibrated value: 49.69
   float battery_volts = digital_battery_voltage / calibrated_value;
 
   // Return the value 
