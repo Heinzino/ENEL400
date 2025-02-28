@@ -2,7 +2,7 @@
 
 void setupUART2() {
     uart_config_t uart_config = {
-        .baud_rate = 115200,
+        .baud_rate = 9600,
         .data_bits = UART_DATA_8_BITS,
         .parity = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,
@@ -28,6 +28,7 @@ void readUART2(float *voltage, float *current) {
 
         // Split the received string into voltage and current using space as delimiter
         char *token = strtok((char *)data, " ");
+        Serial.print(token);
         if (token != NULL) {
             *voltage = atof(token);  // Update the voltage pointer value
 

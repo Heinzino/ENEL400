@@ -39,11 +39,11 @@
 #define TFT_SCREEN_CS 15
 #define TFT_SCREEN_RESET 4
 #define TFT_SCREEN_DC 2
-#define TFT_SCREEN_LED 21
+#define TFT_SCREEN_LED 19
 #define TFT_CLK 18
 #define TOUCH_SCREEN_CS 39
 #define TFT_MOSI 23
-#define TFT_MISO 19
+#define TFT_MISO 21
 #define TOUCH_INTERRUPT_SIGNAL 9
 
 #define SD_CARD_CS 5
