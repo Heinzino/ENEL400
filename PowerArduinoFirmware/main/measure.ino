@@ -69,12 +69,25 @@ float measure_load_current(){
 
 
 
-/*----------------------------------Measure Battery Temperature----------------------------------*/
-// Function to measure battery temperature
-float measure_enclosure_temperature(){
+/*-----------------------------------DUMP LOAD 1 MEASUREMENT-------------------------------------*/
+// Function to measure temperature of dump load 1
+float measure_dump_load_1_temp(){
 
   // Measure the temperature from the LM35 sensor
-  float temperature = enclosure_temp.cel();
+  float temperature = dump_load_1_temp.cel();
+
+  // Return this value 
+  return temperature;
+}
+
+
+
+/*-----------------------------------DUMP LOAD 2 MEASUREMENT-------------------------------------*/
+// Function to measure temperature of dump load 2
+float measure_dump_load_2_temp(){
+
+  // Measure the temperature from the LM35 sensor
+  float temperature = dump_load_2_temp.cel();
 
   // Return this value 
   return temperature;

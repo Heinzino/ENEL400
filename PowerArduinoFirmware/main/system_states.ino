@@ -4,19 +4,26 @@
 /*---------------------------------------Initialize System---------------------------------------*/
 void system_init(){
 
-  // Setup digital output pins (to drive mosfets)
+  // Set input hardware interrupt pin mode
   pinMode(INTERRUPT_PIN, INPUT);
-  pinMode(PWM_MOSFET_PIN, OUTPUT);
-  pinMode(LOAD_MOSFET_PIN, OUTPUT);
+
+  // Set MOSFET output pins 
+  pinMode(GENERATOR_MOSFET_PIN, OUTPUT);
+  pinMode(CHARGING_MOSFET_PIN, OUTPUT);
+  pinMode(DUMP_LOAD_MOSFET_1, OUTPUT);
+  pinMode(INVERTER_MOSFET, OUTPUT);
+  pinMode(DUMP_LOAD_MOSFET_2, OUTPUT);
+
+  // Set analog output pins
+  pinMode(TEMP_DUMP_LOAD_1, INPUT);
+  pinMode(BATTERY_VOLTAGE_PIN, INPUT);
+  pinMode(GENERATOR_VOLTAGE_PIN, INPUT);
+  pinMode(TEMP_DUMP_LOAD_2, INPUT);
+  pinMode(GENERATOR_CURRENT_PIN, INPUT);
+  pinMode(LOAD_CURRENT_PIN, INPUT);
 
   // Attach Digital pin 2 to the hardware digital input interrupt, rising edge triggered
   attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), digital_input_ISR, RISING);
-
-  // Setup analog input pins
-  pinMode(GENERATOR_VOLTAGE_PIN, INPUT);
-  pinMode(BATTERY_VOLTAGE_PIN, INPUT);
-  pinMode(GENERATOR_CURRENT_PIN, INPUT);
-  pinMode(LOAD_CURRENT_PIN, INPUT);
 
   // Calibrate the generator current sensor
   ACS_generator.autoMidPoint();
@@ -87,9 +94,6 @@ void get_data(){
 
   // Get load current
   load_current = measure_load_current();
-
-  // Get enclosure temperature
-  enclosure_temperature = measure_enclosure_temperature();
 }
 
 
@@ -108,6 +112,13 @@ void send_data(){
 
   // Send generator current with 2 decimal places accuracy, and a newline
   Serial.println(generator_current, 2);
+}
+
+
+
+/*-------------------------------------Set Bike Difficulty---------------------------------------*/
+void set_difficulty(){
+
 }
 
 

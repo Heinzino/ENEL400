@@ -8,23 +8,28 @@
 
 
 /*-----------------------------------------DEFINE PINS-------------------------------------------*/
-#define INTERRUPT_PIN   2
-#define PWM_MOSFET_PIN  3
-#define LOAD_MOSFET_PIN 5
+#define INTERRUPT_PIN         2
+#define GENERATOR_MOSFET_PIN  3
+#define CHARGING_MOSFET_PIN   5
+#define DUMP_LOAD_MOSFET_1    6  
+#define INVERTER_MOSFET       10 
+#define DUMP_LOAD_MOSFET_2    11 
+#define TEMP_DUMP_LOAD_1      A0
 #define BATTERY_VOLTAGE_PIN   A1
 #define GENERATOR_VOLTAGE_PIN A2
-#define TEMP_SENSOR_PIN A3
+#define TEMP_DUMP_LOAD_2      A3
 #define GENERATOR_CURRENT_PIN A6
-#define LOAD_CURRENT_PIN   A7
+#define LOAD_CURRENT_PIN      A7
 
 
 
 /*--------------------------------------SYSTEM FSM DEFINES---------------------------------------*/
-#define SYSTEM_INIT 0
-#define SYSTEM_SLEEP 1
-#define GET_DATA 2
-#define SEND_DATA 3
-#define CHARGE_FSM 4
+#define SYSTEM_INIT     0
+#define SYSTEM_SLEEP    1
+#define GET_DATA        2
+#define SEND_DATA       3
+#define SET_DIFFICULTY  4
+#define CHARGE_FSM      5
 
 
 
@@ -43,8 +48,11 @@ ACS712  ACS_generator(GENERATOR_CURRENT_PIN, 5.0, 1023, 66);
 // Declare ACS712 20A sensor object to measure load current. 5V, 1023 steps, 100mV/A
 ACS712  ACS_load(LOAD_CURRENT_PIN, 5.0, 1023, 100);
 
-// Declare LM35 temperature sensor object to measure enclosure temperature (2C-150C, 10mV/C)
-LM35 enclosure_temp(TEMP_SENSOR_PIN);
+// Declare LM35 temperature sensor object to measure dump load 1 temperature (2C-150C, 10mV/C)
+LM35 dump_load_1_temp(TEMP_DUMP_LOAD_1);
+
+// Declare LM35 temperature sensor object to measure dump load 2 temperature (2C-150C, 10mV/C)
+LM35 dump_load_2_temp(TEMP_DUMP_LOAD_2);
 
 
 
@@ -95,6 +103,9 @@ void loop() {
       break;
     case SEND_DATA:
       send_data();
+      break;
+    case SET_DIFFICULTY:
+      set_difficulty();
       break;
     case CHARGE_FSM:
       charge_FSM();
