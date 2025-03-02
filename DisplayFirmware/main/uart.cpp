@@ -1,10 +1,11 @@
 #include "uart.hpp"
 
 
-static void uart_event_task(void *pvParameters)
+void uart_event_task(void *pvParameters)
 {
     uart_event_t event;
 
+    Serial.println("In UART EVENT TASK");
     while (1)
     {
 

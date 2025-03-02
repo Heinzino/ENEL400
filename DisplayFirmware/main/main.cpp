@@ -3,6 +3,7 @@
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 float voltage,current;
 SemaphoreHandle_t uart_data_ready_semaphore;
+QueueHandle_t uartQueue;
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -46,8 +47,6 @@ void setup()
         Serial.println("Failed to create queue");
     }
 
-    xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 3, NULL);
-    xTaskCreate(displayTask, "display_task", 2048, NULL, 10, NULL);
 
     // WiFiSetup();
     // initSDLog(); TODO: Make sure you configure HSPI, VSPI in menuconfig
@@ -72,26 +71,14 @@ void setup()
     lv_disp_drv_register(&disp_drv);   // Register the driver
 
     ui_init();
+    update_ui();
     Serial.println("Initialzed Screen");
+
+    xTaskCreate(uart_event_task, "uart_event_task", 4096, NULL, 11, NULL);
+    xTaskCreate(displayTask, "display_task", 4096, NULL, 10, NULL);
 }
 
 extern "C" void app_main()
 {
     setup();
-
-    while(1){
-
-        readUART2(&voltage, &current);
-        update_ui();
-
-        // voltage += 0.1;
-        // if(voltage >= 3.3){
-        // voltage = 0;
-        // }
-
-        // updateNTPTime();
-        // updateSDLog(); 
-
-        lv_timer_handler();
-    }
 }

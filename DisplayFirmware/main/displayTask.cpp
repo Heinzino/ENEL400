@@ -29,10 +29,12 @@ void update_ui()
         last_power = power;
     }
 
-    lv_arc_set_value(ui_Arc3, (int)(voltage * 100 / 3.3));
-    lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / 5.0));
-    lv_arc_set_value(ui_Arc2, (int)(power * 100 / (3.3 * 5.0)));
+    lv_arc_set_value(ui_Arc3, (int)(voltage * 100 / MAX_VOLTAGE));
+    lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / MAX_CURRENT));
+    lv_arc_set_value(ui_Arc2, (int)(power * 100 / (MAX_POWER)));
 
+    lv_timer_handler();
+    lv_task_handler();
     lv_refr_now(NULL);
 }
 
@@ -43,6 +45,7 @@ void displayTask(void *pvParameters)
     {
         if (xSemaphoreTake(uart_data_ready_semaphore, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) == pdTRUE)
         {
+            Serial.println("Updating UI");
             digitalWrite(TFT_SCREEN_LED, HIGH);
             update_ui();
         }
@@ -50,5 +53,7 @@ void displayTask(void *pvParameters)
         {
             digitalWrite(TFT_SCREEN_LED, LOW);
         }
+
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

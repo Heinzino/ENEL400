@@ -24,6 +24,6 @@
 
 void setupUART2();
 void readUART2();
-static void uart_event_task(void *pvParameters);
+void uart_event_task(void *pvParameters);
 
 

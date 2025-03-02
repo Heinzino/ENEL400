@@ -16,7 +16,6 @@
 #include "pins.hpp"
 #include "wifiTask.hpp"
 #include "displayTask.hpp"
-#include "taskSync.hpp"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"

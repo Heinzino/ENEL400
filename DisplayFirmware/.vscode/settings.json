@@ -9,7 +9,8 @@
     "idf.toolsPathWin": "C:\\Users\\heinz\\.espressif",
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "lv_conf.h": "c"
+        "lv_conf.h": "c",
+        "cstdlib": "cpp"
     },
     "idf.flashType": "UART"
 }
