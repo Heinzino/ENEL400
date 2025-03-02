@@ -4,6 +4,7 @@
 #include <avr/io.h> // Handles AVR style I/O
 #include <avr/interrupt.h> // Handles AVR style interrupts (for timers)
 #include <LM35.h> // Handles drivers for the temperature sensor (LM35)
+#include <avr/wdt.h> // Handles Watchdog Timer
 
 
 
@@ -58,7 +59,7 @@ LM35 dump_load_2_temp(TEMP_DUMP_LOAD_2);
 
 /*---------------------------------------Global Variables----------------------------------------*/
 // Variables to hold generator metrics
-float generator_voltage;
+volatile float generator_voltage;
 float generator_current;
 float generator_power;
 
@@ -80,6 +81,9 @@ volatile uint8_t charge_state_variable = DISCHARGE;
 volatile uint16_t timer_ISR_counter = 0;
 volatile bool in_program_state = false;
 volatile uint16_t generator_voltage_sum = 0;
+
+// Used by the WDT to determine whether or not it has been fired (ISR)
+volatile bool wdtFired = false;
 
 
 

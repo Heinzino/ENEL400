@@ -1,7 +1,7 @@
 #ifndef TIMER_INO
 #define TIMER_INO
 
-/*----------------------------------------Set Up Timer 1-----------------------------------------*/
+/*----------------------------------------Set Up Timer 1-----------------------------------------
 // Setup Timer1 in CTC mode to generate an interrupt every ~100ms.
 void setupTimer1() {
 
@@ -23,6 +23,31 @@ void setupTimer1() {
   
   // Start Timer1 with a 1024 prescaler.
   TCCR1B |= (1 << CS12) | (1 << CS10);
+}
+*/
+
+/*------------------------------------Set Up Watch Dog Timer-------------------------------------*/
+// Configure Watchdog Timer for ~128ms timeout
+void setup_WDT(){
+  cli();  // Disable interrupts
+  wdt_reset();
+  WDTCSR = (1 << WDCE) | (1 << WDE); // Enter configuration mode
+  WDTCSR = (1 << WDIE) | (1 << WDP1) | (1 << WDP0); // Set WDT to ~128ms
+  sei();  // Re-enable interrupts
+}
+
+void disableWDT() {
+  cli(); // Disable global interrupts
+  WDTCSR = (1 << WDCE) | (1 << WDE); // Enter Watchdog configuration mode
+  WDTCSR = 0; // Turn off WDT
+  sei(); // Re-enable global interrupts
+}
+
+void enableWDT() {
+  cli(); // Disable global interrupts
+  WDTCSR = (1 << WDCE) | (1 << WDE); // Enter configuration mode
+  WDTCSR = (1 << WDIE) | (1 << WDP1) | (1 << WDP0); // Set WDT to ~128ms
+  sei(); // Re-enable global interrupts
 }
 
 #endif

@@ -31,11 +31,18 @@ void system_init(){
   // Calibrate the load current sensor
   ACS_load.autoMidPoint();
 
-  // Begin the serial at 115200 baud
+  // Begin the serial at 9600 baud
   Serial.begin(9600);
 
+  // Set analog reference to AVDD
+  analogReference(DEFAULT);
+
   // Set up timer 1, which handles sampling rate and automatic sleep mode
-  setupTimer1();
+  //setupTimer1();
+
+  setup_WDT();
+
+  disableWDT();
 
   // Unconditional transition, go to system sleep state
   system_state_variable = SYSTEM_SLEEP;
@@ -46,16 +53,18 @@ void system_init(){
 /*--------------------------------------System Sleep (Idle)--------------------------------------*/
 void system_sleep(){
   
-  // If the timer ISR has been called 300 times or more times (30 seconds has passed)
-  if (timer_ISR_counter >= 300){
+  // If the timer ISR has been called 250 times or more times (30 seconds has passed)
+  if (timer_ISR_counter >= 250){
 
     // If the average generator voltage for the past 30 seconds is less than 2 Volts (rounded down)
-    if ((generator_voltage_sum / 300) < 2){
+    if ((generator_voltage_sum / 250) < 2){
 
       // Set the in program state variable to false, to reflect that the system will
       // go to sleep until started by a higher generator voltage later
       in_program_state = false;
 
+      // Turn off Timer 1 before entering "deep sleep"
+      disableWDT();
     }
 
     // Reset the generator voltage sum variable
@@ -68,10 +77,22 @@ void system_sleep(){
   // Enable interrupts
   sei();
 
+  Serial.println("S");
   // Handle putting the Arduino in Idle mode
-  set_sleep_mode(SLEEP_MODE_IDLE);
-  sleep_enable();
-  sleep_mode();
+  //set_sleep_mode(SLEEP_MODE_IDLE);
+  //sleep_enable();
+  //sleep_mode();
+
+  Serial.flush();
+  Serial.println("S");
+  sleep_enable(); // Enable Sleep
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  sleep_cpu();  // Sleep until WDT fires (turn off CPU)
+
+  // Execution resumes here after waking up
+  sleep_disable(); // Disable Sleep
+  Serial.flush();
+  Serial.println("W");
 
   // Disable interrupts
   cli();
@@ -105,6 +126,7 @@ void send_data(){
   // Unconditional state transition, go to charge state
   system_state_variable = CHARGE_FSM;
   
+  /*
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(generator_voltage, 2);
 
@@ -113,15 +135,13 @@ void send_data(){
 
   // Send generator current with 2 decimal places accuracy, and a newline
   Serial.println(generator_current, 2);
+  */
   
-  /*
   Serial.print(generator_voltage, 2);
   Serial.print(" ");
   Serial.print(generator_voltage_sum);
   Serial.print(" ");
   Serial.println(timer_ISR_counter);
-  */
-
 }
 
 
