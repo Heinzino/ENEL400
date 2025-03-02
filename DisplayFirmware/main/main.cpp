@@ -78,4 +78,20 @@ void setup()
 extern "C" void app_main()
 {
     setup();
+
+    while(1){
+
+        readUART2(&voltage, &current);
+        update_ui();
+
+        // voltage += 0.1;
+        // if(voltage >= 3.3){
+        // voltage = 0;
+        // }
+
+        // updateNTPTime();
+        // updateSDLog(); 
+
+        lv_timer_handler();
+    }
 }
