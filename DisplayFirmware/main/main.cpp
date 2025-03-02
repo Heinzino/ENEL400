@@ -1,8 +1,8 @@
 #include "main.hpp"
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
-float voltage, current;
-
+float voltage,current;
+SemaphoreHandle_t uart_data_ready_semaphore;
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -25,41 +25,6 @@ void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color
   lv_disp_flush_ready(disp); // Tell LVGL that flushing is done
 }
 
-void update_ui()
-{
-    static float last_voltage = -1, last_current = -1, last_power = -1;
-    float power = voltage * current;
-
-    if (fabs(voltage - last_voltage) > 0.02)
-    {
-        static char voltage_str[16];
-        snprintf(voltage_str, sizeof(voltage_str), "%.2f V", voltage);
-        lv_label_set_text(ui_Label6, voltage_str);
-        last_voltage = voltage;
-    }
-
-    if (fabs(current - last_current) > 0.02)
-    {
-        static char current_str[16];
-        snprintf(current_str, sizeof(current_str), "%.2f A", current);
-        lv_label_set_text(ui_Label5, current_str);
-        last_current = current;
-    }
-
-    if (fabs(power - last_power) > 0.02)
-    {
-        static char power_str[16];
-        snprintf(power_str, sizeof(power_str), "%.2f W", power);
-        lv_label_set_text(ui_Label1, power_str);
-        last_power = power;
-    }
-
-    lv_arc_set_value(ui_Arc3, (int)(voltage * 100 / 3.3));
-    lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / 5.0));
-    lv_arc_set_value(ui_Arc2, (int)(power * 100 / (3.3 * 5.0)));
-
-    lv_refr_now(NULL);
-}
 
 void setup()
 {
@@ -71,6 +36,18 @@ void setup()
     pinMode(TFT_SCREEN_LED, OUTPUT);
     digitalWrite(TFT_SCREEN_LED, HIGH);
 
+    uart_data_ready_semaphore = xSemaphoreCreateBinary();
+    if (uart_data_ready_semaphore == NULL) {
+        Serial.println("Failed to create semaphore!");
+    }
+
+    uartQueue = xQueueCreate(QUEUE_LENGTH, sizeof(uart_event_t));
+    if(uartQueue == NULL){
+        Serial.println("Failed to create queue");
+    }
+
+    xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 3, NULL);
+    xTaskCreate(displayTask, "display_task", 2048, NULL, 10, NULL);
 
     // WiFiSetup();
     // initSDLog(); TODO: Make sure you configure HSPI, VSPI in menuconfig
@@ -101,20 +78,4 @@ void setup()
 extern "C" void app_main()
 {
     setup();
-
-    while(1){
-
-        readUART2(&voltage, &current);
-        update_ui();
-
-        voltage += 0.1;
-        if(voltage >= 3.3){
-        voltage = 0;
-        }
-
-        // updateNTPTime();
-        // updateSDLog(); 
-
-        lv_timer_handler();
-    }
 }
