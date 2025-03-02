@@ -107,10 +107,10 @@ extern "C" void app_main()
         readUART2(&voltage, &current);
         update_ui();
 
-        voltage += 0.1;
-        if(voltage >= 3.3){
-        voltage = 0;
-        }
+        // voltage += 0.1;
+        // if(voltage >= 3.3){
+        // voltage = 0;
+        // }
 
         // updateNTPTime();
         // updateSDLog(); 
