@@ -74,25 +74,22 @@ void system_sleep(){
     timer_ISR_counter = 0;
   }
 
-  // Enable interrupts
+  // Enable interrupts during sleep
   sei();
 
   Serial.println("S");
-  // Handle putting the Arduino in Idle mode
-  //set_sleep_mode(SLEEP_MODE_IDLE);
-  //sleep_enable();
-  //sleep_mode();
-
   Serial.flush();
-  Serial.println("S");
+
+  // Enter Sleep
   sleep_enable(); // Enable Sleep
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   sleep_cpu();  // Sleep until WDT fires (turn off CPU)
 
-  // Execution resumes here after waking up
+  // Exit Sleep
   sleep_disable(); // Disable Sleep
-  Serial.flush();
+
   Serial.println("W");
+  Serial.flush();
 
   // Disable interrupts
   cli();
@@ -126,7 +123,6 @@ void send_data(){
   // Unconditional state transition, go to charge state
   system_state_variable = CHARGE_FSM;
   
-  /*
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(generator_voltage, 2);
 
@@ -135,13 +131,15 @@ void send_data(){
 
   // Send generator current with 2 decimal places accuracy, and a newline
   Serial.println(generator_current, 2);
-  */
   
+  /*
   Serial.print(generator_voltage, 2);
   Serial.print(" ");
   Serial.print(generator_voltage_sum);
   Serial.print(" ");
   Serial.println(timer_ISR_counter);
+  Serial.flush();
+  */
 }
 
 
