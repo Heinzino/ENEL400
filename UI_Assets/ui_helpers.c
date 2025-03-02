@@ -3,7 +3,7 @@
 // LVGL version: 8.3.11
 // Project name: SquareLine_Project
 
-#include "UI/ui_helpers.h"
+#include "ui_helpers.h"
 
 void _ui_bar_set_property(lv_obj_t * target, int id, int val)
 {
@@ -343,3 +343,5 @@ void _ui_switch_theme(int val)
     ui_theme_set(val);
 #endif
 }
+
+

@@ -1,6 +1,6 @@
 #include "displayTask.hpp"
 
-void update_ui()
+void updateScreen1()
 {
     static float last_voltage = -1, last_current = -1, last_power = -1;
     float power = voltage * current;
@@ -38,6 +38,13 @@ void update_ui()
     lv_refr_now(NULL);
 }
 
+
+void updateScreen2(){
+    lv_scr_load(ui_Screen2);
+    lv_refr_now(NULL);
+    lv_label_set_text(ui_LEVELVAL,"10");
+}
+
 void displayTask(void *pvParameters)
 {
 
@@ -47,7 +54,8 @@ void displayTask(void *pvParameters)
         {
             Serial.println("Updating UI");
             digitalWrite(TFT_SCREEN_LED, HIGH);
-            update_ui();
+            // updateScreen1();
+            updateScreen2();
         }
         else
         {

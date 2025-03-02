@@ -22,8 +22,8 @@ extern "C" {
 #include "lvgl.h"
 #endif
 
-#include "UI/ui_helpers.h"
-#include "UI/ui_events.h"
+#include "ui_helpers.h"
+#include "ui_events.h"
 
 // SCREEN: ui_Screen1
 void ui_Screen1_screen_init(void);

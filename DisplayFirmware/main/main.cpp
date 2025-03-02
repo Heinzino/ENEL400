@@ -71,7 +71,7 @@ void setup()
     lv_disp_drv_register(&disp_drv);   // Register the driver
 
     ui_init();
-    update_ui();
+    updateScreen1();
     Serial.println("Initialzed Screen");
 
     xTaskCreate(uart_event_task, "uart_event_task", 4096, NULL, 11, NULL);
