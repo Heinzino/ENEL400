@@ -125,26 +125,32 @@ void get_data(){
 
 
 /*---------------------------------------Send Sensor Data----------------------------------------*/
+
+float sanitizeFloat(float value) {
+    //Avoid <= to avoid unexpected floating-point behavior.
+    return (value < 0.00) ? 0.00 : value; 
+}
+
 void send_data(){
 
   // Unconditional state transition, go to set difficulty state
   system_state_variable = SET_DIFFICULTY;
   
   // Send generator voltage with 2 decimal places accuracy
-  Serial.print(generator_voltage, 2);
+  Serial.print(sanitizeFloat(generator_voltage) , 2);
 
   // Send a space seperator
   Serial.print(" ");
 
   // Send generator current with 2 decimal places accuracy, and a newline
-  Serial.println(generator_current, 2);
+  Serial.println(sanitizeFloat(generator_current) , 2);
 
   //Serial.print(generator_current, 2);
   //Serial.print(" ");
   //Serial.println(dump_load_difficulty);
   
   Serial.flush();
-  
+
 }
 
 
