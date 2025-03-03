@@ -3,42 +3,48 @@
 
 /*--------------------------------READ UNSIGNED 8 BIT FROM SERIAL--------------------------------*/
 // Read UART buffer to obtain the speed setting integer
-uint8_t read_serial_int(){
+uint8_t read_serial_int() {
+  Serial.println("Reading");
+  Serial.flush();
+  static uint8_t last_valid_value = 0; // Holds the last successfully read value
+  static char buffer[4];  // Buffer for up to 3 digits + null terminator
+  static uint8_t index = 0;  // Buffer index
 
-  // Initialize the return buffer array with null characters
-  uint8_t int_read_array[3] = {0, 0, 0};
+  // Return the last valid value if there's no new serial data
+  if (!Serial.available()) {
+    Serial.println("No new Data");
+    Serial.flush();
+    return last_valid_value;
+  }
 
-  // Iterate through and grab each valid character
-  for(uint8_t chars_read = 0; chars_read < 4; chars_read++){
-
-    // Read the current character
+  while (Serial.available()) {
     char current_char = Serial.read();
 
-    // Check whether or not the character is a digit (0-9)
-    if((current_char >= 48) && (current_char <= 57)){
+    // If newline (`\n`) or carriage return (`\r`) is received, process the number
+    if (current_char == '\n' || current_char == '\r') {
+      buffer[index] = '\0';  // Null-terminate the string
+      uint16_t int_value = atoi(buffer); // Convert to integer
 
-      // Convert the char to its digit and add to the array
-      int_read_array[chars_read] = current_char - 48;
+      // Validate range
+      last_valid_value = (int_value <= 255) ? (uint8_t)int_value : 128;
+
+      // Reset buffer for next number
+      index = 0;
+      Serial.print("Received ");
+      Serial.println(last_valid_value);
+      Serial.flush();
+      return last_valid_value;
     }
-    else{
 
-      // Break the loop
-      break;
+    // Only store numeric characters ('0' to '9')
+    if (current_char >= '0' && current_char <= '9') {
+      if (index < 3) {  // Prevent buffer overflow
+        buffer[index++] = current_char;
+      }
     }
   }
 
-  // Sum all the values read into one number (ideally between 0 - 255)
-  uint16_t int_value = int_read_array[0] * 100 + int_read_array[1] * 10 + int_read_array[2];
-
-  // If value is greater than 255 (data corrupted)
-  if (int_value > 255){
-
-    // Set int_value to 128
-    int_value = 128;
-  }
-
-  // Return the value cast as an unsigned 8 bit number
-  return (uint8_t) int_value;
+  return last_valid_value;  // Return last valid value if no complete number received
 }
 
 #endif

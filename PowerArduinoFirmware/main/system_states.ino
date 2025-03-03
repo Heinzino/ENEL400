@@ -37,15 +37,18 @@ void system_init(){
   // Set analog reference to AVDD
   analogReference(DEFAULT);
 
-  // Set up timer 1, which handles sampling rate and automatic sleep mode
-  //setupTimer1();
-
+  // Setup the watchdog timer, but turn it off initially
   setup_WDT();
-
   disableWDT();
 
+  // Turn on generator MOSFET to allow current flow
+  digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
+
+  // Set PWM frequency to 1kHz (using Timer 2)
+  TCCR2B = TCCR2B & B11111000 | 0x03;
+
   // Unconditional transition, go to system sleep state
-  system_state_variable = SYSTEM_SLEEP;
+  system_state_variable = SYSTEM_SLEEP; 
 }
 
 
@@ -77,9 +80,6 @@ void system_sleep(){
   // Enable interrupts during sleep
   sei();
 
-  Serial.println("S");
-  Serial.flush();
-
   // Enter Sleep
   sleep_enable(); // Enable Sleep
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
@@ -87,9 +87,6 @@ void system_sleep(){
 
   // Exit Sleep
   sleep_disable(); // Disable Sleep
-
-  Serial.println("W");
-  Serial.flush();
 
   // Disable interrupts
   cli();
@@ -108,6 +105,16 @@ void get_data(){
   generator_current = measure_generator_current();
   generator_power = generator_voltage * generator_current;
 
+  if (generator_voltage >= 40){
+    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+  }
+  //else if (generator_voltage <= 2){
+  //  digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+  //}
+  else{
+    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
+  }
+
   // Get battery voltage
   battery_voltage = measure_battery_voltage();
 
@@ -120,8 +127,8 @@ void get_data(){
 /*---------------------------------------Send Sensor Data----------------------------------------*/
 void send_data(){
 
-  // Unconditional state transition, go to charge state
-  system_state_variable = CHARGE_FSM;
+  // Unconditional state transition, go to set difficulty state
+  system_state_variable = SET_DIFFICULTY;
   
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(generator_voltage, 2);
@@ -130,16 +137,14 @@ void send_data(){
   Serial.print(" ");
 
   // Send generator current with 2 decimal places accuracy, and a newline
-  Serial.println(generator_current, 2);
+  //Serial.println(generator_current, 2);
+
+  Serial.print(generator_current, 2);
+  Serial.print(" ");
+  Serial.println(dump_load_difficulty);
   
-  /*
-  Serial.print(generator_voltage, 2);
-  Serial.print(" ");
-  Serial.print(generator_voltage_sum);
-  Serial.print(" ");
-  Serial.println(timer_ISR_counter);
   Serial.flush();
-  */
+  
 }
 
 
@@ -147,6 +152,15 @@ void send_data(){
 /*-------------------------------------Set Bike Difficulty---------------------------------------*/
 void set_difficulty(){
 
+  // Unconditional state transition, go to charge fsm state
+  system_state_variable = CHARGE_FSM;
+
+  uint8_t read_value = read_serial_int();
+
+  dump_load_difficulty = ((uint8_t) ((uint16_t)read_value * 6) / 10) + 102;
+
+  analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
+  analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
 }
 
 

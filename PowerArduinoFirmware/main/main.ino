@@ -13,8 +13,8 @@
 #define GENERATOR_MOSFET_PIN  3
 #define CHARGING_MOSFET_PIN   5
 #define DUMP_LOAD_MOSFET_1    6  
-#define INVERTER_MOSFET       10 
-#define DUMP_LOAD_MOSFET_2    11 
+#define DUMP_LOAD_MOSFET_2    10
+#define INVERTER_MOSFET       11
 #define TEMP_DUMP_LOAD_1      A0
 #define BATTERY_VOLTAGE_PIN   A1
 #define GENERATOR_VOLTAGE_PIN A2
@@ -69,8 +69,12 @@ float battery_voltage;
 // Variable to hold load current
 float load_current;
 
-// Variable to hold enclosure temperature
-float enclosure_temperature;
+// Variable to hold dump load temperatures
+float dump_load_1_temperature;
+float dump_load_2_temperature;
+
+// Variable to hold current system difficulty setting
+uint8_t dump_load_difficulty = 128;
 
 // FSM State Variables
 // Make these volatile as they are changed in an ISR
