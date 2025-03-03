@@ -137,11 +137,11 @@ void send_data(){
   Serial.print(" ");
 
   // Send generator current with 2 decimal places accuracy, and a newline
-  //Serial.println(generator_current, 2);
+  Serial.println(generator_current, 2);
 
-  Serial.print(generator_current, 2);
-  Serial.print(" ");
-  Serial.println(dump_load_difficulty);
+  //Serial.print(generator_current, 2);
+  //Serial.print(" ");
+  //Serial.println(dump_load_difficulty);
   
   Serial.flush();
   
@@ -155,9 +155,9 @@ void set_difficulty(){
   // Unconditional state transition, go to charge fsm state
   system_state_variable = CHARGE_FSM;
 
-  uint8_t read_value = read_serial_int();
+  //uint8_t read_value = read_serial_int();
 
-  dump_load_difficulty = ((uint8_t) ((uint16_t)read_value * 6) / 10) + 102;
+  //dump_load_difficulty = ((uint16_t)read_value * 6) / 10 + 102;
 
   analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
   analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
