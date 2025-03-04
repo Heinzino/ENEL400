@@ -40,9 +40,10 @@ void updateScreen1()
 
 
 void updateScreen2(){
+    ScreenManager& screenManager = ScreenManager::getInstance();
     lv_scr_load(ui_Screen2);
     lv_refr_now(NULL);
-    lv_label_set_text(ui_LEVELVAL,"10");
+    lv_label_set_text(ui_LEVELVAL,screenManager.resistanceLevelToString());
 }
 
 void displayTask(void *pvParameters)

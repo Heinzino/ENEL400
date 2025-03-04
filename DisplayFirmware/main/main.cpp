@@ -51,6 +51,7 @@ void setup()
     // WiFiSetup();
     // initSDLog(); TODO: Make sure you configure HSPI, VSPI in menuconfig
 
+    buttonSetup();
 
     tftDisplay.begin();
     tftDisplay.setRotation(1);
