@@ -53,7 +53,7 @@ void setup()
 
 
     tftDisplay.begin();
-    tftDisplay.setRotation(1);
+    tftDisplay.setRotation(3);
 
     setupUART2();
 
