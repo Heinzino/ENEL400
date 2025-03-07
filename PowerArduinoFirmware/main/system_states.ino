@@ -49,6 +49,10 @@ void system_init(){
 
   // Unconditional transition, go to system sleep state
   system_state_variable = SYSTEM_SLEEP; 
+
+  analogWrite(DUMP_LOAD_MOSFET_1, 255);
+  analogWrite(DUMP_LOAD_MOSFET_2, 255);
+
 }
 
 
@@ -56,11 +60,11 @@ void system_init(){
 /*--------------------------------------System Sleep (Idle)--------------------------------------*/
 void system_sleep(){
   
-  // If the timer ISR has been called 250 times or more times (30 seconds has passed)
-  if (timer_ISR_counter >= 250){
+  // If the timer ISR has been called 100 times or more times (~10 seconds has passed)
+  if (timer_ISR_counter >= 100){
 
-    // If the average generator voltage for the past 30 seconds is less than 2 Volts (rounded down)
-    if ((generator_voltage_sum / 250) < 2){
+    // If the average generator voltage for the past ~10 seconds is less than 2 Volts (rounded down)
+    if ((generator_voltage_sum / 100) < 2){
 
       // Set the in program state variable to false, to reflect that the system will
       // go to sleep until started by a higher generator voltage later
@@ -68,6 +72,9 @@ void system_sleep(){
 
       // Turn off Timer 1 before entering "deep sleep"
       disableWDT();
+    }
+    else{
+      enableWDT();
     }
 
     // Reset the generator voltage sum variable
@@ -80,16 +87,26 @@ void system_sleep(){
   // Enable interrupts during sleep
   sei();
 
+  while (!wdtFired){
+    set_sleep_mode(SLEEP_MODE_IDLE);
+    sleep_enable();
+    sleep_cpu();
+    sleep_disable();
+  }
+
+  wdtFired = false;
+
+  // Disable interrupts after sleep
+  cli();
+
   // Enter Sleep
-  sleep_enable(); // Enable Sleep
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  sleep_cpu();  // Sleep until WDT fires (turn off CPU)
+  //sleep_enable(); // Enable Sleep
+  //set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  //sleep_cpu();  // Sleep until WDT fires (turn off CPU)
 
   // Exit Sleep
-  sleep_disable(); // Disable Sleep
+  //sleep_disable(); // Disable Sleep
 
-  // Disable interrupts
-  cli();
 }
 
 
@@ -103,14 +120,10 @@ void get_data(){
   // Get generator voltage and current measurements, multiply to get power;
   generator_voltage = measure_generator_voltage();
   generator_current = measure_generator_current();
-  generator_power = generator_voltage * generator_current;
 
   if (generator_voltage >= 40){
     digitalWrite(GENERATOR_MOSFET_PIN, LOW);
   }
-  //else if (generator_voltage <= 2){
-  //  digitalWrite(GENERATOR_MOSFET_PIN, LOW);
-  //}
   else{
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
   }
@@ -128,7 +141,8 @@ void get_data(){
 void send_data(){
 
   // Unconditional state transition, go to set difficulty state
-  system_state_variable = SET_DIFFICULTY;
+  //system_state_variable = SET_DIFFICULTY;
+  system_state_variable = CHARGE_FSM;
   
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(generator_voltage, 2);
@@ -138,13 +152,13 @@ void send_data(){
 
   // Send generator current with 2 decimal places accuracy, and a newline
   Serial.println(generator_current, 2);
+  //Serial.print(generator_voltage_sum);
 
-  //Serial.print(generator_current, 2);
   //Serial.print(" ");
-  //Serial.println(dump_load_difficulty);
+
+  //Serial.println(timer_ISR_counter);
   
   Serial.flush();
-  
 }
 
 
@@ -155,9 +169,10 @@ void set_difficulty(){
   // Unconditional state transition, go to charge fsm state
   system_state_variable = CHARGE_FSM;
 
-  //uint8_t read_value = read_serial_int();
+  uint8_t read_value = read_serial_int();
 
   //dump_load_difficulty = ((uint16_t)read_value * 6) / 10 + 102;
+  dump_load_difficulty = read_value * 28;
 
   analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
   analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);

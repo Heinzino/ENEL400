@@ -3,6 +3,7 @@
 
 /*--------------------------------READ UNSIGNED 8 BIT FROM SERIAL--------------------------------*/
 // Read UART buffer to obtain the speed setting integer
+/*
 uint8_t read_serial_int() {
   static uint8_t last_valid_value = 0;  // Holds the last successfully read value
   static char buffer[4];  // Buffer for up to 3 digits + null terminator
@@ -36,6 +37,24 @@ uint8_t read_serial_int() {
   }
 
   return last_valid_value;  // Return last valid value if no complete number received
+}*/
+
+uint8_t read_serial_int() {
+  static uint8_t last_valid_value = 0;
+
+  // Check if new data is available
+  if (Serial.available()) {
+    char current_char = Serial.read(); // Read one character
+
+    // Ensure it's a valid digit ('0' to '9')
+    if (current_char >= '0' && current_char <= '9') {
+      last_valid_value = current_char - '0'; // Convert ASCII to integer
+      Serial.print("Received ");
+      Serial.println(last_valid_value);
+    }
+  }
+
+  return last_valid_value; // Return last valid value if no new data
 }
 
 #endif
