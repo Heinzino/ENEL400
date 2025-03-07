@@ -54,7 +54,7 @@ void setup()
     buttonSetup();
 
     tftDisplay.begin();
-    tftDisplay.setRotation(1);
+    tftDisplay.setRotation(3);
 
     setupUART2();
 

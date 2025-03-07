@@ -6,11 +6,19 @@ void digital_input_ISR(){
 
   // Change the in_program_state variable to reflect that the system is starting up and will run
   in_program_state = true;
+
+  // Restart Timer 1 to interrupt every 100ms
+  enableWDT();
 }
+ 
 
 
-/*------------------------------------------Timer 1 ISR------------------------------------------*/
-ISR(TIMER1_COMPA_vect) {
+/*-------------------------------------Watch Dog Timer ISR---------------------------------------*/
+// Watchdog Timer ISR
+ISR(WDT_vect) {
+
+  // The WDT has fired
+  wdtFired = true;
 
   // If the program is running (not in a sleep mode)
   if (in_program_state){
