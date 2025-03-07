@@ -2,14 +2,15 @@
 #define ISR_INO
 
 /*---------------------------------------Digital Input ISR---------------------------------------*/
-void digital_input_ISR(){
+//void digital_input_ISR(){
 
   // Change the in_program_state variable to reflect that the system is starting up and will run
-  in_program_state = true;
+  //in_program_state = true;
 
   // Restart Timer 1 to interrupt every 100ms
-  enableWDT();
-}
+  //wdt_reset();
+  //enableWDT();
+//}
  
 
 
@@ -20,6 +21,7 @@ ISR(WDT_vect) {
   // The WDT has fired
   wdtFired = true;
 
+  
   // If the program is running (not in a sleep mode)
   if (in_program_state){
 
@@ -28,11 +30,12 @@ ISR(WDT_vect) {
     system_state_variable = SEND_DATA;
 
     // Add the current generator voltage to the sum
-    generator_voltage_sum += generator_voltage;
+    //generator_voltage_sum += generator_voltage;
 
     // Increment the counter (to go off after 60 seconds)
-    timer_ISR_counter++;
+    //timer_ISR_counter++;
   }
+  
 }
 
 #endif

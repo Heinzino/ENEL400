@@ -16,43 +16,6 @@ float measure_generator_voltage(){
   return generator_volts;
 }
 
-#if 0
-float measure_generator_voltage(){
-
-  // Keep a static variable with the last valid measurement
-  static float last_valid_measurement = 0;
-
-  float calibrated_value = 21.55; // Uncalibrated value: 20.46
-
-  // Grab first generator voltage measurement and convert to volts (from binary), maps 1023 to 50V
-  uint16_t digital_generator_voltage_1 = analogRead(GENERATOR_VOLTAGE_PIN);
-  float generator_volts_1 = digital_generator_voltage_1 / calibrated_value;
-
-  // Grab second generator voltage measurement and convert to volts (from binary), maps 1023 to 50V
-  uint16_t digital_generator_voltage_2 = analogRead(GENERATOR_VOLTAGE_PIN);
-  float generator_volts_2 = digital_generator_voltage_2 / calibrated_value;
-
-  // Check if there is a substantial difference between the second measurement and the last valid measurement
-  float valid_measure_2_dif = last_valid_measurement - generator_volts_2;
-  if (valid_measure_2_dif > 5.0 || valid_measure_2_dif < -5.0){
-
-    // Check if there is a substantial difference between the first measurement and the last valid measurement
-    float valid_measure_1_dif = last_valid_measurement - generator_volts_1;
-    if (valid_measure_1_dif > 5.0 || valid_measure_1_dif < -5.0){
-      return last_valid_measurement;
-    }
-    else{
-      last_valid_measurement = generator_volts_1;
-      return generator_volts_1;
-    }
-  }
-  else{
-    last_valid_measurement = generator_volts_2;
-    return generator_volts_2;
-  }
-}
-#endif
-
 
 
 /*------------------------------------Measure Battery Voltage------------------------------------*/

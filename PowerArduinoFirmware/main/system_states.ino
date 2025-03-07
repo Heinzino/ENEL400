@@ -23,7 +23,7 @@ void system_init(){
   pinMode(BATTERY_CURRENT_PIN, INPUT);
 
   // Attach Digital pin 2 to the hardware digital input interrupt, rising edge triggered
-  attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), digital_input_ISR, RISING);
+  //attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), digital_input_ISR, RISING);
 
   // Calibrate the generator current sensor
   ACS_generator.autoMidPoint();
@@ -39,7 +39,7 @@ void system_init(){
 
   // Setup the watchdog timer, but turn it off initially
   setup_WDT();
-  disableWDT();
+  enableWDT();
 
   // Turn on generator MOSFET to allow current flow
   digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
@@ -60,6 +60,7 @@ void system_init(){
 /*--------------------------------------System Sleep (Idle)--------------------------------------*/
 void system_sleep(){
   
+  /*
   // If the timer ISR has been called 100 times or more times (~10 seconds has passed)
   if (timer_ISR_counter >= 100){
 
@@ -83,6 +84,7 @@ void system_sleep(){
     // Reset the ISR call counter
     timer_ISR_counter = 0;
   }
+  */
 
   // Enable interrupts during sleep
   sei();
@@ -98,15 +100,6 @@ void system_sleep(){
 
   // Disable interrupts after sleep
   cli();
-
-  // Enter Sleep
-  //sleep_enable(); // Enable Sleep
-  //set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  //sleep_cpu();  // Sleep until WDT fires (turn off CPU)
-
-  // Exit Sleep
-  //sleep_disable(); // Disable Sleep
-
 }
 
 
@@ -171,8 +164,8 @@ void set_difficulty(){
 
   uint8_t read_value = read_serial_int();
 
-  //dump_load_difficulty = ((uint16_t)read_value * 6) / 10 + 102;
-  dump_load_difficulty = read_value * 28;
+  dump_load_difficulty = ((uint16_t)read_value * 168) / 10 + 102;
+  //dump_load_difficulty = read_value * 28;
 
   analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
   analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
