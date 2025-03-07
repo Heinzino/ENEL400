@@ -29,6 +29,7 @@ void updateScreen1()
         last_power = power;
     }
 
+    lv_scr_load(ui_Screen1);
     lv_arc_set_value(ui_Arc3, (int)(voltage * 100 / MAX_VOLTAGE));
     lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / MAX_CURRENT));
     lv_arc_set_value(ui_Arc2, (int)(power * 100 / (MAX_POWER)));
@@ -51,12 +52,12 @@ void displayTask(void *pvParameters)
 
     while (1)
     {
-        if (xSemaphoreTake(uart_data_ready_semaphore, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) == pdTRUE)
+        if (xSemaphoreTake(uart_data_ready_semaphore, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) == pdTRUE
+    || true )
         {
             Serial.println("Updating UI");
             digitalWrite(TFT_SCREEN_LED, HIGH);
-            // updateScreen1();
-            updateScreen2();
+            ScreenManager::getInstance().display();
         }
         else
         {

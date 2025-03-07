@@ -36,3 +36,15 @@ char* ScreenManager::resistanceLevelToString(){
     sprintf(buffer, "%u", bikerResistanceLevel);
     return buffer;
 }
+
+void ScreenManager::display(){
+    Serial.printf("\n Screen Number : %d \n", screenNumber);
+    switch(static_cast<ScreenTitles>(screenNumber)){
+        case POWER_DISPLAY:
+            updateScreen1();
+            break;
+        case RESISTANCE_LEVEL:
+            updateScreen2();
+            break;
+    }
+}

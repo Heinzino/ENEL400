@@ -1,5 +1,6 @@
 #pragma once
 
+#include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/queue.h"
 #include "screenManager.hpp"

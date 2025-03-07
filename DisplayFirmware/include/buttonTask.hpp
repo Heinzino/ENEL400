@@ -3,6 +3,9 @@
 #include "pins.hpp"
 #include "taskSync.hpp"
 #include <Arduino.h>
+#include "screenManager.hpp"
+
+class ScreenManager; // Forward declaration, used to avoid circular dependancies , clean later
 
 #define SHORT_PRESS_TIME_MS 100 // 1000 milliseconds
 #define LONG_PRESS_TIME 5000     // 1000 milliseconds

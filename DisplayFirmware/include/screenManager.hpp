@@ -2,10 +2,14 @@
 
 #include <stdint.h>
 #include <cstdio> //for sprintf
+#include "taskSync.hpp"
+#include "displayTask.hpp"
 
 class ScreenManager {
 public:
     static ScreenManager& getInstance(); // Singleton accessor
+
+    void display();
 
     uint8_t getScreenNumber();
     void toggleScreen();
