@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "ctime": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "C:/Users/heinz/OneDrive/Desktop/Repo/ENEL400/DisplayFirmware/managed_components/espressif__esp_modem/port/linux/esp_system_protocols_linux"
 }
