@@ -24,7 +24,8 @@ ISR(WDT_vect) {
   if (in_program_state){
 
     // Make sure the next state we enter is the get_data state
-    system_state_variable = GET_DATA;
+    //system_state_variable = GET_DATA;
+    system_state_variable = SEND_DATA;
 
     // Add the current generator voltage to the sum
     generator_voltage_sum += generator_voltage;

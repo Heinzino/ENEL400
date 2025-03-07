@@ -3,8 +3,8 @@
 
 /*-----------------------------------Measure Generator Voltage-----------------------------------*/
 // Function to measure generator voltage
-float measure_generator_voltage(){
 
+float measure_generator_voltage(){
   // Measure the generator voltage putput from the ADC 
   uint16_t digital_generator_voltage = analogRead(GENERATOR_VOLTAGE_PIN);
 
@@ -15,6 +15,43 @@ float measure_generator_voltage(){
   // Return the value 
   return generator_volts;
 }
+
+#if 0
+float measure_generator_voltage(){
+
+  // Keep a static variable with the last valid measurement
+  static float last_valid_measurement = 0;
+
+  float calibrated_value = 21.55; // Uncalibrated value: 20.46
+
+  // Grab first generator voltage measurement and convert to volts (from binary), maps 1023 to 50V
+  uint16_t digital_generator_voltage_1 = analogRead(GENERATOR_VOLTAGE_PIN);
+  float generator_volts_1 = digital_generator_voltage_1 / calibrated_value;
+
+  // Grab second generator voltage measurement and convert to volts (from binary), maps 1023 to 50V
+  uint16_t digital_generator_voltage_2 = analogRead(GENERATOR_VOLTAGE_PIN);
+  float generator_volts_2 = digital_generator_voltage_2 / calibrated_value;
+
+  // Check if there is a substantial difference between the second measurement and the last valid measurement
+  float valid_measure_2_dif = last_valid_measurement - generator_volts_2;
+  if (valid_measure_2_dif > 5.0 || valid_measure_2_dif < -5.0){
+
+    // Check if there is a substantial difference between the first measurement and the last valid measurement
+    float valid_measure_1_dif = last_valid_measurement - generator_volts_1;
+    if (valid_measure_1_dif > 5.0 || valid_measure_1_dif < -5.0){
+      return last_valid_measurement;
+    }
+    else{
+      last_valid_measurement = generator_volts_1;
+      return generator_volts_1;
+    }
+  }
+  else{
+    last_valid_measurement = generator_volts_2;
+    return generator_volts_2;
+  }
+}
+#endif
 
 
 
@@ -54,10 +91,10 @@ float measure_generator_current(){
 
 /*-------------------------------------Measure Load Current--------------------------------------*/
 // Function to measure load current
-float measure_load_current(){
+float measure_battery_current(){
 
   // Measure the load current, average 10 samples and return value in mA
-  int load_current_mA = ACS_load.mA_DC(10);
+  int load_current_mA = ACS_battery.mA_DC(10);
 
   // Convert the value in mA to A
   float calibrated_value = -1035.3; // Uncalibrated value: -1000.0

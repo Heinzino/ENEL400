@@ -20,7 +20,7 @@ void system_init(){
   pinMode(GENERATOR_VOLTAGE_PIN, INPUT);
   pinMode(TEMP_DUMP_LOAD_2, INPUT);
   pinMode(GENERATOR_CURRENT_PIN, INPUT);
-  pinMode(LOAD_CURRENT_PIN, INPUT);
+  pinMode(BATTERY_CURRENT_PIN, INPUT);
 
   // Attach Digital pin 2 to the hardware digital input interrupt, rising edge triggered
   attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), digital_input_ISR, RISING);
@@ -29,7 +29,7 @@ void system_init(){
   ACS_generator.autoMidPoint();
 
   // Calibrate the load current sensor
-  ACS_load.autoMidPoint();
+  ACS_battery.autoMidPoint();
 
   // Begin the serial at 9600 baud
   Serial.begin(9600);
@@ -50,9 +50,9 @@ void system_init(){
   // Unconditional transition, go to system sleep state
   system_state_variable = SYSTEM_SLEEP; 
 
+  // Write initial high load to prevent current spikes
   analogWrite(DUMP_LOAD_MOSFET_1, 255);
   analogWrite(DUMP_LOAD_MOSFET_2, 255);
-
 }
 
 
@@ -115,9 +115,10 @@ void system_sleep(){
 void get_data(){
 
   // Unconditional state transition, go to send data state
-  system_state_variable = SEND_DATA;
+  system_state_variable = SET_DIFFICULTY;
+  //system_state_variable = SEND_DATA;
   
-  // Get generator voltage and current measurements, multiply to get power;
+  // Get generator voltage and current
   generator_voltage = measure_generator_voltage();
   generator_current = measure_generator_current();
 
@@ -128,11 +129,9 @@ void get_data(){
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
   }
 
-  // Get battery voltage
+  // Get battery voltage and current
   battery_voltage = measure_battery_voltage();
-
-  // Get load current
-  load_current = measure_load_current();
+  battery_current = measure_battery_current();
 }
 
 
@@ -142,7 +141,8 @@ void send_data(){
 
   // Unconditional state transition, go to set difficulty state
   //system_state_variable = SET_DIFFICULTY;
-  system_state_variable = CHARGE_FSM;
+  //system_state_variable = CHARGE_FSM;
+  system_state_variable = GET_DATA;
   
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(generator_voltage, 2);
