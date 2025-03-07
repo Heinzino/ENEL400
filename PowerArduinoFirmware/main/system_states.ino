@@ -44,6 +44,9 @@ void system_init(){
   // Turn on generator MOSFET to allow current flow
   digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
 
+  // Turn inverter MOSFET to allow load to be used
+  digitalWrite(INVERTER_MOSFET, HIGH);
+
   // Set PWM frequency to 1kHz (using Timer 2)
   TCCR2B = TCCR2B & B11111000 | 0x03;
 
