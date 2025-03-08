@@ -3,8 +3,8 @@
 
 /*-----------------------------------Measure Generator Voltage-----------------------------------*/
 // Function to measure generator voltage
-float measure_generator_voltage(){
 
+float measure_generator_voltage(){
   // Measure the generator voltage putput from the ADC 
   uint16_t digital_generator_voltage = analogRead(GENERATOR_VOLTAGE_PIN);
 
@@ -54,10 +54,10 @@ float measure_generator_current(){
 
 /*-------------------------------------Measure Load Current--------------------------------------*/
 // Function to measure load current
-float measure_load_current(){
+float measure_battery_current(){
 
   // Measure the load current, average 10 samples and return value in mA
-  int load_current_mA = ACS_load.mA_DC(10);
+  int load_current_mA = ACS_battery.mA_DC(10);
 
   // Convert the value in mA to A
   float calibrated_value = -1035.3; // Uncalibrated value: -1000.0

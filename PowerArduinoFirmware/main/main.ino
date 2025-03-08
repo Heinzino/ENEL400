@@ -20,7 +20,7 @@
 #define GENERATOR_VOLTAGE_PIN A2
 #define TEMP_DUMP_LOAD_2      A3
 #define GENERATOR_CURRENT_PIN A6
-#define LOAD_CURRENT_PIN      A7
+#define BATTERY_CURRENT_PIN   A7
 
 
 
@@ -47,7 +47,7 @@
 ACS712  ACS_generator(GENERATOR_CURRENT_PIN, 5.0, 1023, 66);
 
 // Declare ACS712 20A sensor object to measure load current. 5V, 1023 steps, 100mV/A
-ACS712  ACS_load(LOAD_CURRENT_PIN, 5.0, 1023, 100);
+ACS712  ACS_battery(BATTERY_CURRENT_PIN, 5.0, 1023, 100);
 
 // Declare LM35 temperature sensor object to measure dump load 1 temperature (2C-150C, 10mV/C)
 LM35 dump_load_1_temp(TEMP_DUMP_LOAD_1);
@@ -67,7 +67,7 @@ float generator_power;
 float battery_voltage;
 
 // Variable to hold load current
-float load_current;
+float battery_current;
 
 // Variable to hold dump load temperatures
 float dump_load_1_temperature;
@@ -83,7 +83,7 @@ volatile uint8_t charge_state_variable = DISCHARGE;
 
 // Variables to handle system sleep mode (within the timer ISR, therefore volatile)
 volatile uint16_t timer_ISR_counter = 0;
-volatile bool in_program_state = false;
+volatile bool in_program_state = true;
 volatile uint16_t generator_voltage_sum = 0;
 
 // Used by the WDT to determine whether or not it has been fired (ISR)
