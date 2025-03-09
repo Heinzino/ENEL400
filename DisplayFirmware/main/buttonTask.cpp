@@ -7,20 +7,21 @@ Button buttons[4] = {{BTN1, LOW, LOW, 0, 0},
 
 void IRAM_ATTR buttonISRHandler(void *arg)
 {
+    //TODO: Decouple ISR and checking button release, panic when two button released at the exact same time
     LOG(LOG_LEVEL_TRACE, "IN BUTTON ISR");
     Button *btn = (Button *)arg;
     int state = digitalRead(btn->pin);
 
     if (state == LOW)
     { // Button Pressed
-        btn->pressedTime = millis();
+        btn->pressedTime = esp_timer_get_time();
     }
     else
     { // Button Released
-        btn->releasedTime = millis();
+        btn->releasedTime = esp_timer_get_time();
         long pressDuration = btn->releasedTime - btn->pressedTime;
 
-        if (pressDuration >= SHORT_PRESS_TIME_MS)
+        if (pressDuration >= SHORT_PRESS_TIME_US)
         {
             // Notify a task to handle the event
             LOG(LOG_LEVEL_TRACE, "Notify Button Task From ISR");
@@ -89,6 +90,7 @@ void handleResistanceLevelButtons(ButtonID btn, ScreenManager &screenManager)
         break;
     }
     screenManager.display(); // Real time display
+    sendResistanceLevelUART2(3);
 }
 
 void handlePowerDisplayButtons(ButtonID btn, ScreenManager &screenManager)

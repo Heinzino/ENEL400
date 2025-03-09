@@ -13,6 +13,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "taskSync.hpp"
+#include "screenManager.hpp"
 
 #define UART_NUM UART_NUM_2
 #define BUF_SIZE (1024)
@@ -24,6 +25,7 @@
 
 void setupUART2();
 void readUART2();
+void sendResistanceLevelUART2(uint8_t numRepeats);
 void uart_event_task(void *pvParameters);
 
 

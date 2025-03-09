@@ -1,26 +1,25 @@
 #include "uart.hpp"
 
-
 void uart_event_task(void *pvParameters)
 {
     uart_event_t event;
 
-    LOG(LOG_LEVEL_DEBUG,"In UART EVENT TASK");
+    LOG(LOG_LEVEL_DEBUG, "In UART EVENT TASK");
     while (1)
     {
 
         if (xQueueReceive(uartQueue, (void *)&event, (TickType_t)portMAX_DELAY))
         {
-            LOG(LOG_LEVEL_DEBUG,"Recieved a UART EVENT");
+            LOG(LOG_LEVEL_DEBUG, "Recieved a UART EVENT");
             switch (event.type)
             {
             case UART_DATA:
-                LOG(LOG_LEVEL_DEBUG,"UART DATA Event");
+                LOG(LOG_LEVEL_DEBUG, "UART DATA Event");
                 readUART2();
                 xTaskNotifyGive(displayTaskHandle);
                 break;
             default:
-                LOG(LOG_LEVEL_DEBUG,"NOT UART DATA Event");
+                LOG(LOG_LEVEL_DEBUG, "NOT UART DATA Event");
                 break;
             }
         }
@@ -82,5 +81,17 @@ void readUART2()
         {
             Serial.println("Failed to parse voltage");
         }
+    }
+}
+
+void sendResistanceLevelUART2(uint8_t numRepeats)
+{
+    ScreenManager &screenManager = ScreenManager::getInstance();
+    uint8_t resistanceLevel = screenManager.getResistanceLevel();
+
+    for (int i = 0; i < numRepeats; ++i)
+    {
+        //Send raw byte
+        uart_write_bytes(UART_NUM, (const char*)& resistanceLevel, 1);
     }
 }
