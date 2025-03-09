@@ -13,7 +13,8 @@
         "cstdlib": "cpp",
         "cstdint": "cpp",
         "string": "cpp",
-        "screenmanager.hpp": "c"
+        "screenmanager.hpp": "c",
+        "regex": "cpp"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

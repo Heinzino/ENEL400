@@ -25,5 +25,4 @@
 void setupUART2();
 void readUART2();
 void uart_event_task(void *pvParameters);
-
-
+String cleanUARTData(const char *data);
