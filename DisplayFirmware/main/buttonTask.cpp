@@ -7,26 +7,9 @@ Button buttons[4] = {{BTN1, LOW, LOW, 0, 0},
 
 void IRAM_ATTR buttonISRHandler(void *arg)
 {
-    LOG(LOG_LEVEL_TRACE, "IN BUTTON ISR");
     Button *btn = (Button *)arg;
-    int state = digitalRead(btn->pin);
-
-    if (state == LOW)
-    { // Button Pressed
-        btn->pressedTime = millis();
-    }
-    else
-    { // Button Released
-        btn->releasedTime = millis();
-        long pressDuration = btn->releasedTime - btn->pressedTime;
-
-        if (pressDuration >= SHORT_PRESS_TIME_MS)
-        {
-            // Notify a task to handle the event
-            LOG(LOG_LEVEL_TRACE, "Notify Button Task From ISR");
-            xTaskNotifyFromISR(buttonTaskHandle, (1 << btn->pin), eSetBits, NULL);
-        }
-    }
+    // Notify button task about the button pin that triggered the ISR
+    xTaskNotifyFromISR(buttonTaskHandle, (1 << btn->pin), eSetBits, NULL);
 }
 
 void buttonSetup()
@@ -48,25 +31,47 @@ void buttonTask(void *pvParameters)
         LOG(LOG_LEVEL_DEBUG, "ENTERED Button Task");
         if (xTaskNotifyWait(0, ULONG_MAX, &notifiedValue, portMAX_DELAY) == pdTRUE)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; ++i)
             {
-                if (notifiedValue & (1 << buttons[i].pin)) // If the ISR notified this button
+                if (notifiedValue & (1 << buttons[i].pin))
                 {
-                    LOG(LOG_LEVEL_DEBUG, "BTN" + String(i+1) + " short press detected");
+                    // Update button states directly in the struct
+                    buttons[i].lastState = buttons[i].currentState;
+                    buttons[i].currentState = digitalRead(buttons[i].pin);
 
-                    switch (screenManager.getScreenNumber())
-                    {
-                    case POWER_DISPLAY:
-                        handlePowerDisplayButtons(static_cast<ButtonID>(i), screenManager);
-                        break;
+                    if (buttons[i].currentState == LOW && buttons[i].lastState == HIGH)
+                    { 
+                        // Button Pressed
+                        buttons[i].pressedTime = millis();
+                    }
+                    else if (buttons[i].currentState == HIGH && buttons[i].lastState == LOW)
+                    { 
+                        // Button Released
+                        buttons[i].releasedTime = millis();
+                        long pressDuration = buttons[i].releasedTime - buttons[i].pressedTime;
 
-                    case RESISTANCE_LEVEL:
-                        handleResistanceLevelButtons(static_cast<ButtonID>(i), screenManager);
-                        break;
+                        if (pressDuration >= SHORT_PRESS_TIME_MS)
+                        {
+                            LOG(LOG_LEVEL_DEBUG, "BTN" + String(i + 1) + " short press detected");
+                            
+                            switch (screenManager.getScreenNumber())
+                            {
+                            case POWER_DISPLAY:
+                                handlePowerDisplayButtons(static_cast<ButtonID>(i), screenManager);
+                                break;
+
+                            case RESISTANCE_LEVEL:
+                                handleResistanceLevelButtons(static_cast<ButtonID>(i), screenManager);
+                                break;
+                            }
+
+                            // Notify display task only if a short press was detected
+                            screenManager.display();
+                            xTaskNotifyGive(displayTaskHandle);
+                        }
                     }
                 }
             }
-            xTaskNotifyGive(displayTaskHandle);
         }
     }
 }

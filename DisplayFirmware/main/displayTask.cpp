@@ -42,6 +42,7 @@ void updateScreen2()
 {
     ScreenManager &screenManager = ScreenManager::getInstance();
     lv_refr_now(NULL);
+    lv_task_handler();
     LOG(LOG_LEVEL_TRACE, "Current Resistance Level: " + String(screenManager.resistanceLevelToString()));
     lv_label_set_text(ui_LEVELVAL, screenManager.resistanceLevelToString());
 }

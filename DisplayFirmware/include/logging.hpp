@@ -10,7 +10,7 @@
 #define LOG_LEVEL_NONE  0  // Disable logging
 
 // Set your log level here (change this to control verbosity)
-#define LOG_LEVEL LOG_LEVEL_TRACE
+#define LOG_LEVEL LOG_LEVEL_DEBUG
 
 #define LOG(level, msg) \
     do { \

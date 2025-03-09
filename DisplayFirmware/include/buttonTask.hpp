@@ -31,7 +31,7 @@ enum ButtonID
 extern Button buttons[4];
 extern TaskHandle_t buttonTaskHandle;
 
-void IRAM_ATTR buttonISRHandler(void *arg);
+void buttonISRHandler(void *arg);
 void buttonSetup();
 void buttonTask(void *pvParameters);
 
