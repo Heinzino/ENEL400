@@ -5,23 +5,22 @@ void uart_event_task(void *pvParameters)
 {
     uart_event_t event;
 
-    Serial.println("In UART EVENT TASK");
+    LOG(LOG_LEVEL_DEBUG,"In UART EVENT TASK");
     while (1)
     {
 
         if (xQueueReceive(uartQueue, (void *)&event, (TickType_t)portMAX_DELAY))
         {
-            Serial.println("Recieved a UART EVENT");
-
+            LOG(LOG_LEVEL_DEBUG,"Recieved a UART EVENT");
             switch (event.type)
             {
             case UART_DATA:
-                Serial.println("UART DATA Event");
+                LOG(LOG_LEVEL_DEBUG,"UART DATA Event");
                 readUART2();
-                xSemaphoreGive(uart_data_ready_semaphore);
+                xTaskNotifyGive(displayTaskHandle);
                 break;
             default:
-                Serial.println("NOT UART DATA Event");
+                LOG(LOG_LEVEL_DEBUG,"NOT UART DATA Event");
                 break;
             }
         }

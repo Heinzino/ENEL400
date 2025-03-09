@@ -1,6 +1,6 @@
 #include "displayTask.hpp"
 
-void update_ui()
+void updateScreen1()
 {
     static float last_voltage = -1, last_current = -1, last_power = -1;
     float power = voltage * current;
@@ -38,20 +38,37 @@ void update_ui()
     lv_refr_now(NULL);
 }
 
+void updateScreen2()
+{
+    ScreenManager &screenManager = ScreenManager::getInstance();
+    lv_refr_now(NULL);
+    LOG(LOG_LEVEL_TRACE, "Current Resistance Level: " + String(screenManager.resistanceLevelToString()));
+    lv_label_set_text(ui_LEVELVAL, screenManager.resistanceLevelToString());
+}
+
 void displayTask(void *pvParameters)
 {
-
     while (1)
     {
-        if (xSemaphoreTake(uart_data_ready_semaphore, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) == pdTRUE)
+        ScreenManager &screenManager = ScreenManager::getInstance();
+        if (ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) > 0)
         {
-            Serial.println("Updating UI");
+            if (!screenManager.isScreenOn())
+            {
+                screenManager.updateScreenState(ScreenState::ON);
+            }
+            LOG(LOG_LEVEL_DEBUG, "Updating UI");
             digitalWrite(TFT_SCREEN_LED, HIGH);
-            update_ui();
+            screenManager.display();
         }
         else
         {
-            digitalWrite(TFT_SCREEN_LED, LOW);
+            if (screenManager.isScreenOn())
+            {
+                LOG(LOG_LEVEL_DEBUG, "Turning Screen OFF");
+                screenManager.updateScreenState(ScreenState::OFF);
+                digitalWrite(TFT_SCREEN_LED, LOW);
+            }
         }
 
         vTaskDelay(pdMS_TO_TICKS(10));

@@ -9,5 +9,6 @@ const float MAX_VOLTAGE = 40.0;
 const float MAX_CURRENT = 20.0;
 const float MAX_POWER   = MAX_VOLTAGE * MAX_CURRENT;
 
-void update_ui();
+void updateScreen1();
+void updateScreen2();
 void displayTask(void* pvParameters);
