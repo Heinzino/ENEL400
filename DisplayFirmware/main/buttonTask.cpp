@@ -45,6 +45,7 @@ void buttonTask(void *pvParameters)
     {
         if (xTaskNotifyWait(0, ULONG_MAX, &notifiedValue, portMAX_DELAY) == pdTRUE)
         {
+            xTaskNotifyGive(displayTaskHandle);
             for (int i = 0; i < 4; i++)
             {
                 if (notifiedValue & (1 << buttons[i].pin)) // If the ISR notified this button
@@ -74,6 +75,7 @@ void handleResistanceLevelButtons(ButtonID btn, ScreenManager &screenManager)
     switch (btn)
     {
     case SHIFT_HRZN_BTN:
+        lv_scr_load(ui_Screen1);
         screenManager.toggleScreen();
         break;
     case FN1_BTN:
@@ -93,6 +95,7 @@ void handlePowerDisplayButtons(ButtonID btn, ScreenManager &screenManager)
     switch (btn)
     {
     case SHIFT_HRZN_BTN:
+        lv_scr_load(ui_Screen2);
         screenManager.toggleScreen();
         break;
     default:

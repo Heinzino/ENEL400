@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logging.hpp"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/queue.h"
@@ -12,4 +13,4 @@ enum ScreenTitles{
 
 extern float voltage, current;
 extern QueueHandle_t uartQueue;
-extern SemaphoreHandle_t uart_data_ready_semaphore;
+extern TaskHandle_t displayTaskHandle;

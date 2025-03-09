@@ -29,7 +29,6 @@ void updateScreen1()
         last_power = power;
     }
 
-    lv_scr_load(ui_Screen1);
     lv_arc_set_value(ui_Arc3, (int)(voltage * 100 / MAX_VOLTAGE));
     lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / MAX_CURRENT));
     lv_arc_set_value(ui_Arc2, (int)(power * 100 / (MAX_POWER)));
@@ -42,25 +41,23 @@ void updateScreen1()
 
 void updateScreen2(){
     ScreenManager& screenManager = ScreenManager::getInstance();
-    lv_scr_load(ui_Screen2);
     lv_refr_now(NULL);
     lv_label_set_text(ui_LEVELVAL,screenManager.resistanceLevelToString());
 }
 
 void displayTask(void *pvParameters)
 {
-
     while (1)
     {
-        if (xSemaphoreTake(uart_data_ready_semaphore, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) == pdTRUE
-    || true )
+        if (ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) > 0 )
         {
-            Serial.println("Updating UI");
+            LOG(LOG_LEVEL_DEBUG, "Updating UI");
             digitalWrite(TFT_SCREEN_LED, HIGH);
             ScreenManager::getInstance().display();
         }
         else
         {
+            LOG(LOG_LEVEL_DEBUG, "Turning Screen OFF");
             digitalWrite(TFT_SCREEN_LED, LOW);
         }
 

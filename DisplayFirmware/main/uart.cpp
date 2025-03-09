@@ -18,7 +18,7 @@ void uart_event_task(void *pvParameters)
             case UART_DATA:
                 Serial.println("UART DATA Event");
                 readUART2();
-                xSemaphoreGive(uart_data_ready_semaphore);
+                xTaskNotifyGive(displayTaskHandle);
                 break;
             default:
                 Serial.println("NOT UART DATA Event");

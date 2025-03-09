@@ -2,9 +2,9 @@
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 float voltage, current;
-SemaphoreHandle_t uart_data_ready_semaphore;
 QueueHandle_t uartQueue;
 TaskHandle_t buttonTaskHandle;
+TaskHandle_t displayTaskHandle;
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -36,12 +36,6 @@ void setup()
   Serial.begin(115200);
   pinMode(TFT_SCREEN_LED, OUTPUT);
   digitalWrite(TFT_SCREEN_LED, HIGH);
-
-  uart_data_ready_semaphore = xSemaphoreCreateBinary();
-  if (uart_data_ready_semaphore == NULL)
-  {
-    Serial.println("Failed to create semaphore!");
-  }
 
   uartQueue = xQueueCreate(QUEUE_LENGTH, sizeof(uart_event_t));
   if (uartQueue == NULL)
@@ -77,8 +71,8 @@ void setup()
   Serial.println("Initialzed Screen");
 
   xTaskCreate(uart_event_task, "uart_event_task", 4096, NULL, 12, NULL);
-  xTaskCreate(displayTask, "display_task", 4096, NULL, 10, NULL);
-  xTaskCreate(buttonTask, "ButtonTask", 4096, NULL, 1, &buttonTaskHandle);
+  xTaskCreate(displayTask, "display_task", 4096, NULL, 10, &displayTaskHandle);
+  xTaskCreate(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle);
 }
 
 extern "C" void app_main()
