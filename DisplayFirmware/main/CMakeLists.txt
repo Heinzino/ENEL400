@@ -4,7 +4,7 @@ idf_component_register(
          "uart.cpp"
          "UI/ui.c"
          "UI/ui_Screen1.c"
-         "UI/ui_Screen2.c"
+         "UI/ui_Screen2.cpp"
          "buttonTask.cpp"
     INCLUDE_DIRS "../include/"
 )

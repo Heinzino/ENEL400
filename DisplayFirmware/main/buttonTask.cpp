@@ -7,6 +7,7 @@ Button buttons[4] = {{BTN1, LOW, LOW, 0, 0},
 
 void IRAM_ATTR buttonISRHandler(void *arg)
 {
+    LOG(LOG_LEVEL_TRACE, "IN BUTTON ISR");
     Button *btn = (Button *)arg;
     int state = digitalRead(btn->pin);
 
@@ -22,6 +23,7 @@ void IRAM_ATTR buttonISRHandler(void *arg)
         if (pressDuration >= SHORT_PRESS_TIME_MS)
         {
             // Notify a task to handle the event
+            LOG(LOG_LEVEL_TRACE, "Notify Button Task From ISR");
             xTaskNotifyFromISR(buttonTaskHandle, (1 << btn->pin), eSetBits, NULL);
         }
     }
@@ -43,16 +45,14 @@ void buttonTask(void *pvParameters)
 
     while (true)
     {
+        LOG(LOG_LEVEL_DEBUG, "ENTERED Button Task");
         if (xTaskNotifyWait(0, ULONG_MAX, &notifiedValue, portMAX_DELAY) == pdTRUE)
         {
-            xTaskNotifyGive(displayTaskHandle);
             for (int i = 0; i < 4; i++)
             {
                 if (notifiedValue & (1 << buttons[i].pin)) // If the ISR notified this button
                 {
-                    Serial.print("BTN");
-                    Serial.print(i + 1);
-                    Serial.println(" short press detected");
+                    LOG(LOG_LEVEL_DEBUG, "BTN" + String(i+1) + " short press detected");
 
                     switch (screenManager.getScreenNumber())
                     {
@@ -66,6 +66,7 @@ void buttonTask(void *pvParameters)
                     }
                 }
             }
+            xTaskNotifyGive(displayTaskHandle);
         }
     }
 }

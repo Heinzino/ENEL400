@@ -38,7 +38,7 @@ char* ScreenManager::resistanceLevelToString(){
 }
 
 void ScreenManager::display(){
-    Serial.printf("\n Screen Number : %d \n", screenNumber);
+    LOG(LOG_LEVEL_DEBUG, "Screen Number: " + String(screenNumber) +" \n");
     switch(static_cast<ScreenTitles>(screenNumber)){
         case POWER_DISPLAY:
             updateScreen1();
@@ -47,4 +47,12 @@ void ScreenManager::display(){
             updateScreen2();
             break;
     }
+}
+
+void ScreenManager::updateScreenState(ScreenState state){
+    screenState = state;    
+}
+
+bool ScreenManager::isScreenOn(){
+    return screenState == ScreenState::ON;
 }

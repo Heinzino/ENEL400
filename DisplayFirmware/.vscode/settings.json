@@ -12,7 +12,8 @@
         "lv_conf.h": "c",
         "cstdlib": "cpp",
         "cstdint": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "screenmanager.hpp": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

@@ -49,16 +49,23 @@ void displayTask(void *pvParameters)
 {
     while (1)
     {
+        ScreenManager& screenManager = ScreenManager::getInstance();
         if (ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) > 0 )
         {
+            if(!screenManager.isScreenOn()){
+                screenManager.updateScreenState(ScreenState::ON);
+            }
             LOG(LOG_LEVEL_DEBUG, "Updating UI");
             digitalWrite(TFT_SCREEN_LED, HIGH);
-            ScreenManager::getInstance().display();
+            screenManager.display();
         }
         else
         {
-            LOG(LOG_LEVEL_DEBUG, "Turning Screen OFF");
-            digitalWrite(TFT_SCREEN_LED, LOW);
+            if(screenManager.isScreenOn()){
+                LOG(LOG_LEVEL_DEBUG, "Turning Screen OFF");
+                screenManager.updateScreenState(ScreenState::OFF);
+                digitalWrite(TFT_SCREEN_LED, LOW);
+            }
         }
 
         vTaskDelay(pdMS_TO_TICKS(10));
