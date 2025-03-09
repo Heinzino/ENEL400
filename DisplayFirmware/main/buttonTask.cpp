@@ -83,12 +83,12 @@ void handleResistanceLevelButtons(ButtonID btn, ScreenManager &screenManager)
         screenManager.incrementResistance();
         break;
     case FN2_BTN:
-        if (screenManager.getScreenNumber() == RESISTANCE_LEVEL)
-            screenManager.decrementResistance();
+        screenManager.decrementResistance();
         break;
     default:
         break;
     }
+    screenManager.display(); // Real time display
 }
 
 void handlePowerDisplayButtons(ButtonID btn, ScreenManager &screenManager)

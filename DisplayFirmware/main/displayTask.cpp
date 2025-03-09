@@ -38,21 +38,23 @@ void updateScreen1()
     lv_refr_now(NULL);
 }
 
-
-void updateScreen2(){
-    ScreenManager& screenManager = ScreenManager::getInstance();
+void updateScreen2()
+{
+    ScreenManager &screenManager = ScreenManager::getInstance();
     lv_refr_now(NULL);
-    lv_label_set_text(ui_LEVELVAL,screenManager.resistanceLevelToString());
+    LOG(LOG_LEVEL_TRACE, "Current Resistance Level: " + String(screenManager.resistanceLevelToString()));
+    lv_label_set_text(ui_LEVELVAL, screenManager.resistanceLevelToString());
 }
 
 void displayTask(void *pvParameters)
 {
     while (1)
     {
-        ScreenManager& screenManager = ScreenManager::getInstance();
-        if (ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) > 0 )
+        ScreenManager &screenManager = ScreenManager::getInstance();
+        if (ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) > 0)
         {
-            if(!screenManager.isScreenOn()){
+            if (!screenManager.isScreenOn())
+            {
                 screenManager.updateScreenState(ScreenState::ON);
             }
             LOG(LOG_LEVEL_DEBUG, "Updating UI");
@@ -61,7 +63,8 @@ void displayTask(void *pvParameters)
         }
         else
         {
-            if(screenManager.isScreenOn()){
+            if (screenManager.isScreenOn())
+            {
                 LOG(LOG_LEVEL_DEBUG, "Turning Screen OFF");
                 screenManager.updateScreenState(ScreenState::OFF);
                 digitalWrite(TFT_SCREEN_LED, LOW);
