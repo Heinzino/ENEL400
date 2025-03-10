@@ -1,5 +1,18 @@
 #include "displayTask.hpp"
 
+// Safe refresh function with throttling
+void safeLvglRefresh(unsigned long minIntervalMs)
+{
+    static unsigned long lastRefreshTime = 0;
+    unsigned long currentTime = millis();
+
+    if (currentTime - lastRefreshTime > minIntervalMs)
+    {
+        lv_refr_now(NULL);  // Force immediate screen update
+        lastRefreshTime = currentTime;
+    }
+}
+
 void updateScreen1()
 {
     static float last_voltage = -1, last_current = -1, last_power = -1;
@@ -35,13 +48,13 @@ void updateScreen1()
 
     lv_timer_handler();
     lv_task_handler();
-    lv_refr_now(NULL);
+    safeLvglRefresh();
 }
 
 void updateScreen2()
 {
     ScreenManager &screenManager = ScreenManager::getInstance();
-    lv_refr_now(NULL);
+    safeLvglRefresh();
     lv_task_handler();
     LOG(LOG_LEVEL_TRACE, "Current Resistance Level: " + String(screenManager.resistanceLevelToString()));
     lv_label_set_text(ui_LEVELVAL, screenManager.resistanceLevelToString());
