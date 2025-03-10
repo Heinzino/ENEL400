@@ -17,7 +17,8 @@ void uart_event_task(void *pvParameters)
             case UART_DATA:
                 LOG(LOG_LEVEL_DEBUG,"UART DATA Event");
                 readUART2();
-                xTaskNotifyGive(displayTaskHandle);
+                xTaskNotify(displayTaskHandle, (1 << 1), eSetBits);
+                // xTaskNotifyGive(displayTaskHandle);
                 break;
             default:
                 LOG(LOG_LEVEL_DEBUG,"NOT UART DATA Event");
@@ -90,11 +91,8 @@ void readUART2() {
                     current = atof(token);  // Convert the current to a float
 
                     // Log the parsed values
-                    Serial.print("Updated Voltage: ");
-                    Serial.print(voltage);
-                    Serial.print(" V, Current: ");
-                    Serial.print(current);
-                    Serial.println(" A");
+                    LOG(LOG_LEVEL_TRACE, "Updated Voltage : " + String(voltage) + " V,");
+                    LOG(LOG_LEVEL_TRACE, " Current: " + String(current) + " A\n");
                 } else {
                     Serial.println("Failed to parse current");
                 }

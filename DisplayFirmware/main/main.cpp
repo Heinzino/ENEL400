@@ -70,9 +70,12 @@ void setup()
   updateScreen1();
   Serial.println("Initialzed Screen");
 
-  xTaskCreate(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL);
-  xTaskCreate(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle);
-  xTaskCreate(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle);
+  xTaskCreatePinnedToCore(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle, 0);
+  xTaskCreatePinnedToCore(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle, 1);
+  xTaskCreatePinnedToCore(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL, 1);
+  // xTaskCreate(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL);
+  // xTaskCreate(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle);
+  // xTaskCreate(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle);
 }
 
 extern "C" void app_main()
