@@ -61,7 +61,6 @@ void updateScreen2()
 
 void updateScreenSetup()
 {
-    LOG(LOG_LEVEL_DEBUG, "Updating UI");
     digitalWrite(TFT_SCREEN_LED, HIGH);
     lv_timer_handler();
     lv_task_handler();
@@ -75,6 +74,7 @@ void displayTask(void *pvParameters)
         uint32_t notifiedValue;
         if (xTaskNotifyWait(0, ULONG_MAX, &notifiedValue, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) == pdTRUE)
         {
+            bool shouldUpdateDisplay = true;
             if (notifiedValue & (1 << 0))
             {
                 LOG(LOG_LEVEL_DEBUG, "Button Task Triggered Display");
@@ -82,6 +82,9 @@ void displayTask(void *pvParameters)
             }
             if (notifiedValue & (1 << 1))
             {
+                if(screenManager.getScreenNumber() == RESISTANCE_LEVEL){
+                    shouldUpdateDisplay = false;
+                }
                 LOG(LOG_LEVEL_DEBUG, "UART Task Triggered Display");
             }
 
@@ -90,7 +93,10 @@ void displayTask(void *pvParameters)
                 screenManager.updateScreenState(ScreenState::ON);
             }
             updateScreenSetup();
-            screenManager.display();
+            if(shouldUpdateDisplay){
+                LOG(LOG_LEVEL_DEBUG, "Updating UI");
+                screenManager.display();
+            }
         }
         else
         {

@@ -73,6 +73,7 @@ void readUART2() {
     uint8_t data[BUF_SIZE];
     int len = uart_read_bytes(UART_NUM, data, BUF_SIZE - 1, READ_UART_DELAY_MS / portTICK_PERIOD_MS);
 
+    //TODO: Handle case where first message is clean if data is sent at a slower rate
     if (len > 0) {
         data[len] = '\0'; // Null-terminate the received data
         LOG(LOG_LEVEL_TRACE, String("Received UART Data: ") + (char *)data + '\n');
@@ -112,7 +113,7 @@ void sendResistanceLevelUART2(uint8_t numRepeats)
     {
         char asciiDigit = '0' + resistanceLevel;
         //Send raw byte
-        LOG(LOG_LEVEL_DEBUG,"SENT LEVEL TO ARDUINO");
+        LOG(LOG_LEVEL_TRACE,"SENT LEVEL TO ARDUINO");
         uart_write_bytes(UART_NUM, &asciiDigit, 1);
         uart_wait_tx_done(UART_NUM, pdMS_TO_TICKS(2));// Wait for transmission to complete
     }
