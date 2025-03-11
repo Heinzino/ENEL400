@@ -5,7 +5,7 @@ const float currentScale = 5.0 / 1023.0; // Scaling factor for 5A
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);
+  Serial.begin(9600);
 
 }
 
@@ -22,5 +22,5 @@ void loop() {
     Serial.print(" ");        // Add a space separator
     Serial.println(current, 2); // Send current and newline
 
-    delay(20);
+    delay(120);
 }
