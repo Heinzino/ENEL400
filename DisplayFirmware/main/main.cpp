@@ -5,6 +5,7 @@ float voltage, current;
 QueueHandle_t uartQueue;
 TaskHandle_t buttonTaskHandle;
 TaskHandle_t displayTaskHandle;
+SemaphoreHandle_t lvglMutex = NULL; 
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -42,6 +43,9 @@ void setup()
   {
     Serial.println("Failed to create queue");
   }
+
+  lvglMutex = xSemaphoreCreateMutex();
+
 
   // WiFiSetup();
   // initSDLog(); TODO: Make sure you configure HSPI, VSPI in menuconfig

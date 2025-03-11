@@ -82,7 +82,8 @@ void displayTask(void *pvParameters)
             }
             if (notifiedValue & (1 << 1))
             {
-                if(screenManager.getScreenNumber() == RESISTANCE_LEVEL){
+                if (screenManager.getScreenNumber() == RESISTANCE_LEVEL)
+                {
                     shouldUpdateDisplay = false;
                 }
                 LOG(LOG_LEVEL_DEBUG, "UART Task Triggered Display");
@@ -93,7 +94,9 @@ void displayTask(void *pvParameters)
                 screenManager.updateScreenState(ScreenState::ON);
             }
             updateScreenSetup();
-            if(shouldUpdateDisplay){
+            if (shouldUpdateDisplay)
+            {
+                ScreenManager::getInstance().display(); // Access LVGL safely
                 LOG(LOG_LEVEL_DEBUG, "Updating UI");
                 screenManager.display();
             }
@@ -108,6 +111,6 @@ void displayTask(void *pvParameters)
             }
         }
 
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(50));
     }
 }

@@ -47,59 +47,41 @@ void setupUART2()
     Serial.print("UART2 setup complete");
 }
 
-String cleanUARTData(const char* data) {
-    String dataStr = String(data);  // Convert the char* data to a String
-    int firstLineEnd = dataStr.indexOf('\n');  // Find the first newline character
-
-    if (firstLineEnd != -1) {
-        // Skip the first line by removing everything up to and including the first newline
-        dataStr = dataStr.substring(firstLineEnd + 1);
-    }
-
-    // Now find the first voltage current pair
-    int spacePos = dataStr.indexOf(' ');  // Find the space between the voltage and current
-
-    if (spacePos != -1) {
-        // Extract the voltage and current pair
-        String voltage = dataStr.substring(0, spacePos);
-        String current = dataStr.substring(spacePos + 1, dataStr.indexOf('\n')); // Get current until next newline
-        return voltage + " " + current;  // Return the voltage and current as a string
-    }
-
-    return "";  // Return an empty string if no valid pair is found
-}
-
-void readUART2() {
+void readUART2()
+{
     uint8_t data[BUF_SIZE];
     int len = uart_read_bytes(UART_NUM, data, BUF_SIZE - 1, READ_UART_DELAY_MS / portTICK_PERIOD_MS);
 
-    //TODO: Handle case where first message is clean if data is sent at a slower rate
-    if (len > 0) {
+    if (len > 0)
+    {
         data[len] = '\0'; // Null-terminate the received data
-        LOG(LOG_LEVEL_TRACE, String("Received UART Data: ") + (char *)data + '\n');
 
-        // Clean the UART data by extracting the first valid "voltage current" pair
-        String cleanedData = cleanUARTData((char *)data);
+        // Split the received string into voltage and current using space as delimiter
+        char *token = strtok((char *)data, " ");
+        if (token != NULL)
+        {
+            voltage = atof(token); // Update the voltage pointer value
 
-        if (cleanedData != "") {
-            // Split the cleaned data by space to get voltage and current
-            char *token = strtok((char *)cleanedData.c_str(), " ");
-            if (token != NULL) {
-                voltage = atof(token);  // Convert the voltage to a float
+            token = strtok(NULL, "\n");
+            if (token != NULL)
+            {
+                current = atof(token); // Update the current pointer value
 
-                token = strtok(NULL, "\n");
-                if (token != NULL) {
-                    current = atof(token);  // Convert the current to a float
-
-                    // Log the parsed values
-                    LOG(LOG_LEVEL_TRACE, "Updated Voltage : " + String(voltage) + " V,");
-                    LOG(LOG_LEVEL_TRACE, " Current: " + String(current) + " A\n");
-                } else {
-                    Serial.println("Failed to parse current");
-                }
+                // Log the parsed values with Serial.print
+                Serial.print("Updated Voltage: ");
+                Serial.print(voltage);
+                Serial.print(" V, Current: ");
+                Serial.print(current);
+                Serial.println(" A");
             }
-        } else {
-            Serial.println("No valid data found");
+            else
+            {
+                Serial.println("Failed to parse current");
+            }
+        }
+        else
+        {
+            Serial.println("Failed to parse voltage");
         }
     }
 }
