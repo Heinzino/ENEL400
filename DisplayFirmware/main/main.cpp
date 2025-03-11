@@ -5,6 +5,7 @@ float voltage, current;
 QueueHandle_t uartQueue;
 TaskHandle_t buttonTaskHandle;
 TaskHandle_t displayTaskHandle;
+SemaphoreHandle_t lvglMutex = NULL; 
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -43,6 +44,9 @@ void setup()
     Serial.println("Failed to create queue");
   }
 
+  lvglMutex = xSemaphoreCreateMutex();
+
+
   // WiFiSetup();
   // initSDLog(); TODO: Make sure you configure HSPI, VSPI in menuconfig
 
@@ -70,9 +74,12 @@ void setup()
   updateScreen1();
   Serial.println("Initialzed Screen");
 
-  xTaskCreate(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL);
-  xTaskCreate(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle);
-  xTaskCreate(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle);
+  xTaskCreatePinnedToCore(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle, 0);
+  xTaskCreatePinnedToCore(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle, 1);
+  xTaskCreatePinnedToCore(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL, 1);
+  // xTaskCreate(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL);
+  // xTaskCreate(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle);
+  // xTaskCreate(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle);
 }
 
 extern "C" void app_main()

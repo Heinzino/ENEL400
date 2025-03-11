@@ -38,14 +38,18 @@ char* ScreenManager::resistanceLevelToString(){
 }
 
 void ScreenManager::display(){
-    LOG(LOG_LEVEL_DEBUG, "Screen Number: " + String(screenNumber) +" \n");
-    switch(static_cast<ScreenTitles>(screenNumber)){
-        case POWER_DISPLAY:
-            updateScreen1();
-            break;
-        case RESISTANCE_LEVEL:
-            updateScreen2();
-            break;
+    if (xSemaphoreTake(lvglMutex, pdMS_TO_TICKS(100)) == pdTRUE)
+    {
+        LOG(LOG_LEVEL_DEBUG, "Screen Number: " + String(screenNumber) + " \n");
+        switch(static_cast<ScreenTitles>(screenNumber)){
+            case POWER_DISPLAY:
+                updateScreen1();
+                break;
+            case RESISTANCE_LEVEL:
+                updateScreen2();
+                break;
+        }
+        xSemaphoreGive(lvglMutex);  // Release the mutex after done
     }
 }
 
