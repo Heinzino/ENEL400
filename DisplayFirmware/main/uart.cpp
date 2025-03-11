@@ -55,6 +55,7 @@ void readUART2()
     if (len > 0)
     {
         data[len] = '\0'; // Null-terminate the received data
+        LOG(LOG_LEVEL_TRACE, String("Received UART Data: ") + (char *)data + '\n');
 
         // Split the received string into voltage and current using space as delimiter
         char *token = strtok((char *)data, " ");

@@ -5,6 +5,8 @@ Button buttons[4] = {{BTN1, LOW, LOW, 0, 0},
                      {BTN3, LOW, LOW, 0, 0},
                      {BTN4, LOW, LOW, 0, 0}};
 
+static portMUX_TYPE screenSwitchMux = portMUX_INITIALIZER_UNLOCKED;
+
 void IRAM_ATTR buttonISRHandler(void *arg)
 {
     Button *btn = (Button *)arg;
@@ -83,8 +85,15 @@ void handleResistanceLevelButtons(ButtonID btn, ScreenManager &screenManager)
     switch (btn)
     {
     case SHIFT_HRZN_BTN:
+        uart_disable_rx_intr(UART_NUM);
+        delay(UART_INTR_TIMEOUT_MS);
+        portENTER_CRITICAL(&screenSwitchMux);
+
         lv_scr_load(ui_Screen1);
         screenManager.toggleScreen();
+
+        portEXIT_CRITICAL(&screenSwitchMux);
+        uart_enable_rx_intr(UART_NUM);
         break;
     case FN1_BTN:
         screenManager.incrementResistance();
@@ -103,8 +112,15 @@ void handlePowerDisplayButtons(ButtonID btn, ScreenManager &screenManager)
     switch (btn)
     {
     case SHIFT_HRZN_BTN:
+        uart_disable_rx_intr(UART_NUM);
+        delay(UART_INTR_TIMEOUT_MS);
+        portENTER_CRITICAL(&screenSwitchMux);
+
         lv_scr_load(ui_Screen2);
         screenManager.toggleScreen();
+
+        portEXIT_CRITICAL(&screenSwitchMux);
+        uart_enable_rx_intr(UART_NUM);
         break;
     default:
         break;
