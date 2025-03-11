@@ -15,7 +15,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_width(ui_Label2, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label2, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label2, 4);
-    lv_obj_set_y(ui_Label2, 0);
+    lv_obj_set_y(ui_Label2, -52);
     lv_obj_set_align(ui_Label2, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label2, "POWER");
     lv_obj_set_style_text_font(ui_Label2, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -58,7 +58,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_width(ui_Arc2, 100);
     lv_obj_set_height(ui_Arc2, 103);
     lv_obj_set_x(ui_Arc2, 4);
-    lv_obj_set_y(ui_Arc2, 86);
+    lv_obj_set_y(ui_Arc2, 31);
     lv_obj_set_align(ui_Arc2, LV_ALIGN_CENTER);
     lv_arc_set_value(ui_Arc2, 55);
 
@@ -97,7 +97,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_width(ui_Label1, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label1, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label1, 4);
-    lv_obj_set_y(ui_Label1, -48);
+    lv_obj_set_y(ui_Label1, -100);
     lv_obj_set_align(ui_Label1, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label1, "14.4 W");
     lv_obj_set_style_text_color(ui_Label1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
