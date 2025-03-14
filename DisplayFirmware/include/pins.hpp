@@ -3,7 +3,8 @@
 
 #include "driver/uart.h"
 
-#define ESP32S3
+// #define ESP32S3
+
 #if defined(ESP32S3) //PCB / Release Version
 #define BTN1 14
 #define BTN2 21

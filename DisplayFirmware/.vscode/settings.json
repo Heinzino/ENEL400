@@ -3,9 +3,9 @@
     "idf.espIdfPathWin": "C:\\Users\\heinz\\esp\\v5.4\\esp-idf",
     "idf.pythonInstallPath": "C:\\Users\\heinz\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
     "idf.openOcdConfigs": [
-        "board/esp32s3-builtin.cfg"
+        "board/esp32-wrover-kit-3.3v.cfg"
     ],
-    "idf.portWin": "COM6",
+    "idf.portWin": "COM3",
     "idf.toolsPathWin": "C:\\Users\\heinz\\.espressif",
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
@@ -18,6 +18,6 @@
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {
-        "IDF_TARGET": "esp32s3"
+        "IDF_TARGET": "esp32"
     }
 }
