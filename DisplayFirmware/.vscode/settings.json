@@ -16,7 +16,8 @@
         "screenmanager.hpp": "c",
         "regex": "cpp",
         "displaytask.hpp": "c",
-        "tasksync.hpp": "c"
+        "tasksync.hpp": "c",
+        "screen.hpp": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

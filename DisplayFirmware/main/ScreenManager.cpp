@@ -12,6 +12,15 @@ uint8_t ScreenManager::getScreenNumber() {
     return screenNumber;
 }
 
+ScreenManager::ScreenManager() {
+    screens[POWER_DISPLAY] = new PowerScreen();
+    screens[RESISTANCE_LEVEL] = new ResistanceScreen();
+}
+
+Screen* ScreenManager::getCurrentScreenObject() {
+    return screens[screenNumber];
+}
+
 void ScreenManager::toggleScreen() {
     if(screenNumber == ScreenTitles::POWER_DISPLAY){
         screenNumber = ScreenTitles::RESISTANCE_LEVEL;
@@ -21,42 +30,11 @@ void ScreenManager::toggleScreen() {
     }
 }
 
-uint8_t ScreenManager::getResistanceLevel() {
-    return bikerResistanceLevel;
-}
-
-void ScreenManager::incrementResistance() {
-    bikerResistanceLevel++;
-    if(bikerResistanceLevel >= MAX_BIKER_RESISTANCE_LEVEL){
-        bikerResistanceLevel = MAX_BIKER_RESISTANCE_LEVEL;
-    }
-}
-
-void ScreenManager::decrementResistance() {
-    if (bikerResistanceLevel > 0) {
-        bikerResistanceLevel--;
-    }
-}
-
-char* ScreenManager::resistanceLevelToString(){
-    static char buffer[4];  
-    sprintf(buffer, "%u", bikerResistanceLevel);
-    return buffer;
-}
-
 void ScreenManager::display(){
-    if (xSemaphoreTake(lvglMutex, pdMS_TO_TICKS(100)) == pdTRUE)
-    {
+    if (xSemaphoreTake(lvglMutex, pdMS_TO_TICKS(100)) == pdTRUE) {
         LOG(LOG_LEVEL_DEBUG, "Screen Number: " + String(screenNumber) + " \n");
-        switch(static_cast<ScreenTitles>(screenNumber)){
-            case POWER_DISPLAY:
-                updateScreen1();
-                break;
-            case RESISTANCE_LEVEL:
-                updateScreen2();
-                break;
-        }
-        xSemaphoreGive(lvglMutex);  // Release the mutex after done
+        screens[static_cast<size_t>(screenNumber)]->updateScreen();  // Dynamically calls updateScreen()
+        xSemaphoreGive(lvglMutex);
     }
 }
 
@@ -74,7 +52,7 @@ void ScreenManager::safeSwitchToScreen(ScreenTitles newScreen, lv_obj_t* lvglScr
     portENTER_CRITICAL(&screenSwitchMux1);
 
     lv_scr_load(lvglScreen);
-    screenNumber = newScreen;  // Set the current screen to the new one
+    screenNumber = newScreen;
 
     portEXIT_CRITICAL(&screenSwitchMux1);
     uart_enable_rx_intr(UART_NUM);

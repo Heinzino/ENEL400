@@ -3,6 +3,7 @@
 
 #include "Screen.hpp"
 #include "screenManager.hpp"
+#include "SensorData.hpp"
 #include <cmath>
 #include <cstdio>
 

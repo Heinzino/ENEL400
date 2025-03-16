@@ -12,13 +12,13 @@ void ResistanceScreen::handleButton(ButtonID btn)
 {
     switch (btn)
     {
-    case SHIFT_HRZN_BTN:
+    case ButtonID::SHIFT_HRZN_BTN:
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::POWER_DISPLAY, ui_Screen1);
         break;
-    case FN1_BTN:
+    case ButtonID::FN1_BTN:
         incrementResistance();
         break;
-    case FN2_BTN:
+    case ButtonID::FN2_BTN:
         decrementResistance();
         break;
     default:

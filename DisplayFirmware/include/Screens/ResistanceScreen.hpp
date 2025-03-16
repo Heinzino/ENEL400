@@ -2,16 +2,18 @@
 #define RESISTANCE_SCREEN_HPP
 
 #include "Screen.hpp"
-#include "../ScreenManager.hpp"
+#include "screenManager.hpp"
 
-class ResistanceScreen : public Screen {
+enum class ButtonID; // Forward declare to avoid circular dependancy;
+class ResistanceScreen : public Screen
+{
 public:
     void updateScreen() override;
     void handleButton(ButtonID btn) override;
 
     void incrementResistance();
     void decrementResistance();
-    char resistanceLevelToChar();  
+    char resistanceLevelToChar();
 
 private:
     uint8_t bikerResistanceLevel = 0;

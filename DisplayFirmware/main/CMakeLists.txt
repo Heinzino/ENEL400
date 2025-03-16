@@ -1,5 +1,5 @@
 idf_component_register(
-    SRCS "ScreenManager.cpp" "secrets.cpp" "displayTask.cpp" "wifiTask.cpp" "main.cpp"
+    SRCS "SensorData.cpp" "ScreenManager.cpp" "secrets.cpp" "displayTask.cpp" "wifiTask.cpp" "main.cpp"
          "sd_log.cpp"
          "uart.cpp"
          "UI/ui.c"
@@ -8,6 +8,7 @@ idf_component_register(
          "UI/ui_Screen3.cpp"
          "buttonTask.cpp"
          "Screens/PowerScreen.cpp"
+         "Screens/ResistanceScreen.cpp"
     INCLUDE_DIRS "../include/"
                  "../include/Screens"
 )

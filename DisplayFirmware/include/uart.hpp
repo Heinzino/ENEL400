@@ -1,6 +1,7 @@
 #pragma once
 
 #include "driver/uart.h"
+#include "screenManager.hpp"    
 #include "Arduino.h"
 #include "esp_log.h"
 #include <string.h>  // For strtok and string manipulation

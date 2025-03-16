@@ -1,11 +1,12 @@
 #ifndef SCREEN_HPP
 #define SCREEN_HPP
 
-#include "buttonTask.hpp"
 #include <lvgl.h>
 #include "UI/ui.h"
 #include "UI/lv_conf.h"
 #include "UI/ui_helpers.h"
+
+enum class ButtonID; //Reduce circular dependency
 
 class Screen
 {
