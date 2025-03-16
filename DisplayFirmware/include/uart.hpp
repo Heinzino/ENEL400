@@ -1,6 +1,7 @@
 #pragma once
 
 #include "driver/uart.h"
+#include "screenManager.hpp"    
 #include "Arduino.h"
 #include "esp_log.h"
 #include <string.h>  // For strtok and string manipulation
@@ -26,4 +27,4 @@
 void setupUART2();
 void readUART2();
 void uart_event_task(void *pvParameters);
-void sendResistanceLevelUART2(uint8_t numRepeats);
+void sendResistanceLevelUART2(uint8_t numRepeats, char resistanceLevel);

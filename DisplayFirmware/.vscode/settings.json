@@ -14,7 +14,10 @@
         "cstdint": "cpp",
         "string": "cpp",
         "screenmanager.hpp": "c",
-        "regex": "cpp"
+        "regex": "cpp",
+        "displaytask.hpp": "c",
+        "tasksync.hpp": "c",
+        "screen.hpp": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

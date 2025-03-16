@@ -18,7 +18,6 @@ void uart_event_task(void *pvParameters)
                 LOG(LOG_LEVEL_DEBUG,"UART DATA Event");
                 readUART2();
                 xTaskNotify(displayTaskHandle, (1 << 1), eSetBits);
-                // xTaskNotifyGive(displayTaskHandle);
                 break;
             default:
                 LOG(LOG_LEVEL_DEBUG,"NOT UART DATA Event");
@@ -61,12 +60,16 @@ void readUART2()
         char *token = strtok((char *)data, " ");
         if (token != NULL)
         {
-            voltage = atof(token); // Update the voltage pointer value
+            float voltage = atof(token); // Update the voltage pointer value
 
             token = strtok(NULL, "\n");
             if (token != NULL)
             {
-                current = atof(token); // Update the current pointer value
+                float current = atof(token); // Update the current pointer value
+
+                SensorData& sensorData = SensorData::getInstance();
+                sensorData.setVoltage(voltage);
+                sensorData.setCurrent(current);
 
                 // Log the parsed values with Serial.print
                 Serial.print("Updated Voltage: ");
@@ -87,17 +90,12 @@ void readUART2()
     }
 }
 
-void sendResistanceLevelUART2(uint8_t numRepeats)
+void sendResistanceLevelUART2(uint8_t numRepeats, char resistanceLevel)
 {
-    ScreenManager &screenManager = ScreenManager::getInstance();
-    uint8_t resistanceLevel = screenManager.getResistanceLevel();
-
     for (int i = 0; i < numRepeats; ++i)
     {
-        char asciiDigit = '0' + resistanceLevel;
-        //Send raw byte
-        LOG(LOG_LEVEL_TRACE,"SENT LEVEL TO ARDUINO");
-        uart_write_bytes(UART_NUM, &asciiDigit, 1);
-        uart_wait_tx_done(UART_NUM, pdMS_TO_TICKS(2));// Wait for transmission to complete
+        LOG(LOG_LEVEL_TRACE, "SENT LEVEL TO ARDUINO" + String(resistanceLevel));
+        uart_write_bytes(UART_NUM, &resistanceLevel, 1);
+        uart_wait_tx_done(UART_NUM, pdMS_TO_TICKS(2)); // Wait for transmission to complete
     }
 }

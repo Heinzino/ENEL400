@@ -7,7 +7,7 @@
 
 class ScreenManager; // Forward declaration, used to avoid circular dependancies , clean later
 
-#define SHORT_PRESS_TIME_MS 100 // 1000 milliseconds
+#define SHORT_PRESS_TIME_MS 100 // 100 milliseconds
 #define LONG_PRESS_TIME 5000     // 1000 milliseconds
 
 // Struct to represent a button
@@ -20,7 +20,7 @@ struct Button
   unsigned long releasedTime; // time when button was released
 };
 
-enum ButtonID
+enum class ButtonID
 {
   SHIFT_HRZN_BTN = 0,
   SHIFT_VERT_BTN = 1,
@@ -34,7 +34,3 @@ extern TaskHandle_t buttonTaskHandle;
 void buttonISRHandler(void *arg);
 void buttonSetup();
 void buttonTask(void *pvParameters);
-
-// Helper Functions
-void handlePowerDisplayButtons(ButtonID btn, ScreenManager &screenManager);
-void handleResistanceLevelButtons(ButtonID btn, ScreenManager &screenManager);

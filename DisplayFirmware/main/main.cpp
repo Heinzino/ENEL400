@@ -1,7 +1,6 @@
 #include "main.hpp"
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
-float voltage, current;
 QueueHandle_t uartQueue;
 TaskHandle_t buttonTaskHandle;
 TaskHandle_t displayTaskHandle;
@@ -71,7 +70,7 @@ void setup()
   lv_disp_drv_register(&disp_drv);   // Register the driver
 
   ui_init();
-  updateScreen1();
+  ScreenManager::getInstance().display();
   Serial.println("Initialzed Screen");
 
   xTaskCreatePinnedToCore(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle, 0);

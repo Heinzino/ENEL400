@@ -4,10 +4,23 @@
 #include <cstdio> //for sprintf
 #include "taskSync.hpp"
 #include "displayTask.hpp"
+#include "Screens/Screen.hpp"
+#include "Screens/PowerScreen.hpp"
+#include "Screens/ResistanceScreen.hpp"
+#include "Screens/HealthMetricsScreen.hpp"
+
+class Screen; //Avoid circular dependency
 
 enum class ScreenState {
     OFF = 0,
     ON = 1
+};
+
+enum ScreenTitles{
+    POWER_DISPLAY,
+    RESISTANCE_LEVEL,
+    HEALTH_METRICS,
+    SCREEN_COUNT
 };
 
 class ScreenManager {
@@ -16,23 +29,18 @@ public:
 
     void display();
 
+    Screen* getCurrentScreenObject();
     void updateScreenState(ScreenState state);
     bool isScreenOn();
 
-    uint8_t getScreenNumber();
-    void toggleScreen();
+    void safeSwitchToScreen(ScreenTitles newScreen, lv_obj_t* lvglScreen);
 
-    uint8_t getResistanceLevel();
-    void incrementResistance();
-    void decrementResistance();
-    char* resistanceLevelToString();
+    uint8_t getScreenNumber();
 
 private:
-    ScreenManager() = default; // Private constructor to prevent multiple instances
-
-    const uint8_t MAX_BIKER_RESISTANCE_LEVEL = 9;
+    ScreenManager(); // Private constructor to prevent multiple instances
+    Screen* screens[SCREEN_COUNT];
     ScreenState screenState = ScreenState::ON;
-    uint8_t screenNumber = 0;         // Default to POWER_DISPLAY
-    uint8_t bikerResistanceLevel = 0; // Initial resistance level
+    ScreenTitles screenNumber = ScreenTitles::POWER_DISPLAY; // Default to POWER_DISPLAY
 };
 

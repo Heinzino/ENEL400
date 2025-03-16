@@ -35,94 +35,36 @@ void buttonTask(void *pvParameters)
         {
             for (int i = 0; i < 4; ++i)
             {
-                if (notifiedValue & (1 << buttons[i].pin))
+                if (!(notifiedValue & (1 << buttons[i].pin)))
+                    continue; // Skip if button was not notified from ISR
+
+                // Update button states directly in the struct
+                buttons[i].lastState = buttons[i].currentState;
+                buttons[i].currentState = digitalRead(buttons[i].pin);
+
+                if (buttons[i].currentState == LOW && buttons[i].lastState == HIGH)
                 {
-                    // Update button states directly in the struct
-                    buttons[i].lastState = buttons[i].currentState;
-                    buttons[i].currentState = digitalRead(buttons[i].pin);
+                    // Button Pressed
+                    buttons[i].pressedTime = millis();
+                }
+                else if (buttons[i].currentState == HIGH && buttons[i].lastState == LOW)
+                {
+                    // Button Released
+                    buttons[i].releasedTime = millis();
+                    long pressDuration = buttons[i].releasedTime - buttons[i].pressedTime;
 
-                    if (buttons[i].currentState == LOW && buttons[i].lastState == HIGH)
-                    { 
-                        // Button Pressed
-                        buttons[i].pressedTime = millis();
-                    }
-                    else if (buttons[i].currentState == HIGH && buttons[i].lastState == LOW)
-                    { 
-                        // Button Released
-                        buttons[i].releasedTime = millis();
-                        long pressDuration = buttons[i].releasedTime - buttons[i].pressedTime;
+                    if (pressDuration >= SHORT_PRESS_TIME_MS)
+                    {
+                        LOG(LOG_LEVEL_DEBUG, "BTN" + String(i + 1) + " short press detected");
 
-                        if (pressDuration >= SHORT_PRESS_TIME_MS)
-                        {
-                            LOG(LOG_LEVEL_DEBUG, "BTN" + String(i + 1) + " short press detected");
-                            
-                            switch (screenManager.getScreenNumber())
-                            {
-                            case POWER_DISPLAY:
-                                handlePowerDisplayButtons(static_cast<ButtonID>(i), screenManager);
-                                break;
+                        screenManager.getCurrentScreenObject()->handleButton(static_cast<ButtonID>(i));
 
-                            case RESISTANCE_LEVEL:
-                                handleResistanceLevelButtons(static_cast<ButtonID>(i), screenManager);
-                                break;
-                            }
-
-                            // Notify display task only if a short press was detected
-                            screenManager.display();
-                            sendResistanceLevelUART2(3);
-                            xTaskNotify(displayTaskHandle, (1 << 0), eSetBits);
-                            // xTaskNotifyGive(displayTaskHandle);
-                        }
+                        // Notify display task only if a short press was detected
+                        screenManager.display();
+                        xTaskNotify(displayTaskHandle, (1 << 0), eSetBits);
                     }
                 }
             }
         }
-    }
-}
-
-void handleResistanceLevelButtons(ButtonID btn, ScreenManager &screenManager)
-{
-    switch (btn)
-    {
-    case SHIFT_HRZN_BTN:
-        uart_disable_rx_intr(UART_NUM);
-        delay(UART_INTR_TIMEOUT_MS);
-        portENTER_CRITICAL(&screenSwitchMux);
-
-        lv_scr_load(ui_Screen1);
-        screenManager.toggleScreen();
-
-        portEXIT_CRITICAL(&screenSwitchMux);
-        uart_enable_rx_intr(UART_NUM);
-        break;
-    case FN1_BTN:
-        screenManager.incrementResistance();
-        break;
-    case FN2_BTN:
-        screenManager.decrementResistance();
-        break;
-    default:
-        break;
-    }
-    screenManager.display(); // Real time display
-}
-
-void handlePowerDisplayButtons(ButtonID btn, ScreenManager &screenManager)
-{
-    switch (btn)
-    {
-    case SHIFT_HRZN_BTN:
-        uart_disable_rx_intr(UART_NUM);
-        delay(UART_INTR_TIMEOUT_MS);
-        portENTER_CRITICAL(&screenSwitchMux);
-
-        lv_scr_load(ui_Screen2);
-        screenManager.toggleScreen();
-
-        portEXIT_CRITICAL(&screenSwitchMux);
-        uart_enable_rx_intr(UART_NUM);
-        break;
-    default:
-        break;
     }
 }
