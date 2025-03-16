@@ -73,6 +73,8 @@ void readUART2()
                 sensorData.setRPM(rpm);
                 LOG(LOG_LEVEL_TRACE, "Updated RPM: " + String(rpm) + " rpm\n");
             }
+
+            sensorData.recordDataPoint();
         }
         else
         {
