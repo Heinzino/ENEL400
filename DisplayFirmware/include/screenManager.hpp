@@ -7,6 +7,7 @@
 #include "Screens/Screen.hpp"
 #include "Screens/PowerScreen.hpp"
 #include "Screens/ResistanceScreen.hpp"
+#include "Screens/HealthMetricsScreen.hpp"
 
 class Screen; //Avoid circular dependency
 
@@ -18,6 +19,7 @@ enum class ScreenState {
 enum ScreenTitles{
     POWER_DISPLAY,
     RESISTANCE_LEVEL,
+    HEALTH_METRICS,
     SCREEN_COUNT
 };
 
@@ -34,7 +36,6 @@ public:
     void safeSwitchToScreen(ScreenTitles newScreen, lv_obj_t* lvglScreen);
 
     uint8_t getScreenNumber();
-    void toggleScreen();
 
 private:
     ScreenManager(); // Private constructor to prevent multiple instances

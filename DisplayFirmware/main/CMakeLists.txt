@@ -9,6 +9,7 @@ idf_component_register(
          "buttonTask.cpp"
          "Screens/PowerScreen.cpp"
          "Screens/ResistanceScreen.cpp"
+         "Screens/HealthMetricsScreen.cpp"
     INCLUDE_DIRS "../include/"
                  "../include/Screens"
 )

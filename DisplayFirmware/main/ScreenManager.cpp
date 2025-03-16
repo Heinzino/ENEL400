@@ -15,19 +15,11 @@ uint8_t ScreenManager::getScreenNumber() {
 ScreenManager::ScreenManager() {
     screens[POWER_DISPLAY] = new PowerScreen();
     screens[RESISTANCE_LEVEL] = new ResistanceScreen();
+    screens[HEALTH_METRICS] = new HealthMetricsScreen();
 }
 
 Screen* ScreenManager::getCurrentScreenObject() {
     return screens[screenNumber];
-}
-
-void ScreenManager::toggleScreen() {
-    if(screenNumber == ScreenTitles::POWER_DISPLAY){
-        screenNumber = ScreenTitles::RESISTANCE_LEVEL;
-    }
-    else{
-        screenNumber = ScreenTitles::POWER_DISPLAY;
-    }
 }
 
 void ScreenManager::display(){
