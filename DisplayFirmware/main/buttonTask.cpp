@@ -61,7 +61,6 @@ void buttonTask(void *pvParameters)
 
                         // Notify display task only if a short press was detected
                         screenManager.display();
-                        sendResistanceLevelUART2(3);
                         xTaskNotify(displayTaskHandle, (1 << 0), eSetBits);
                     }
                 }

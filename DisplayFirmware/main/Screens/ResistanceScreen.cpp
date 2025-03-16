@@ -17,14 +17,15 @@ void ResistanceScreen::handleButton(ButtonID btn)
         break;
     case ButtonID::FN1_BTN:
         incrementResistance();
+        sendResistanceLevelUART2(3, resistanceLevelToChar());
         break;
     case ButtonID::FN2_BTN:
         decrementResistance();
+        sendResistanceLevelUART2(3, resistanceLevelToChar());
         break;
     default:
         break;
     }
-    // ScreenManager::getInstance().display();
 }
 
 void ResistanceScreen::incrementResistance()

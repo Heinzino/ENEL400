@@ -90,25 +90,12 @@ void readUART2()
     }
 }
 
-void sendResistanceLevelUART2(uint8_t numRepeats)
+void sendResistanceLevelUART2(uint8_t numRepeats, char resistanceLevel)
 {
-    ScreenManager &screenManager = ScreenManager::getInstance();
-    Screen *currentScreen = screenManager.getCurrentScreenObject();
-
-    ResistanceScreen *resistanceScreen = static_cast<ResistanceScreen *>(currentScreen);
-
-     // Ensure that the current screen is actually ResistanceScreen before casting
-    if (screenManager.getScreenNumber() != RESISTANCE_LEVEL)
-    {
-        LOG(LOG_LEVEL_TRACE, "ResistanceScreen is not active, skipping UART send.");
-        return;
-    }
-
-    char asciiDigit = resistanceScreen->resistanceLevelToChar(); // Get resistance as char
     for (int i = 0; i < numRepeats; ++i)
     {
-        LOG(LOG_LEVEL_TRACE, "SENT LEVEL TO ARDUINO");
-        uart_write_bytes(UART_NUM, &asciiDigit, 1);
+        LOG(LOG_LEVEL_TRACE, "SENT LEVEL TO ARDUINO" + String(resistanceLevel));
+        uart_write_bytes(UART_NUM, &resistanceLevel, 1);
         uart_wait_tx_done(UART_NUM, pdMS_TO_TICKS(2)); // Wait for transmission to complete
     }
 }
