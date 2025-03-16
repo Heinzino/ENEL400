@@ -31,7 +31,7 @@ void displayTask(void *pvParameters)
             bool shouldUpdateDisplay = true;
             if (notifiedValue & (1 << 0))
             {
-                LOG(LOG_LEVEL_DEBUG, "Button Task Triggered Display");
+                LOG(LOG_LEVEL_TRACE, "Button Task Triggered Display");
                 xTaskNotifyStateClearIndexed(displayTaskHandle, 0); // Clear index 0 bits only
             }
             if (notifiedValue & (1 << 1))
@@ -40,7 +40,7 @@ void displayTask(void *pvParameters)
                 {
                     shouldUpdateDisplay = false;
                 }
-                LOG(LOG_LEVEL_DEBUG, "UART Task Triggered Display");
+                LOG(LOG_LEVEL_TRACE, "UART Task Triggered Display");
             }
 
             if (!screenManager.isScreenOn())
