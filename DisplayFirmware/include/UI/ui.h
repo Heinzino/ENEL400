@@ -50,6 +50,22 @@ extern lv_obj_t * ui_IncrementLevelBTN1;
 extern lv_obj_t * ui_DecrementSign;
 // CUSTOM VARIABLES
 
+// SCREEN: ui_Screen3
+void ui_Screen3_screen_init(void);
+extern lv_obj_t * ui_Screen3;
+extern lv_obj_t * ui_CaloriesLabel;
+extern lv_obj_t * ui_CaloriesUnit;
+extern lv_obj_t * ui_CaloriesValue;
+extern lv_obj_t * ui_CadenceLabel;
+extern lv_obj_t * ui_CadenceValue;
+extern lv_obj_t * ui_CadenceUnit;
+extern lv_obj_t * ui_SpeedLabel;
+extern lv_obj_t * ui_SpeedUnit;
+extern lv_obj_t * ui_SpeedValue;
+extern lv_obj_t * ui_DistanceLabel;
+extern lv_obj_t * ui_DistanceUnit;
+extern lv_obj_t * ui_SpeedValue1;
+
 // EVENTS
 
 extern lv_obj_t * ui____initial_actions0;

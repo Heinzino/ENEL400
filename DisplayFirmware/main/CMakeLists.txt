@@ -5,6 +5,9 @@ idf_component_register(
          "UI/ui.c"
          "UI/ui_Screen1.c"
          "UI/ui_Screen2.cpp"
+         "UI/ui_Screen3.cpp"
          "buttonTask.cpp"
+         "Screens/PowerScreen.cpp"
     INCLUDE_DIRS "../include/"
+                 "../include/Screens"
 )

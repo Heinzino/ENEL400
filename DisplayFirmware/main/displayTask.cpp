@@ -42,9 +42,9 @@ void updateScreen1()
         last_power = power;
     }
 
-    lv_arc_set_value(ui_Arc3, (int)(voltage * 100 / MAX_VOLTAGE));
-    lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / MAX_CURRENT));
-    lv_arc_set_value(ui_Arc2, (int)(power * 100 / (MAX_POWER)));
+    lv_arc_set_value(ui_Arc3, (int)(voltage * 100 / 50.0));
+    lv_arc_set_value(ui_CurrentArc, (int)(current * 100 / 20.0));
+    lv_arc_set_value(ui_Arc2, (int)(power * 100 / (150.0)));
 
     lv_timer_handler();
     lv_task_handler();

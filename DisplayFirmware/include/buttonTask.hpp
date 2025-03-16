@@ -7,7 +7,7 @@
 
 class ScreenManager; // Forward declaration, used to avoid circular dependancies , clean later
 
-#define SHORT_PRESS_TIME_MS 100 // 1000 milliseconds
+#define SHORT_PRESS_TIME_MS 100 // 100 milliseconds
 #define LONG_PRESS_TIME 5000     // 1000 milliseconds
 
 // Struct to represent a button

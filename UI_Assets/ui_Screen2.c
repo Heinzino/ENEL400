@@ -21,38 +21,15 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_style_radius(ui_IncrementLevelBTN, 50, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_IncrementLevelBTN, lv_color_hex(0x1D8F17), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_IncrementLevelBTN, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_grad_dir(ui_IncrementLevelBTN, LV_GRAD_DIR_NONE, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_color(ui_IncrementLevelBTN, lv_color_hex(0x033309), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_color(ui_IncrementLevelBTN, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_IncrementLevelBTN, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_shadow_opa(ui_IncrementLevelBTN, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_blend_mode(ui_IncrementLevelBTN, LV_BLEND_MODE_NORMAL, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_IncrementLevelBTN, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_IncrementLevelBTN, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_letter_space(ui_IncrementLevelBTN, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_line_space(ui_IncrementLevelBTN, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(ui_IncrementLevelBTN, LV_TEXT_ALIGN_AUTO, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_IncrementLevelBTN, &lv_font_montserrat_40, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LEVELTITLE = lv_label_create(ui_Screen2);
-    lv_obj_set_width(ui_LEVELTITLE, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LEVELTITLE, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LEVELTITLE, 0);
-    lv_obj_set_y(ui_LEVELTITLE, -91);
-    lv_obj_set_align(ui_LEVELTITLE, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LEVELTITLE, "LEVEL");
-    lv_obj_set_style_text_color(ui_LEVELTITLE, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LEVELTITLE, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LEVELTITLE, &lv_font_montserrat_40, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LEVELVAL = lv_label_create(ui_Screen2);
-    lv_obj_set_width(ui_LEVELVAL, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LEVELVAL, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LEVELVAL, 0);
-    lv_obj_set_y(ui_LEVELVAL, -30);
-    lv_obj_set_align(ui_LEVELVAL, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LEVELVAL, "10");
-    lv_obj_set_style_text_color(ui_LEVELVAL, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LEVELVAL, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LEVELVAL, &lv_font_montserrat_40, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_IncrementSign = lv_label_create(ui_Screen2);
     lv_obj_set_width(ui_IncrementSign, LV_SIZE_CONTENT);   /// 1
@@ -76,10 +53,9 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_style_radius(ui_IncrementLevelBTN1, 50, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_IncrementLevelBTN1, lv_color_hex(0xDF0404), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_IncrementLevelBTN1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_grad_dir(ui_IncrementLevelBTN1, LV_GRAD_DIR_NONE, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_color(ui_IncrementLevelBTN1, lv_color_hex(0x033309), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_color(ui_IncrementLevelBTN1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_IncrementLevelBTN1, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_shadow_opa(ui_IncrementLevelBTN1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_blend_mode(ui_IncrementLevelBTN1, LV_BLEND_MODE_NORMAL, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_IncrementLevelBTN1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_IncrementLevelBTN1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_letter_space(ui_IncrementLevelBTN1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -94,9 +70,29 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_y(ui_DecrementSign, 100);
     lv_obj_set_align(ui_DecrementSign, LV_ALIGN_CENTER);
     lv_label_set_text(ui_DecrementSign, "-");
-    lv_obj_set_style_text_color(ui_DecrementSign, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_DecrementSign, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_DecrementSign, &lv_font_montserrat_40, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_LEVELTITLE = lv_label_create(ui_Screen2);
+    lv_obj_set_width(ui_LEVELTITLE, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LEVELTITLE, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LEVELTITLE, 0);
+    lv_obj_set_y(ui_LEVELTITLE, -91);
+    lv_obj_set_align(ui_LEVELTITLE, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LEVELTITLE, "LEVEL");
+    lv_obj_set_style_text_color(ui_LEVELTITLE, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_LEVELTITLE, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_LEVELTITLE, &lv_font_montserrat_40, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_LEVELVAL = lv_label_create(ui_Screen2);
+    lv_obj_set_width(ui_LEVELVAL, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LEVELVAL, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LEVELVAL, 0);
+    lv_obj_set_y(ui_LEVELVAL, -30);
+    lv_obj_set_align(ui_LEVELVAL, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LEVELVAL, "0");
+    lv_obj_set_style_text_color(ui_LEVELVAL, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_LEVELVAL, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_LEVELVAL, &lv_font_montserrat_40, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 
 }

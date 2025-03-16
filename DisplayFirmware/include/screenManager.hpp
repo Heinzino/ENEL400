@@ -10,6 +10,11 @@ enum class ScreenState {
     ON = 1
 };
 
+enum ScreenTitles{
+    POWER_DISPLAY,
+    RESISTANCE_LEVEL,
+};
+
 class ScreenManager {
 public:
     static ScreenManager& getInstance(); // Singleton accessor
@@ -18,6 +23,8 @@ public:
 
     void updateScreenState(ScreenState state);
     bool isScreenOn();
+
+    void safeSwitchToScreen(ScreenTitles newScreen, lv_obj_t* lvglScreen);
 
     uint8_t getScreenNumber();
     void toggleScreen();
@@ -32,7 +39,7 @@ private:
 
     const uint8_t MAX_BIKER_RESISTANCE_LEVEL = 9;
     ScreenState screenState = ScreenState::ON;
-    uint8_t screenNumber = 0;         // Default to POWER_DISPLAY
+    ScreenTitles screenNumber = ScreenTitles::POWER_DISPLAY; // Default to POWER_DISPLAY
     uint8_t bikerResistanceLevel = 0; // Initial resistance level
 };
 
