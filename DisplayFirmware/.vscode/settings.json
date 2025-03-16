@@ -17,7 +17,12 @@
         "regex": "cpp",
         "displaytask.hpp": "c",
         "tasksync.hpp": "c",
-        "screen.hpp": "c"
+        "screen.hpp": "c",
+        "array": "cpp",
+        "bitset": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "span": "cpp"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {
