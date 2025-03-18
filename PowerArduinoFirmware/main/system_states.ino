@@ -4,6 +4,9 @@
 /*---------------------------------------Initialize System---------------------------------------*/
 void system_init(){
 
+  // Begin the serial at 9600 baud
+  Serial.begin(9600);
+
   // Set input hardware interrupt pin mode
   pinMode(INTERRUPT_PIN, INPUT);
 
@@ -32,8 +35,6 @@ void system_init(){
   // Calibrate the load current sensor
   ACS_battery.autoMidPoint();
 
-  // Begin the serial at 9600 baud
-  Serial.begin(9600);
 
   // Set analog reference to AVDD
   analogReference(DEFAULT);
@@ -118,6 +119,7 @@ void get_data(){
   // Get generator voltage and current
   generator_voltage = measure_generator_voltage();
   generator_current = measure_generator_current();
+  rpmSensor.update();
 
   if (generator_voltage >= 40){
     digitalWrite(GENERATOR_MOSFET_PIN, LOW);

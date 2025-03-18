@@ -128,4 +128,5 @@ void loop() {
       get_data();
       break;
   }
+  delay(100);
 }
