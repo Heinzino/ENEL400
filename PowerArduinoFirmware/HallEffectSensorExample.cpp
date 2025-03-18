@@ -1,4 +1,3 @@
-#define HALL_EFFECT_SENSOR_PIN 2  
 #define RPM_CONVERSION_FACTOR 60000000  
 #define RPM_TIMEOUT_MS 1000000  // 1 second timeout (in microseconds)
 

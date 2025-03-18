@@ -24,6 +24,7 @@ void system_init(){
 
   // Attach Digital pin 2 to the hardware digital input interrupt, rising edge triggered
   //attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), digital_input_ISR, RISING);
+  rpmSensor.begin();
 
   // Calibrate the generator current sensor
   ACS_generator.autoMidPoint();
@@ -153,10 +154,12 @@ void send_data(){
   Serial.print(" ");
 
   // Send generator current with 2 decimal places accuracy, and a newline
-  Serial.println(sanitizeFloat(generator_current) , 2);
+  Serial.print(sanitizeFloat(generator_current) , 2);
 
-  //Serial.print(" ");
+  // Send a space seperator
+  Serial.print(" ");
 
+  Serial.println(rpmSensor.getRPM());
   //Serial.println(timer_ISR_counter);
   
   Serial.flush();

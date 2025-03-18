@@ -5,7 +5,7 @@
 #include <avr/interrupt.h> // Handles AVR style interrupts (for timers)
 #include <LM35.h> // Handles drivers for the temperature sensor (LM35)
 #include <avr/wdt.h> // Handles Watchdog Timer
-
+#include "tachometer.h"
 
 
 /*-----------------------------------------DEFINE PINS-------------------------------------------*/
@@ -21,6 +21,7 @@
 #define TEMP_DUMP_LOAD_2      A3
 #define GENERATOR_CURRENT_PIN A6
 #define BATTERY_CURRENT_PIN   A7
+#define HALL_EFFECT_SENSOR_PIN 2  
 
 
 
@@ -55,6 +56,11 @@ LM35 dump_load_1_temp(TEMP_DUMP_LOAD_1);
 // Declare LM35 temperature sensor object to measure dump load 2 temperature (2C-150C, 10mV/C)
 LM35 dump_load_2_temp(TEMP_DUMP_LOAD_2);
 
+// Define static instance
+HallEffectRPM* HallEffectRPM::instance = nullptr;
+
+// Create sensor object
+HallEffectRPM rpmSensor(HALL_EFFECT_SENSOR_PIN);
 
 
 /*---------------------------------------Global Variables----------------------------------------*/
