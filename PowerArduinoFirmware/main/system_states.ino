@@ -21,6 +21,7 @@ void system_init(){
   pinMode(TEMP_DUMP_LOAD_2, INPUT);
   pinMode(GENERATOR_CURRENT_PIN, INPUT);
   pinMode(BATTERY_CURRENT_PIN, INPUT);
+  analogReference(DEFAULT);
 
   // Calibrate the generator current sensor
   ACS_generator.autoMidPoint();
@@ -28,11 +29,14 @@ void system_init(){
   // Calibrate the load current sensor
   ACS_battery.autoMidPoint();
 
+  // Begin the display and draw battery outline
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  display.clearDisplay();
+  display.setTextColor(WHITE);
+  OLED_draw_battery();
+
   // Begin the serial at 9600 baud
   Serial.begin(9600);
-
-  // Set analog reference to AVDD
-  analogReference(DEFAULT);
 
   // Setup the watchdog timer, but turn it off initially
   setup_WDT();
@@ -47,12 +51,12 @@ void system_init(){
   // Set PWM frequency to 1kHz (using Timer 2)
   TCCR2B = TCCR2B & B11111000 | 0x03;
 
-  // Unconditional transition, go to system sleep state
-  system_state_variable = SYSTEM_SLEEP; 
-
   // Write initial high load to prevent current spikes
   analogWrite(DUMP_LOAD_MOSFET_1, 255);
   analogWrite(DUMP_LOAD_MOSFET_2, 255);
+  
+  // Unconditional transition, go to system sleep state
+  system_state_variable = SYSTEM_SLEEP; 
 }
 
 

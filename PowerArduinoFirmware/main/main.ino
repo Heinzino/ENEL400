@@ -5,6 +5,9 @@
 #include <avr/interrupt.h> // Handles AVR style interrupts (for timers)
 #include <LM35.h> // Handles drivers for the temperature sensor (LM35)
 #include <avr/wdt.h> // Handles Watchdog Timer
+#include <Wire.h> // Handles I2C communication for OLED display
+#include <Adafruit_GFX.h> // Handles drawing shapes for OLED display
+#include <Adafruit_SSD1306.h> // Handles low level drivers for OLED display
 
 
 
@@ -55,6 +58,9 @@ LM35 dump_load_1_temp(TEMP_DUMP_LOAD_1);
 // Declare LM35 temperature sensor object to measure dump load 2 temperature (2C-150C, 10mV/C)
 LM35 dump_load_2_temp(TEMP_DUMP_LOAD_2);
 
+// Declare SSD1306 OLED display object to write to the OLED display (128 x 64)
+Adafruit_SSD1306 display(128, 64, &Wire, -1);
+
 
 
 /*---------------------------------------Global Variables----------------------------------------*/
@@ -81,12 +87,11 @@ uint8_t dump_load_difficulty = 128;
 volatile uint8_t system_state_variable = SYSTEM_INIT; 
 volatile uint8_t charge_state_variable = DISCHARGE;
 
-// Variables to handle system sleep mode (within the timer ISR, therefore volatile)
-volatile uint16_t timer_ISR_counter = 0;
-volatile uint16_t generator_voltage_sum = 0;
-
 // Used by the WDT to determine whether or not it has been fired (ISR)
 volatile bool wdtFired = false;
+
+// Used to hold battery charge in percentage
+uint8_t battery_charge_percentage = 100;
 
 
 
