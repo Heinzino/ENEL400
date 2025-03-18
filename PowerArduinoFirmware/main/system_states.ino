@@ -22,9 +22,6 @@ void system_init(){
   pinMode(GENERATOR_CURRENT_PIN, INPUT);
   pinMode(BATTERY_CURRENT_PIN, INPUT);
 
-  // Attach Digital pin 2 to the hardware digital input interrupt, rising edge triggered
-  //attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), digital_input_ISR, RISING);
-
   // Calibrate the generator current sensor
   ACS_generator.autoMidPoint();
 
@@ -62,32 +59,6 @@ void system_init(){
 
 /*--------------------------------------System Sleep (Idle)--------------------------------------*/
 void system_sleep(){
-  
-  /*
-  // If the timer ISR has been called 100 times or more times (~10 seconds has passed)
-  if (timer_ISR_counter >= 100){
-
-    // If the average generator voltage for the past ~10 seconds is less than 2 Volts (rounded down)
-    if ((generator_voltage_sum / 100) < 2){
-
-      // Set the in program state variable to false, to reflect that the system will
-      // go to sleep until started by a higher generator voltage later
-      in_program_state = false;
-
-      // Turn off Timer 1 before entering "deep sleep"
-      disableWDT();
-    }
-    else{
-      enableWDT();
-    }
-
-    // Reset the generator voltage sum variable
-    generator_voltage_sum = 0;
-
-    // Reset the ISR call counter
-    timer_ISR_counter = 0;
-  }
-  */
 
   // Enable interrupts during sleep
   sei();
@@ -135,9 +106,7 @@ void get_data(){
 /*---------------------------------------Send Sensor Data----------------------------------------*/
 void send_data(){
 
-  // Unconditional state transition, go to set difficulty state
-  //system_state_variable = SET_DIFFICULTY;
-  //system_state_variable = CHARGE_FSM;
+  // Unconditional state transition, go to get data state
   system_state_variable = GET_DATA;
   
   // Send generator voltage with 2 decimal places accuracy
@@ -148,12 +117,8 @@ void send_data(){
 
   // Send generator current with 2 decimal places accuracy, and a newline
   Serial.println(generator_current, 2);
-  //Serial.print(generator_voltage_sum);
-
-  //Serial.print(" ");
-
-  //Serial.println(timer_ISR_counter);
   
+  // Flush the serial buffer 
   Serial.flush();
 }
 

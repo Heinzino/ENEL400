@@ -83,7 +83,6 @@ volatile uint8_t charge_state_variable = DISCHARGE;
 
 // Variables to handle system sleep mode (within the timer ISR, therefore volatile)
 volatile uint16_t timer_ISR_counter = 0;
-volatile bool in_program_state = true;
 volatile uint16_t generator_voltage_sum = 0;
 
 // Used by the WDT to determine whether or not it has been fired (ISR)
