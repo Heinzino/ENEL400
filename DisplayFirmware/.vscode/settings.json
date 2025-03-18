@@ -10,7 +10,19 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "lv_conf.h": "c",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "cstdint": "cpp",
+        "string": "cpp",
+        "screenmanager.hpp": "c",
+        "regex": "cpp",
+        "displaytask.hpp": "c",
+        "tasksync.hpp": "c",
+        "screen.hpp": "c",
+        "array": "cpp",
+        "bitset": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "span": "cpp"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

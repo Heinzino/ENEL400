@@ -23,6 +23,35 @@ lv_obj_t * ui_Label1;
 lv_obj_t * ui_Label6;
 // CUSTOM VARIABLES
 
+
+// SCREEN: ui_Screen2
+void ui_Screen2_screen_init(void);
+lv_obj_t * ui_Screen2;
+lv_obj_t * ui_IncrementLevelBTN;
+lv_obj_t * ui_LEVELTITLE;
+lv_obj_t * ui_LEVELVAL;
+lv_obj_t * ui_IncrementSign;
+lv_obj_t * ui_IncrementLevelBTN1;
+lv_obj_t * ui_DecrementSign;
+// CUSTOM VARIABLES
+
+// SCREEN: ui_Screen3
+void ui_Screen3_screen_init(void);
+lv_obj_t * ui_Screen3;
+lv_obj_t * ui_CaloriesLabel;
+lv_obj_t * ui_CaloriesUnit;
+lv_obj_t * ui_CaloriesValue;
+lv_obj_t * ui_CadenceLabel;
+lv_obj_t * ui_CadenceValue;
+lv_obj_t * ui_CadenceUnit;
+lv_obj_t * ui_SpeedLabel;
+lv_obj_t * ui_SpeedUnit;
+lv_obj_t * ui_SpeedValue;
+lv_obj_t * ui_DistanceLabel;
+lv_obj_t * ui_DistanceUnit;
+lv_obj_t * ui_SpeedValue1;
+// CUSTOM VARIABLES
+
 // EVENTS
 lv_obj_t * ui____initial_actions0;
 
@@ -49,6 +78,8 @@ void ui_init(void)
                                                true, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
     ui_Screen1_screen_init();
+    ui_Screen2_screen_init();
+    ui_Screen3_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_Screen1);
 }

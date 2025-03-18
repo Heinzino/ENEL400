@@ -5,9 +5,11 @@
 #include <avr/interrupt.h> // Handles AVR style interrupts (for timers)
 #include <LM35.h> // Handles drivers for the temperature sensor (LM35)
 #include <avr/wdt.h> // Handles Watchdog Timer
+
 #include <Wire.h> // Handles I2C communication for OLED display
 #include <Adafruit_GFX.h> // Handles drawing shapes for OLED display
 #include <Adafruit_SSD1306.h> // Handles low level drivers for OLED display
+#include "tachometer.h"
 
 
 
@@ -24,6 +26,7 @@
 #define TEMP_DUMP_LOAD_2      A3
 #define GENERATOR_CURRENT_PIN A6
 #define BATTERY_CURRENT_PIN   A7
+#define HALL_EFFECT_SENSOR_PIN 2  
 
 
 
@@ -60,6 +63,12 @@ LM35 dump_load_2_temp(TEMP_DUMP_LOAD_2);
 
 // Declare SSD1306 OLED display object to write to the OLED display (128 x 64)
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
+
+// Define static instance
+HallEffectRPM* HallEffectRPM::instance = nullptr;
+
+// Create sensor object
+HallEffectRPM rpmSensor(HALL_EFFECT_SENSOR_PIN);
 
 
 
@@ -126,4 +135,5 @@ void loop() {
       get_data();
       break;
   }
+  delay(100);
 }

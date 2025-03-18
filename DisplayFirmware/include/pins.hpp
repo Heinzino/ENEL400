@@ -3,7 +3,8 @@
 
 #include "driver/uart.h"
 
-#define ESP32S3
+// #define ESP32S3
+
 #if defined(ESP32S3) //PCB / Release Version
 #define BTN1 14
 #define BTN2 21
@@ -32,10 +33,10 @@
 
 #else //Devkit / Breadboard Version
 
-#define BTN1 4
-#define BTN2 5
-#define BTN3 18
-#define BTN4 8
+#define BTN1 26
+#define BTN2 35 
+#define BTN3 32
+#define BTN4 33
 
 // #define TFT_SCREEN_CS 15
 // #define TFT_SCREEN_RESET 4

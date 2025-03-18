@@ -22,8 +22,8 @@ extern "C" {
 #include "lvgl.h"
 #endif
 
-#include "ui_helpers.h"
-#include "ui_events.h"
+#include "UI/ui_helpers.h"
+#include "UI/ui_events.h"
 
 // SCREEN: ui_Screen1
 void ui_Screen1_screen_init(void);
@@ -38,6 +38,33 @@ extern lv_obj_t * ui_Label5;
 extern lv_obj_t * ui_Label1;
 extern lv_obj_t * ui_Label6;
 // CUSTOM VARIABLES
+
+// SCREEN: ui_Screen2
+void ui_Screen2_screen_init(void);
+extern lv_obj_t * ui_Screen2;
+extern lv_obj_t * ui_IncrementLevelBTN;
+extern lv_obj_t * ui_LEVELTITLE;
+extern lv_obj_t * ui_LEVELVAL;
+extern lv_obj_t * ui_IncrementSign;
+extern lv_obj_t * ui_IncrementLevelBTN1;
+extern lv_obj_t * ui_DecrementSign;
+// CUSTOM VARIABLES
+
+// SCREEN: ui_Screen3
+void ui_Screen3_screen_init(void);
+extern lv_obj_t * ui_Screen3;
+extern lv_obj_t * ui_CaloriesLabel;
+extern lv_obj_t * ui_CaloriesUnit;
+extern lv_obj_t * ui_CaloriesValue;
+extern lv_obj_t * ui_CadenceLabel;
+extern lv_obj_t * ui_CadenceValue;
+extern lv_obj_t * ui_CadenceUnit;
+extern lv_obj_t * ui_SpeedLabel;
+extern lv_obj_t * ui_SpeedUnit;
+extern lv_obj_t * ui_SpeedValue;
+extern lv_obj_t * ui_DistanceLabel;
+extern lv_obj_t * ui_DistanceUnit;
+extern lv_obj_t * ui_SpeedValue1;
 
 // EVENTS
 

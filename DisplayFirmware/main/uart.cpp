@@ -1,27 +1,25 @@
 #include "uart.hpp"
 
-
 void uart_event_task(void *pvParameters)
 {
     uart_event_t event;
 
-    Serial.println("In UART EVENT TASK");
+    LOG(LOG_LEVEL_DEBUG, "In UART EVENT TASK");
     while (1)
     {
 
         if (xQueueReceive(uartQueue, (void *)&event, (TickType_t)portMAX_DELAY))
         {
-            Serial.println("Recieved a UART EVENT");
-
+            LOG(LOG_LEVEL_DEBUG, "Recieved a UART EVENT");
             switch (event.type)
             {
             case UART_DATA:
-                Serial.println("UART DATA Event");
+                LOG(LOG_LEVEL_DEBUG, "UART DATA Event");
                 readUART2();
-                xSemaphoreGive(uart_data_ready_semaphore);
+                xTaskNotify(displayTaskHandle, (1 << 1), eSetBits);
                 break;
             default:
-                Serial.println("NOT UART DATA Event");
+                LOG(LOG_LEVEL_DEBUG, "NOT UART DATA Event");
                 break;
             }
         }
@@ -55,33 +53,42 @@ void readUART2()
     if (len > 0)
     {
         data[len] = '\0'; // Null-terminate the received data
+        LOG(LOG_LEVEL_TRACE, String("Received UART Data: ") + (char *)data + '\n');
 
-        // Split the received string into voltage and current using space as delimiter
-        char *token = strtok((char *)data, " ");
-        if (token != NULL)
+        float voltage = 0.0f, current = 0.0f;
+        int rpm = 0; // Default to -1 if RPM is not provided
+        int parsedValues = sscanf((char *)data, "%f %f %d", &voltage, &current, &rpm);
+
+        if (parsedValues >= 2)
         {
-            voltage = atof(token); // Update the voltage pointer value
+            SensorData &sensorData = SensorData::getInstance();
+            sensorData.setVoltage(voltage);
+            sensorData.setCurrent(current);
 
-            token = strtok(NULL, "\n");
-            if (token != NULL)
-            {
-                current = atof(token); // Update the current pointer value
+            LOG(LOG_LEVEL_TRACE, "Updated Voltage: " + String(voltage) + " V\n");
+            LOG(LOG_LEVEL_TRACE, "Updated Current: " + String(current) + " A\n");
 
-                // Log the parsed values with Serial.print
-                Serial.print("Updated Voltage: ");
-                Serial.print(voltage);
-                Serial.print(" V, Current: ");
-                Serial.print(current);
-                Serial.println(" A");
-            }
-            else
+            if (parsedValues == 3)
             {
-                Serial.println("Failed to parse current");
+                sensorData.setRPM(rpm);
+                LOG(LOG_LEVEL_TRACE, "Updated RPM: " + String(rpm) + " rpm\n");
             }
+
+            sensorData.recordDataPoint();
         }
         else
         {
-            Serial.println("Failed to parse voltage");
+            Serial.println("Failed to parse UART data");
         }
+    }
+}
+
+void sendResistanceLevelUART2(uint8_t numRepeats, char resistanceLevel)
+{
+    for (int i = 0; i < numRepeats; ++i)
+    {
+        LOG(LOG_LEVEL_TRACE, "SENT LEVEL TO ARDUINO" + String(resistanceLevel));
+        uart_write_bytes(UART_NUM, &resistanceLevel, 1);
+        uart_wait_tx_done(UART_NUM, pdMS_TO_TICKS(2)); // Wait for transmission to complete
     }
 }
