@@ -36,15 +36,10 @@ bool handleNotifiedValue(uint32_t notifiedValue)
     {
         LOG(LOG_LEVEL_TRACE, "Button Task Triggered Display");
         xTaskNotifyStateClearIndexed(displayTaskHandle, 0); // Clear index 0 bits only
-        return true;
     }
     if (notifiedValue & (1 << 1))
     {
         LOG(LOG_LEVEL_TRACE, "UART Task Triggered Display");
-        if (screenManager.getScreenNumber() == RESISTANCE_LEVEL)
-        {
-            return false;
-        }
     }
 
     return true;
@@ -59,7 +54,7 @@ void displayTask(void *pvParameters)
         uint32_t notifiedValue;
         if (xTaskNotifyWait(0, ULONG_MAX, &notifiedValue, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) == pdTRUE)
         {
-            bool shouldUpdateDisplay = handleNotifiedValue(notifiedValue);
+            handleNotifiedValue(notifiedValue);
 
             if (!screenManager.isScreenOn())
             {
@@ -69,12 +64,10 @@ void displayTask(void *pvParameters)
             updateTimeHeader();
             updateScreenSetup();
 
-            if (shouldUpdateDisplay)
-            {
-                ScreenManager::getInstance().display(); // Access LVGL safely
-                LOG(LOG_LEVEL_DEBUG, "Updating UI");
-                screenManager.display();
-            }
+            ScreenManager::getInstance().display(); // Access LVGL safely
+            LOG(LOG_LEVEL_DEBUG, "Updating UI");
+            screenManager.display();
+            
         }
         else
         {
