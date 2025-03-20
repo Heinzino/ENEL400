@@ -22,7 +22,8 @@
         "bitset": "cpp",
         "string_view": "cpp",
         "initializer_list": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "timerheader.hpp": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

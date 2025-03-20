@@ -13,6 +13,14 @@ void safeLvglRefresh(unsigned long minIntervalMs)
     }
 }
 
+void updateTimeHeader()
+{
+    TimeManager &timeManager = TimeManager::getInstance();
+    timeManager.update();
+    lv_label_set_text(elapsed_label, timeManager.getElapsedTime());
+    lv_label_set_text(datetime_label, timeManager.getFormattedTime());
+}
+
 void updateScreenSetup()
 {
     digitalWrite(TFT_SCREEN_LED, HIGH);
@@ -20,34 +28,47 @@ void updateScreenSetup()
     lv_task_handler();
 }
 
+bool handleNotifiedValue(uint32_t notifiedValue)
+{
+    ScreenManager &screenManager = ScreenManager::getInstance();
+
+    if (notifiedValue & (1 << 0))
+    {
+        LOG(LOG_LEVEL_TRACE, "Button Task Triggered Display");
+        xTaskNotifyStateClearIndexed(displayTaskHandle, 0); // Clear index 0 bits only
+        return true;
+    }
+    if (notifiedValue & (1 << 1))
+    {
+        LOG(LOG_LEVEL_TRACE, "UART Task Triggered Display");
+        if (screenManager.getScreenNumber() == RESISTANCE_LEVEL)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void displayTask(void *pvParameters)
 {
+    create_time_header();
     while (1)
     {
         ScreenManager &screenManager = ScreenManager::getInstance();
         uint32_t notifiedValue;
         if (xTaskNotifyWait(0, ULONG_MAX, &notifiedValue, pdMS_TO_TICKS(DISPLAY_SCREEN_TIMEOUT_MS)) == pdTRUE)
         {
-            bool shouldUpdateDisplay = true;
-            if (notifiedValue & (1 << 0))
-            {
-                LOG(LOG_LEVEL_TRACE, "Button Task Triggered Display");
-                xTaskNotifyStateClearIndexed(displayTaskHandle, 0); // Clear index 0 bits only
-            }
-            if (notifiedValue & (1 << 1))
-            {
-                if (screenManager.getScreenNumber() == RESISTANCE_LEVEL)
-                {
-                    shouldUpdateDisplay = false;
-                }
-                LOG(LOG_LEVEL_TRACE, "UART Task Triggered Display");
-            }
+            bool shouldUpdateDisplay = handleNotifiedValue(notifiedValue);
 
             if (!screenManager.isScreenOn())
             {
                 screenManager.updateScreenState(ScreenState::ON);
             }
+
+            updateTimeHeader();
             updateScreenSetup();
+
             if (shouldUpdateDisplay)
             {
                 ScreenManager::getInstance().display(); // Access LVGL safely
@@ -60,6 +81,7 @@ void displayTask(void *pvParameters)
             if (screenManager.isScreenOn())
             {
                 LOG(LOG_LEVEL_DEBUG, "Turning Screen OFF");
+                TimeManager::getInstance().resetWorkoutTime(); 
                 screenManager.updateScreenState(ScreenState::OFF);
                 digitalWrite(TFT_SCREEN_LED, LOW);
             }

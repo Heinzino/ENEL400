@@ -73,7 +73,6 @@ void setup()
   ScreenManager::getInstance().display();
   Serial.println("Initialzed Screen");
 
-  start_time_task();
   xTaskCreatePinnedToCore(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle, 0);
   xTaskCreatePinnedToCore(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle, 1);
   xTaskCreatePinnedToCore(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL, 1);
