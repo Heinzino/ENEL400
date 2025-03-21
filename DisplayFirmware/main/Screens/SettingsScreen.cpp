@@ -58,3 +58,11 @@ void SettingsScreen::handleButton(ButtonID btn) {
         break;
     }
 }
+
+void SettingsScreen::setTimezone(String tz) {
+    timezone = tz;
+}
+
+String SettingsScreen::getTimezone() const {
+    return timezone;
+}
