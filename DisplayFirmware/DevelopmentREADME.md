@@ -20,3 +20,4 @@ List of Changes:
 - Set TFT Driver to ILI9488
 - Set TFT SPI Lines, CS, DC according to `pins.hpp`
 - Enable Montserrat font sizes 48, 24, 28, 18, 40, 22, 32
+- Partition table select single factory app (large), no OTA. From the dropdown menu

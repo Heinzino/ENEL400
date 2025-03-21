@@ -4,6 +4,11 @@
 #include <time.h>
 #include "lvgl.h"
 #include "logging.hpp"
+#include "WiFi.h"
+#include "secrets.hpp"
+#include "Screens/SettingsScreen.hpp"
+
+void initWiFi();
 
 class TimeManager {
 public:
