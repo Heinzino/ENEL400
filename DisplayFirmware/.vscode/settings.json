@@ -86,7 +86,9 @@
         "thread": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "plotscreen.hpp": "c",
+        "powerscreen.hpp": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

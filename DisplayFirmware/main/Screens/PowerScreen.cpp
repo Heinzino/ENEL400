@@ -49,6 +49,9 @@ void PowerScreen::handleButton(ButtonID btn)
     case ButtonID::SHIFT_HRZN_BTN:
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::RESISTANCE_LEVEL, ui_Screen2);
         break;
+    case ButtonID::PLOT_BTN:
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::PLOT, ui_Screen4);
+        break;
     default:
         break;
     }

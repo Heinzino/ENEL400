@@ -5,8 +5,6 @@ Button buttons[4] = {{BTN1, LOW, LOW, 0, 0},
                      {BTN3, LOW, LOW, 0, 0},
                      {BTN4, LOW, LOW, 0, 0}};
 
-static portMUX_TYPE screenSwitchMux = portMUX_INITIALIZER_UNLOCKED;
-
 void IRAM_ATTR buttonISRHandler(void *arg)
 {
     Button *btn = (Button *)arg;

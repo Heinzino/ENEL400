@@ -52,6 +52,15 @@ lv_obj_t * ui_DistanceUnit;
 lv_obj_t * ui_SpeedValue1;
 // CUSTOM VARIABLES
 
+// SCREEN: ui_Screen4
+void ui_Screen4_screen_init(void);
+lv_obj_t * ui_Screen4;
+lv_obj_t * ui_Chart1;
+lv_obj_t * ui_PlotTitle;
+lv_obj_t * ui_XLabel;
+lv_obj_t * ui_YLabel;
+// CUSTOM VARIABLES
+
 // EVENTS
 lv_obj_t * ui____initial_actions0;
 
@@ -80,6 +89,7 @@ void ui_init(void)
     ui_Screen1_screen_init();
     ui_Screen2_screen_init();
     ui_Screen3_screen_init();
+    ui_Screen4_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_Screen1);
 }

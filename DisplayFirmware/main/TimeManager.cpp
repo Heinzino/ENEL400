@@ -88,10 +88,12 @@ void TimeManager::update()
     uint32_t now = millis();
 
     if (now - lastUpdate >= 1000)
-    { // Update every second
-        lastUpdate = now;
-        elapsedSeconds++;
-        currentTime++;
+    {
+        uint32_t delta = (now - lastUpdate) / 1000;  // How many full seconds passed
+
+        elapsedSeconds += delta;
+        currentTime += delta;
+        lastUpdate += delta * 1000;
 
         //  Update elapsed time string (MM:SS)
         snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "%02d:%02d", elapsedSeconds / 60, elapsedSeconds % 60);

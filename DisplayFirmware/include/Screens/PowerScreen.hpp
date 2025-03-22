@@ -11,6 +11,7 @@ class PowerScreen : public Screen {
 public:
     void updateScreen() override;
     void handleButton(ButtonID btn) override;
+    lv_obj_t* getScreen() override { return ui_Screen1; }
 
     void setPowerVoltage(float v, float c);  // Update power & voltage
 
