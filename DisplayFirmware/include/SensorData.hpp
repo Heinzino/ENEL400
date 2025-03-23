@@ -15,9 +15,6 @@ public:
     void setRPM(int rpm);
     void recordDataPoint();
 
-    const std::vector<float> &getVoltageHistory() const;
-
-
     float getVoltage() const;
     float getCurrent() const;
     int getRPM() const;
@@ -37,7 +34,6 @@ private:
     std::vector<uint32_t> timestamps;
     std::vector<float> speedValues;
     std::vector<float> powerValues;
-    std::vector<float> voltageValues;
 
     static constexpr float JOULE_TO_CALORIES = 1.0 / 4.184; // 1 Joule = 1 / 4.184 Calories
     static constexpr float CALORIE_EFFICIENCY_FACTOR = 0.00125; // Adjust this to tune calorie calculation

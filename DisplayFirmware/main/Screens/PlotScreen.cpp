@@ -6,6 +6,13 @@ bool pendingSwitchToPowerDisplay = false;
 
 void PlotScreen::updateScreen()
 {
+    static uint32_t lastUpdate = 0;
+    uint32_t now = esp_timer_get_time() / 1000; // ms
+
+    if (now - lastUpdate < 200) {
+        return; // throttle chart update to every 20ms
+    }
+    lastUpdate = now;
 
     if(pendingSwitchToPowerDisplay){
         pendingSwitchToPowerDisplay = false;
@@ -19,27 +26,16 @@ void PlotScreen::updateScreen()
         data_series = lv_chart_get_series_next(ui_Chart1, NULL);
     }
 
-    const std::vector<float> &history = SensorData::getInstance().getVoltageHistory();
-
-    // Limit to most recent N points
-    static constexpr size_t MAX_POINTS = 100;
-    size_t start = history.size() > MAX_POINTS ? history.size() - MAX_POINTS : 0;
-    size_t visibleCount = history.size() - start;
-
-    // Allocate LVGL-compatible buffer
-    static lv_coord_t chartBuffer[MAX_POINTS];
-    for (size_t i = 0; i < visibleCount; ++i)
-    {
-        chartBuffer[i] = static_cast<lv_coord_t>(history[start + i]); // scale to match Y-axis
-    }
+    float voltage = SensorData::getInstance().getVoltage();
+    lv_chart_set_next_value(ui_Chart1, data_series, static_cast<lv_coord_t>(voltage));
 
     // Set chart range (scaled to 60V)
     lv_chart_set_range(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, 0, 60);
 
     // Update chart data
-    lv_chart_set_point_count(ui_Chart1, visibleCount);
+    // lv_chart_set_point_count(ui_Chart1, visibleCount);
     lv_chart_set_update_mode(ui_Chart1, LV_CHART_UPDATE_MODE_SHIFT); // scroll mode
-    lv_chart_set_ext_y_array(ui_Chart1, data_series, chartBuffer);
+    // lv_chart_set_ext_y_array(ui_Chart1, data_series, chartBuffer);
 
     axisLabels();
     lv_timer_handler();
