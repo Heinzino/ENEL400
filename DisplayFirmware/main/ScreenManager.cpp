@@ -29,7 +29,7 @@ Screen *ScreenManager::getCurrentScreenObject()
 
 void ScreenManager::display()
 {
-    if (xSemaphoreTake(lvglMutex, pdMS_TO_TICKS(100)) == pdTRUE)
+    if (xSemaphoreTake(lvglMutex, pdMS_TO_TICKS(50)) == pdTRUE)
     {
         LOG(LOG_LEVEL_DEBUG, "Screen Number: " + String(screenNumber) + " \n");
         screens[static_cast<size_t>(screenNumber)]->updateScreen(); // Dynamically calls updateScreen()
@@ -49,13 +49,18 @@ bool ScreenManager::isScreenOn()
 
 void ScreenManager::safeSwitchToScreen(ScreenTitles newScreen, lv_obj_t *lvglScreen)
 {
-    uart_disable_rx_intr(UART_NUM);
-    delay(UART_INTR_TIMEOUT_MS);
-    portENTER_CRITICAL(&screenSwitchMux1);
+    // if (xSemaphoreTake(lvglMutex, pdMS_TO_TICKS(100)) == pdTRUE)
+    // {
+        uart_disable_rx_intr(UART_NUM);
+        delay(UART_INTR_TIMEOUT_MS);
+        portENTER_CRITICAL(&screenSwitchMux1);
 
-    lv_scr_load(lvglScreen);
-    screenNumber = newScreen;
+        lv_scr_load(lvglScreen);
+        screenNumber = newScreen;
 
-    portEXIT_CRITICAL(&screenSwitchMux1);
-    uart_enable_rx_intr(UART_NUM);
+        portEXIT_CRITICAL(&screenSwitchMux1);
+        uart_enable_rx_intr(UART_NUM);
+
+        xSemaphoreGive(lvglMutex);
+    // }
 }

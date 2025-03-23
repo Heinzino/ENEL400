@@ -1,10 +1,18 @@
 #include "PlotScreen.hpp"
 
 extern lv_obj_t *ui_Chart1; // Use the existing chart from ui_Screen4
+bool pendingSwitchToPowerDisplay = false;
 
 
 void PlotScreen::updateScreen()
 {
+
+    if(pendingSwitchToPowerDisplay){
+        pendingSwitchToPowerDisplay = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::POWER_DISPLAY, ui_Screen1);
+        return; // Exit early to prevent chart update
+    }
+
     if (!data_series)
     {
         // Locate existing series in the chart instead of creating a new one
@@ -55,11 +63,10 @@ void PlotScreen::updateChartData(lv_coord_t *new_data, uint16_t data_size)
 
 void PlotScreen::handleButton(ButtonID btn)
 {
-    ScreenManager& sm = ScreenManager::getInstance();
     switch (btn)
     {
     case ButtonID::SHIFT_HRZN_BTN:
-        sm.safeSwitchToScreen(ScreenTitles::POWER_DISPLAY, ui_Screen1);
+        pendingSwitchToPowerDisplay = true;
         break;
     default:
         break;

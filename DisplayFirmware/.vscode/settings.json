@@ -88,7 +88,8 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "plotscreen.hpp": "c",
-        "powerscreen.hpp": "c"
+        "powerscreen.hpp": "c",
+        "timemanager.hpp": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

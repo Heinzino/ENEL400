@@ -58,7 +58,6 @@ void buttonTask(void *pvParameters)
                         screenManager.getCurrentScreenObject()->handleButton(static_cast<ButtonID>(i));
 
                         // Notify display task only if a short press was detected
-                        screenManager.display();
                         xTaskNotify(displayTaskHandle, (1 << 0), eSetBits);
                     }
                 }
