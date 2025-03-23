@@ -52,42 +52,46 @@ float measure_generator_current(){
 
 
 
-/*-------------------------------------Measure Load Current--------------------------------------*/
+/*------------------------------------Measure Battery Current------------------------------------*/
 // Function to measure load current
 float measure_battery_current(){
 
   // Measure the load current, average 10 samples and return value in mA
-  int load_current_mA = ACS_battery.mA_DC(10);
+  int battery_current_mA = ACS_battery.mA_DC(10);
 
   // Convert the value in mA to A
   float calibrated_value = -1035.3; // Uncalibrated value: -1000.0
-  float load_current_A = load_current_mA / calibrated_value;
+  float battery_current_A = battery_current_mA / calibrated_value;
 
   // Return the load current in Amps as a float
-  return load_current_A;
+  return battery_current_A;
 }
 
 
 
-/*-----------------------------------DUMP LOAD 1 MEASUREMENT-------------------------------------*/
-// Function to measure temperature of dump load 1
-float measure_dump_load_1_temp(){
+/*-----------------------------------Measure Inverter Current------------------------------------*/
+// Function to measure load current
+float measure_inverter_current(){
 
-  // Measure the temperature from the LM35 sensor
-  float temperature = dump_load_1_temp.cel();
+  // Measure the load current, average 10 samples and return value in mA
+  int inverter_current_mA = ACS_inverter.mA_DC(10);
 
-  // Return this value 
-  return temperature;
+  // Convert the value in mA to A
+  float calibrated_value = -1035.3; // Uncalibrated value: -1000.0
+  float inverter_current_A = inverter_current_mA / calibrated_value;
+
+  // Return the load current in Amps as a float
+  return inverter_current_A;
 }
 
 
 
-/*-----------------------------------DUMP LOAD 2 MEASUREMENT-------------------------------------*/
-// Function to measure temperature of dump load 2
-float measure_dump_load_2_temp(){
+/*-----------------------------------Temperature Measurement-------------------------------------*/
+// Function to measure temperature
+float measure_temperature(){
 
   // Measure the temperature from the LM35 sensor
-  float temperature = dump_load_2_temp.cel();
+  float temperature = temperature.cel();
 
   // Return this value 
   return temperature;

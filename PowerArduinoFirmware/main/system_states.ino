@@ -7,27 +7,28 @@ void system_init(){
   // Begin the serial at 9600 baud
   Serial.begin(9600);
 
-  // Set input hardware interrupt pin mode
-  pinMode(INTERRUPT_PIN, INPUT);
-
-  // Set MOSFET output pins 
-  pinMode(GENERATOR_MOSFET_PIN, OUTPUT);
+  // Set digital pin direction
+  pinMode(HALL_EFFECT_SENSOR_PIN, INPUT);
   pinMode(CHARGING_MOSFET_PIN, OUTPUT);
+  pinMode(GENERATOR_MOSFET_PIN, OUTPUT);
   pinMode(DUMP_LOAD_MOSFET_1, OUTPUT);
-  pinMode(INVERTER_MOSFET, OUTPUT);
   pinMode(DUMP_LOAD_MOSFET_2, OUTPUT);
+  pinMode(FAN_MOSFET_PIN, OUTPUT);
+  pinMode(INVERTER_MOSFET, OUTPUT);
+  pinMode(LED_MOSFET_PIN, OUTPUT);
+  pinMode(FAN1_AUX_PIN, OUTPUT);
+  pinMode(FAN2_AUX_PIN, OUTPUT);
+  pinMode(DISCHARGING_MOSFET_PIN, OUTPUT);
 
   // Set analog output pins
-  pinMode(TEMP_DUMP_LOAD_1, INPUT);
+  pinMode(TEMPERATURE_SENSOR_PIN, INPUT);
   pinMode(BATTERY_VOLTAGE_PIN, INPUT);
   pinMode(GENERATOR_VOLTAGE_PIN, INPUT);
-  pinMode(TEMP_DUMP_LOAD_2, INPUT);
+  pinMode(INVERTER_CURRENT_PIN, INPUT);
   pinMode(GENERATOR_CURRENT_PIN, INPUT);
   pinMode(BATTERY_CURRENT_PIN, INPUT);
   analogReference(DEFAULT);
 
-  // Attach Digital pin 2 to the hardware digital input interrupt, rising edge triggered
-  //attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), digital_input_ISR, RISING);
   rpmSensor.begin();
 
   // Calibrate the generator current sensor
@@ -35,6 +36,9 @@ void system_init(){
 
   // Calibrate the load current sensor
   ACS_battery.autoMidPoint();
+
+  // Calibrate the inverter current sensor
+  ACS_inverter.autoMidPoint();
 
   // Begin the display and draw battery outline
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
@@ -133,6 +137,10 @@ void get_data(){
   battery_voltage = measure_battery_voltage();
   battery_current = measure_battery_current();
 
+  // Get inverter current, multiply to get power
+  inverter_current = measure_inverter_current();
+  inverter_power = inverter_current * 15.0;
+
   rpmSensor.update();
 
   if (generator_voltage >= 40){
@@ -195,6 +203,8 @@ void load_prioritizer(){
 
   // Unconditional state transitio, go to sleep state
   system_state_variable = SYSTEM_SLEEP;
+
+  
 
 }
 
