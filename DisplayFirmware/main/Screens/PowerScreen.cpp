@@ -51,6 +51,7 @@ void PowerScreen::handleButton(ButtonID btn)
         break;
     case ButtonID::PLOT_BTN:
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::PLOT, ui_Screen4);
+        PlotScreen::plotSetup();
         break;
     default:
         break;

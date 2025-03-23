@@ -29,16 +29,7 @@ void PlotScreen::updateScreen()
     float voltage = SensorData::getInstance().getVoltage();
     lv_chart_set_next_value(ui_Chart1, data_series, static_cast<lv_coord_t>(voltage));
 
-    // Set chart range (scaled to 60V)
-    lv_chart_set_range(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, 0, 60);
 
-    // Update chart data
-    // lv_chart_set_point_count(ui_Chart1, visibleCount);
-    lv_chart_set_update_mode(ui_Chart1, LV_CHART_UPDATE_MODE_SHIFT); // scroll mode
-    // lv_chart_set_ext_y_array(ui_Chart1, data_series, chartBuffer);
-
-    axisLabels();
-    lv_timer_handler();
     lv_task_handler();
     safeLvglRefresh();
 }
@@ -80,3 +71,8 @@ void PlotScreen::axisLabels()
     lv_label_set_text(ui_YLabel, yLabel);   
 }
 
+void PlotScreen::plotSetup(){
+    lv_chart_set_range(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, 0, 60);
+    axisLabels();
+    lv_chart_set_update_mode(ui_Chart1, LV_CHART_UPDATE_MODE_SHIFT); // scroll mode
+}

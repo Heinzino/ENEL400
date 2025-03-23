@@ -19,10 +19,10 @@ public:
 
 
     void updateChartData(lv_coord_t *new_data, uint16_t data_size);  // Function to update the chart
-
+    static void plotSetup();
 
 private:
-    void axisLabels();  // Function to update the chart axis labels
+    static void axisLabels();  // Function to update the chart axis labels
 
     lv_chart_series_t *data_series = nullptr;  // Reference to the chart series
 };
