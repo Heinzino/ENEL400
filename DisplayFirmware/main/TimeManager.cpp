@@ -84,7 +84,6 @@ void TimeManager::syncNTP()
 
 void TimeManager::update()
 {
-    static uint32_t lastUpdate = 0;
     uint32_t now = millis();
 
     if (now - lastUpdate >= 1000)
@@ -130,5 +129,6 @@ const char *TimeManager::getFormattedTime()
 void TimeManager::resetWorkoutTime()
 {
     elapsedSeconds = 0;
+    lastUpdate = millis();
     snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "00:00");
 }

@@ -30,7 +30,7 @@ public:
 private:
     ScreenManager(); // Private constructor to prevent multiple instances
     Screen* screens[SCREEN_COUNT];
-    ScreenState screenState = ScreenState::ON;
+    ScreenState screenState = ScreenState::OFF;
     ScreenTitles screenNumber = ScreenTitles::POWER_DISPLAY; // Default to POWER_DISPLAY
 };
 

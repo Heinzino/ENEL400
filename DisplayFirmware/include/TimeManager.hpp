@@ -25,6 +25,7 @@ public:
 private:
     TimeManager(); // Private constructor (singleton)
     
+    uint32_t lastUpdate = 0;
     int elapsedSeconds = 0;
     time_t currentTime;
     char elapsedTimeStr[16];  // "MM:SS"
