@@ -9,7 +9,7 @@
 #include <Wire.h> // Handles I2C communication for OLED display
 #include <Adafruit_GFX.h> // Handles drawing shapes for OLED display
 #include <Adafruit_SSD1306.h> // Handles low level drivers for OLED display
-#include "tachometer.h"
+#include "tachometer.h" // Handles tachometer drivers
 
 
 

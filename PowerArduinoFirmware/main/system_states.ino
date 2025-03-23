@@ -113,7 +113,6 @@ void get_data(){
 
 
 /*---------------------------------------Send Sensor Data----------------------------------------*/
-
 float sanitizeFloat(float value) {
     //Avoid <= to avoid unexpected floating-point behavior.
     return (value < 0.00) ? 0.00 : value; 
@@ -141,7 +140,6 @@ void send_data(){
   
   // Flush the serial buffer 
   Serial.flush();
-
 }
 
 

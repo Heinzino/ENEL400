@@ -7,7 +7,7 @@ void setup_WDT(){
   cli();  // Disable interrupts
   wdt_reset();
   WDTCSR = (1 << WDCE) | (1 << WDE); // Enter configuration mode
-  WDTCSR = (1 << WDIE) | (1 << WDP1) | (1 << WDP0); // Set WDT to ~128ms
+  WDTCSR = (1 << WDIE) | (1 << WDP1); // Set WDT to ~32ms
   sei();  // Re-enable interrupts
 }
 
@@ -25,7 +25,7 @@ void disableWDT() {
 void enableWDT() {
   cli(); // Disable global interrupts
   WDTCSR = (1 << WDCE) | (1 << WDE); // Enter configuration mode
-  WDTCSR = (1 << WDIE) | (1 << WDP1) | (1 << WDP0); // Set WDT to ~128ms
+  WDTCSR = (1 << WDIE) | (1 << WDP1); // Set WDT to ~32ms
   sei(); // Re-enable global interrupts
 }
 
