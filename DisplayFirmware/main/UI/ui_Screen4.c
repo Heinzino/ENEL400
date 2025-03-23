@@ -9,7 +9,7 @@
 void ui_Screen4_screen_init(void)
 {
     ui_Screen4 = lv_obj_create(NULL);
-    lv_obj_clear_flag(ui_Screen4, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_clear_flag(ui_Screen4, LV_OBJ_FLAG_SCROLLABLE); /// Flags
 
     ui_Chart1 = lv_chart_create(ui_Screen4);
     lv_obj_set_width(ui_Chart1, 381);
@@ -21,9 +21,9 @@ void ui_Screen4_screen_init(void)
     lv_chart_set_axis_tick(ui_Chart1, LV_CHART_AXIS_PRIMARY_X, 10, 5, 5, 2, true, 50);
     lv_chart_set_axis_tick(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, 10, 5, 5, 2, true, 50);
     lv_chart_set_axis_tick(ui_Chart1, LV_CHART_AXIS_SECONDARY_Y, 10, 5, 5, 2, true, 25);
-    lv_chart_series_t * ui_Chart1_series_1 = lv_chart_add_series(ui_Chart1, lv_color_hex(0x3034B9),
-                                                                 LV_CHART_AXIS_PRIMARY_Y);
-    static lv_coord_t ui_Chart1_series_1_array[] = { 0, 10, 20, 40, 80, 80, 40, 20, 10, 0 };
+    lv_chart_series_t *ui_Chart1_series_1 = lv_chart_add_series(ui_Chart1, lv_color_hex(0x3034B9),
+                                                                LV_CHART_AXIS_PRIMARY_Y);
+    static lv_coord_t ui_Chart1_series_1_array[] = {0, 10, 20, 40, 80, 80, 40, 20, 10, 0};
     lv_chart_set_ext_y_array(ui_Chart1, ui_Chart1_series_1, ui_Chart1_series_1_array);
     lv_obj_set_style_radius(ui_Chart1, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_Chart1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -33,15 +33,13 @@ void ui_Screen4_screen_init(void)
     lv_obj_set_style_line_color(ui_Chart1, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_line_opa(ui_Chart1, 80, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-
-
     lv_obj_set_style_line_color(ui_Chart1, lv_color_hex(0xFFFFFF), LV_PART_TICKS | LV_STATE_DEFAULT);
     lv_obj_set_style_line_opa(ui_Chart1, 255, LV_PART_TICKS | LV_STATE_DEFAULT);
     lv_obj_set_style_line_width(ui_Chart1, 3, LV_PART_TICKS | LV_STATE_DEFAULT);
 
     ui_PlotTitle = lv_label_create(ui_Screen4);
-    lv_obj_set_width(ui_PlotTitle, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PlotTitle, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_width(ui_PlotTitle, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_PlotTitle, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_PlotTitle, 3);
     lv_obj_set_y(ui_PlotTitle, -110);
     lv_obj_set_align(ui_PlotTitle, LV_ALIGN_CENTER);
@@ -51,27 +49,28 @@ void ui_Screen4_screen_init(void)
     lv_obj_set_style_text_font(ui_PlotTitle, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_XLabel = lv_label_create(ui_Screen4);
-    lv_obj_set_width(ui_XLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_XLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_width(ui_XLabel, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_XLabel, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_XLabel, 216);
     lv_obj_set_y(ui_XLabel, 134);
     lv_obj_set_align(ui_XLabel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_XLabel, "Time\n  (s)");
     lv_obj_set_style_text_color(ui_XLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_XLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_XLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_XLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    //I've tried the commented line below for the Y axis label, but it doesn't work
+    //Tried making a custom lv_conf.h file, making a canvas buffer and rotating it but neither
+    //Went with just making it horizontal for now
+    //lv_obj_set_style_transform_angle(ui_YLabel, 2700, LV_PART_MAIN | LV_STATE_DEFAULT);
     ui_YLabel = lv_label_create(ui_Screen4);
-    lv_obj_set_width(ui_YLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_YLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_width(ui_YLabel, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_YLabel, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_YLabel, -192);
-    lv_obj_set_y(ui_YLabel, 67);
+    lv_obj_set_y(ui_YLabel, -111);
     lv_obj_set_align(ui_YLabel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_YLabel, "Voltage (V)");
     lv_obj_set_style_text_color(ui_YLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_YLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_YLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_transform_angle(ui_YLabel, 2700, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-
+    lv_obj_set_style_text_font(ui_YLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 }

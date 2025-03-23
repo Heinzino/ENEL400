@@ -5177,7 +5177,7 @@
               {
                 "nid": 1030,
                 "strtype": "LABEL/Text",
-                "strval": "Time\\n  (s)",
+                "strval": "Time\\n   (s)",
                 "InheritedType": 10
               },
               {
@@ -5208,7 +5208,7 @@
                       {
                         "nid": 10450,
                         "strtype": "_style/Text_Font",
-                        "strval": "montserrat_18",
+                        "strval": "montserrat_16",
                         "InheritedType": 3
                       }
                     ],
@@ -5264,7 +5264,7 @@
                 "strtype": "OBJECT/Position",
                 "intarray": [
                   -192,
-                  67
+                  -111
                 ],
                 "InheritedType": 7
               },
@@ -5316,7 +5316,6 @@
               },
               {
                 "nid": 1010,
-                "flags": 1048576,
                 "strtype": "LABEL/Label",
                 "InheritedType": 1
               },
@@ -5360,14 +5359,8 @@
                       {
                         "nid": 10450,
                         "strtype": "_style/Text_Font",
-                        "strval": "montserrat_18",
+                        "strval": "montserrat_16",
                         "InheritedType": 3
-                      },
-                      {
-                        "nid": 10040,
-                        "strtype": "_style/Transform_rotation",
-                        "integer": 2700,
-                        "InheritedType": 6
                       }
                     ],
                     "InheritedType": 1

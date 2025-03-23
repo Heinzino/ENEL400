@@ -55,22 +55,21 @@ void ui_Screen4_screen_init(void)
     lv_obj_set_x(ui_XLabel, 216);
     lv_obj_set_y(ui_XLabel, 134);
     lv_obj_set_align(ui_XLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_XLabel, "Time\n  (s)");
+    lv_label_set_text(ui_XLabel, "Time\n   (s)");
     lv_obj_set_style_text_color(ui_XLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_XLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_XLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_XLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_YLabel = lv_label_create(ui_Screen4);
     lv_obj_set_width(ui_YLabel, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_YLabel, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_YLabel, -192);
-    lv_obj_set_y(ui_YLabel, 67);
+    lv_obj_set_y(ui_YLabel, -111);
     lv_obj_set_align(ui_YLabel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_YLabel, "Voltage (V)");
     lv_obj_set_style_text_color(ui_YLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_YLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_YLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_transform_angle(ui_YLabel, 2700, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_YLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 
 }

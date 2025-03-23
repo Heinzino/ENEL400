@@ -57,7 +57,7 @@ void PlotScreen::axisLabels()
     lv_label_set_text(ui_XLabel, xLabel);   
 
     static char yLabel[32];
-    sniprintf(yLabel, sizeof(yLabel), "VOLTAGE OVER TIME");
+    sniprintf(yLabel, sizeof(yLabel), "Voltage (V)");
     lv_label_set_text(ui_YLabel, yLabel);   
 }
 
