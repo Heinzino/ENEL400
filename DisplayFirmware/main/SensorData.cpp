@@ -62,6 +62,7 @@ void SensorData::recordDataPoint()
     timestamps.push_back(now);
     speedValues.push_back(getSpeed());
     powerValues.push_back(voltage * current);
+    voltageValues.push_back(voltage);
 }
 
 // Compute Distance (km) = ∫ Speed (km/h) * dt (h)
@@ -96,4 +97,8 @@ float SensorData::getEnergy() const
 
 int SensorData::getCalories() const {
     return static_cast<int>(getEnergy() * JOULE_TO_CALORIES * CALORIE_EFFICIENCY_FACTOR);
+}
+
+const std::vector<float> &SensorData::getVoltageHistory() const {
+    return voltageValues;
 }
