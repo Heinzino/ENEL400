@@ -11,11 +11,11 @@ void PlotScreen::updateScreen()
         data_series = lv_chart_get_series_next(ui_Chart1, NULL);
     }
 
-    if (data_series)
-    {
-        // Refresh the chart UI
-        lv_chart_refresh(ui_Chart1);
-    }
+    // if (data_series)
+    // {
+    //     // Refresh the chart UI
+    //     lv_chart_refresh(ui_Chart1);
+    // }
 
     axisLabels();
     lv_timer_handler();
