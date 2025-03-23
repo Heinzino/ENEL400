@@ -31,20 +31,21 @@
 
 
 /*--------------------------------------SYSTEM FSM DEFINES---------------------------------------*/
-#define SYSTEM_INIT     0
-#define SYSTEM_SLEEP    1
-#define GET_DATA        2
-#define SEND_DATA       3
-#define SET_DIFFICULTY  4
-#define CHARGE_FSM      5
+#define SYSTEM_INIT      0
+#define SYSTEM_SLEEP     1
+#define GET_DATA         2
+#define SEND_DATA        3
+#define SET_DIFFICULTY   4
+#define CHARGE_FSM       5
+#define LOAD_PRIORITIZER 6
 
 
 
 /*-------------------------------------CHARGING FSM DEFINES--------------------------------------*/
-#define BULK       6
-#define ABSORPTION 7
-#define FLOATING   8
-#define DISCHARGE  9
+#define BULK       0
+#define ABSORPTION 1
+#define FLOATING   2
+#define DISCHARGE  3
 
 
 
@@ -78,18 +79,20 @@ volatile float generator_voltage;
 float generator_current;
 float generator_power;
 
-// Variable to hold battery voltage
+// Variable to hold battery metrics
 float battery_voltage;
-
-// Variable to hold load current
 float battery_current;
+float battery_power;
+uint8_t battery_charge_percentage = 100;
 
-// Variable to hold dump load temperatures
+// Variable to hold dump load metrics
 float dump_load_1_temperature;
 float dump_load_2_temperature;
-
-// Variable to hold current system difficulty setting
 uint8_t dump_load_difficulty = 128;
+
+// Variable to hold inverter load metrics
+float inverter_load_current;
+float inverter_load_power;
 
 // FSM State Variables
 // Make these volatile as they are changed in an ISR
@@ -98,9 +101,6 @@ volatile uint8_t charge_state_variable = DISCHARGE;
 
 // Used by the WDT to determine whether or not it has been fired (ISR)
 volatile bool wdtFired = false;
-
-// Used to hold battery charge in percentage
-uint8_t battery_charge_percentage = 100;
 
 
 
@@ -131,9 +131,11 @@ void loop() {
     case CHARGE_FSM:
       charge_FSM();
       break;
+    case LOAD_PRIORITIZER:
+      load_prioritizer();
+      break;
     default:
       get_data();
       break;
   }
-  delay(100);
 }

@@ -86,32 +86,6 @@ void system_sleep(){
 
 
 
-/*----------------------------------------Get Sensor Data----------------------------------------*/
-void get_data(){
-
-  // Unconditional state transition, go to send data state
-  system_state_variable = SET_DIFFICULTY;
-  //system_state_variable = SEND_DATA;
-  
-  // Get generator voltage and current
-  generator_voltage = measure_generator_voltage();
-  generator_current = measure_generator_current();
-  rpmSensor.update();
-
-  if (generator_voltage >= 40){
-    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
-  }
-  else{
-    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
-  }
-
-  // Get battery voltage and current
-  battery_voltage = measure_battery_voltage();
-  battery_current = measure_battery_current();
-}
-
-
-
 /*---------------------------------------Send Sensor Data----------------------------------------*/
 float sanitizeFloat(float value) {
     //Avoid <= to avoid unexpected floating-point behavior.
@@ -144,6 +118,33 @@ void send_data(){
 
 
 
+/*----------------------------------------Get Sensor Data----------------------------------------*/
+void get_data(){
+
+  // Unconditional state transition, go to charge FSM state
+  system_state_variable = CHARGE_FSM;
+  
+  // Get generator voltage and current, multiply to get power
+  generator_voltage = measure_generator_voltage();
+  generator_current = measure_generator_current();
+  generator_power = generator_voltage * generator_current;
+
+  // Get battery voltage and current
+  battery_voltage = measure_battery_voltage();
+  battery_current = measure_battery_current();
+
+  rpmSensor.update();
+
+  if (generator_voltage >= 40){
+    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+  }
+  else{
+    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
+  }
+}
+
+
+
 /*-------------------------------------Set Bike Difficulty---------------------------------------*/
 void set_difficulty(){
 
@@ -164,8 +165,8 @@ void set_difficulty(){
 /*------------------------------------------Charge FSM-------------------------------------------*/
 void charge_FSM(){
 
-  // Unconditional state transitio, go to get data state
-  system_state_variable = SYSTEM_SLEEP;
+  // Unconditional state transitio, go to load prioritizer state
+  system_state_variable = LOAD_PRIORITIZER;
 
   // Implements factored charging FSM
   switch(charge_state_variable){
@@ -186,5 +187,17 @@ void charge_FSM(){
       break;
   }
 }
+
+
+
+/*------------------------------------Load Prioritizer Logic-------------------------------------*/
+void load_prioritizer(){
+
+  // Unconditional state transitio, go to sleep state
+  system_state_variable = SYSTEM_SLEEP;
+
+}
+
+
 
 #endif
