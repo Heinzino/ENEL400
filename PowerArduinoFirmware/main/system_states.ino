@@ -18,7 +18,7 @@ void system_init(){
   pinMode(LED_MOSFET_PIN, OUTPUT);
   pinMode(FAN1_AUX_PIN, OUTPUT);
   pinMode(FAN2_AUX_PIN, OUTPUT);
-  pinMode(DISCHARGING_MOSFET_PIN, OUTPUT);
+  pinMode(DISCHARGE_MOSFET_PIN, OUTPUT);
 
   // Set analog output pins
   pinMode(TEMPERATURE_SENSOR_PIN, INPUT);
@@ -45,6 +45,10 @@ void system_init(){
   display.clearDisplay();
   display.setTextColor(WHITE);
   OLED_draw_battery();
+
+  // Begin the led strip
+  strip.begin();
+  strip.show();
 
   // Setup the watchdog timer, but turn it off initially
   setup_WDT();
@@ -114,7 +118,10 @@ void send_data(){
   Serial.print(" ");
 
   Serial.println(rpmSensor.getRPM());
-  //Serial.println(timer_ISR_counter);
+
+  // Send data for power source icon to front system
+  //Serial.print(rpmSensor.getRPM());
+  //Serial.prinln(load_power_source);
   
   // Flush the serial buffer 
   Serial.flush();
@@ -141,6 +148,7 @@ void get_data(){
   inverter_current = measure_inverter_current();
   inverter_power = inverter_current * 15.0;
 
+  // Update RPM value
   rpmSensor.update();
 
   if (generator_voltage >= 40){
@@ -159,9 +167,9 @@ void set_difficulty(){
   // Unconditional state transition, go to charge fsm state
   system_state_variable = CHARGE_FSM;
 
-  uint8_t read_value = read_serial_int();
+  user_difficulty = read_serial_int();
 
-  dump_load_difficulty = ((uint16_t)read_value * 168) / 10 + 102;
+  dump_load_difficulty = ((uint16_t)user_difficulty * 168) / 10 + 102;
   //dump_load_difficulty = read_value * 28;
 
   analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
@@ -173,19 +181,13 @@ void set_difficulty(){
 /*------------------------------------------Charge FSM-------------------------------------------*/
 void charge_FSM(){
 
-  // Unconditional state transitio, go to load prioritizer state
+  // Unconditional state transition, go to load prioritizer state
   system_state_variable = LOAD_PRIORITIZER;
 
   // Implements factored charging FSM
   switch(charge_state_variable){
-    case BULK:
-      bulk();
-      break;
-    case ABSORPTION:
-      absorption();
-      break;
-    case FLOATING:
-      floating();
+    case CHARGE:
+      charge();
       break;
     case DISCHARGE:
       discharge();
@@ -201,13 +203,29 @@ void charge_FSM(){
 /*------------------------------------Load Prioritizer Logic-------------------------------------*/
 void load_prioritizer(){
 
-  // Unconditional state transitio, go to sleep state
-  system_state_variable = SYSTEM_SLEEP;
-
-  
+  // Unconditional state transition, go to led state
+  system_state_variable = LED_STATE;
 
 }
 
+
+
+/*-------------------------------------------Led State-------------------------------------------*/
+void led_state(){
+
+  // Unconditional state transition, go to sleep state
+  system_state_variable = SYSTEM_SLEEP;
+
+  // Update the led strip effect
+  updateSystemState();
+  
+  // Execute the led strip effect
+  if(currentState == IDLE) {
+    runIdleEffect();
+  } else {
+    runActiveEffect();
+  }
+}
 
 
 #endif

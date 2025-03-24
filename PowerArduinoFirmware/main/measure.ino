@@ -53,7 +53,7 @@ float measure_generator_current(){
 
 
 /*------------------------------------Measure Battery Current------------------------------------*/
-// Function to measure load current
+// Function to measure battery current
 float measure_battery_current(){
 
   // Measure the load current, average 10 samples and return value in mA
@@ -91,10 +91,10 @@ float measure_inverter_current(){
 float measure_temperature(){
 
   // Measure the temperature from the LM35 sensor
-  float temperature = temperature.cel();
+  float return_temp = temperature.cel();
 
   // Return this value 
-  return temperature;
+  return return_temp;
 }
 
 #endif

@@ -5,11 +5,11 @@
 #include <avr/interrupt.h> // Handles AVR style interrupts (for timers)
 #include <LM35.h> // Handles drivers for the temperature sensor (LM35)
 #include <avr/wdt.h> // Handles Watchdog Timer
-
 #include <Wire.h> // Handles I2C communication for OLED display
 #include <Adafruit_GFX.h> // Handles drawing shapes for OLED display
 #include <Adafruit_SSD1306.h> // Handles low level drivers for OLED display
 #include "tachometer.h" // Handles tachometer drivers
+#include <Adafruit_NeoPixel.h> // Handles LED strip drivers
 
 
 
@@ -48,14 +48,13 @@
 #define SET_DIFFICULTY   4
 #define CHARGE_FSM       5
 #define LOAD_PRIORITIZER 6
+#define LED_STATE        7
 
 
 
 /*-------------------------------------CHARGING FSM DEFINES--------------------------------------*/
-#define BULK       0
-#define ABSORPTION 1
-#define FLOATING   2
-#define DISCHARGE  3
+#define CHARGE     8
+#define DISCHARGE  9
 
 
 
@@ -72,14 +71,17 @@ ACS712 ACS_inverter(INVERTER_CURRENT_PIN, 5.0, 1023, 66);
 // Declare LM35 temperature sensor object to measure dump load 1 temperature (2C-150C, 10mV/C)
 LM35 temperature(TEMPERATURE_SENSOR_PIN);
 
-// Declare SSD1306 OLED display object to write to the OLED display (128 x 64)
-Adafruit_SSD1306 display(128, 64, &Wire, -1);
-
 // Define static instance
 HallEffectRPM* HallEffectRPM::instance = nullptr;
 
 // Create sensor object
 HallEffectRPM rpmSensor(HALL_EFFECT_SENSOR_PIN);
+
+// Declare SSD1306 OLED display object to write to the OLED display (128 x 64)
+Adafruit_SSD1306 display(128, 64, &Wire, -1);
+
+// Declare neopixel led strip object to write to the led strip
+Adafruit_NeoPixel strip(30, LED_MOSFET_PIN, NEO_GRB + NEO_KHZ800);
 
 
 
@@ -96,7 +98,8 @@ float battery_power;
 uint8_t battery_charge_percentage = 100;
 
 // Variable to hold dump load metrics
-float temperature;
+float temperature_celcius;
+uint8_t user_difficulty = 0;
 uint8_t dump_load_difficulty = 128;
 
 // Variable to hold inverter load metrics
@@ -110,6 +113,20 @@ volatile uint8_t charge_state_variable = DISCHARGE;
 
 // Used by the WDT to determine whether or not it has been fired (ISR)
 volatile bool wdtFired = false;
+
+// Used by the LED strip
+const int NUM_LEDS = 30;
+const int BASE_BRIGHTNESS = 50;
+const int IDLE_BRIGHTNESS = 120;
+const int USER_LEVELS = 10;   // 0-9 (green to red)         
+const int POWER_LEVELS = 6;   // 0-5 (0 = idle)
+int userLevel = 0;   
+int powerLevel = 0;
+const uint16_t pulsePeriods[POWER_LEVELS] = {0, 7000, 4000, 1500, 900, 500};
+const uint8_t pulsePeaks[POWER_LEVELS] = {255, 255, 255, 255, 255, 255}; 
+uint32_t currentColor = strip.Color(0, 0, 0); 
+enum SystemState { IDLE, ACTIVE };
+SystemState currentState = IDLE;
 
 
 
@@ -142,6 +159,9 @@ void loop() {
       break;
     case LOAD_PRIORITIZER:
       load_prioritizer();
+      break;
+    case LED_STATE:
+      led_state();
       break;
     default:
       get_data();
