@@ -41,20 +41,21 @@
 
 
 /*--------------------------------------SYSTEM FSM DEFINES---------------------------------------*/
-#define SYSTEM_INIT      0
-#define SYSTEM_SLEEP     1
-#define GET_DATA         2
-#define SEND_DATA        3
-#define SET_DIFFICULTY   4
-#define CHARGE_FSM       5
-#define LOAD_PRIORITIZER 6
-#define LED_STATE        7
+#define SYSTEM_INIT       0
+#define SYSTEM_SLEEP      1
+#define GET_DATA          2
+#define SEND_DATA         3
+#define SET_DIFFICULTY    4
+#define CHARGE_FSM        5
+#define LOAD_PRIORITIZER  6
+#define LED_CONTROL       7
+#define TEMP_MONITORING   8
 
 
 
 /*-------------------------------------CHARGING FSM DEFINES--------------------------------------*/
-#define CHARGE     8
-#define DISCHARGE  9
+#define CHARGE     0
+#define DISCHARGE  1
 
 
 
@@ -98,7 +99,6 @@ float battery_power;
 uint8_t battery_charge_percentage = 100;
 
 // Variable to hold dump load metrics
-float temperature_celcius;
 uint8_t user_difficulty = 0;
 uint8_t dump_load_difficulty = 128;
 
@@ -106,10 +106,16 @@ uint8_t dump_load_difficulty = 128;
 float inverter_current;
 float inverter_power;
 
+// Variables to hold temperature and charging metrics
+float temperature_celcius;
+uint8_t high_temperature_flag = 0;
+uint8_t duty_cycle = 0;
+uint8_t charging_only_flag = 0;
+
 // FSM State Variables
 // Make these volatile as they are changed in an ISR
 volatile uint8_t system_state_variable = SYSTEM_INIT; 
-volatile uint8_t charge_state_variable = DISCHARGE;
+volatile uint8_t charge_state_variable = CHARGE;
 
 // Used by the WDT to determine whether or not it has been fired (ISR)
 volatile bool wdtFired = false;
@@ -125,7 +131,7 @@ int powerLevel = 0;
 const uint16_t pulsePeriods[POWER_LEVELS] = {0, 7000, 4000, 1500, 900, 500};
 const uint8_t pulsePeaks[POWER_LEVELS] = {255, 255, 255, 255, 255, 255}; 
 uint32_t currentColor = strip.Color(0, 0, 0); 
-enum SystemState { IDLE, ACTIVE };
+enum SystemState {IDLE, ACTIVE};
 SystemState currentState = IDLE;
 
 
@@ -160,8 +166,11 @@ void loop() {
     case LOAD_PRIORITIZER:
       load_prioritizer();
       break;
-    case LED_STATE:
-      led_state();
+    case LED_CONTROL:
+      led_control();
+      break;
+    case TEMP_MONITORING:
+      temp_monitoring();
       break;
     default:
       get_data();

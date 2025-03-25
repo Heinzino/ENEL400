@@ -47,10 +47,11 @@ void system_init(){
   OLED_draw_battery();
 
   // Begin the led strip
+  digitalWrite(LED_MOSFET_PIN, HIGH);
   strip.begin();
   strip.show();
 
-  // Setup the watchdog timer, but turn it off initially
+  // Setup the watchdog timer
   setup_WDT();
   enableWDT();
 
@@ -60,12 +61,21 @@ void system_init(){
   // Turn inverter MOSFET to allow load to be used
   digitalWrite(INVERTER_MOSFET, HIGH);
 
+  // Initially disable battery charging and discharging
+  digitalWrite(CHARGING_MOSFET_PIN, LOW);
+  digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
+
   // Set PWM frequency to 1kHz (using Timer 2)
   TCCR2B = TCCR2B & B11111000 | 0x03;
 
-  // Write initial high load to prevent current spikes
+  // Write initial high load to prevent voltage spikes
   analogWrite(DUMP_LOAD_MOSFET_1, 255);
   analogWrite(DUMP_LOAD_MOSFET_2, 255);
+
+  // Enable the fans at highest speed
+  digitalWrite(FAN_MOSFET_PIN, HIGH);
+  analogWrite(FAN1_AUX_PIN, 255);
+  analogWrite(FAN2_AUX_PIN, 255);
   
   // Unconditional transition, go to system sleep state
   system_state_variable = SYSTEM_SLEEP; 
@@ -107,22 +117,28 @@ void send_data(){
   
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(sanitizeFloat(generator_voltage) , 2);
-
-  // Send a space seperator
   Serial.print(" ");
 
   // Send generator current with 2 decimal places accuracy, and a newline
   Serial.print(sanitizeFloat(generator_current) , 2);
-
-  // Send a space seperator
   Serial.print(" ");
 
   Serial.println(rpmSensor.getRPM());
 
-  // Send data for power source icon to front system
-  //Serial.print(rpmSensor.getRPM());
-  //Serial.prinln(load_power_source);
-  
+  // This code to be used for a later version
+  /*
+  // Send wheel RPM
+  Serial.print(rpmSensor.getRPM());
+  Serial.print(" ");
+
+  // Send load power source flag
+  Serial.print(load_power_source);
+  Serial.print(" ");
+
+  // Send high temperature flag
+  Serial.println(high_temperature_flag);
+  */
+
   // Flush the serial buffer 
   Serial.flush();
 }
@@ -132,8 +148,8 @@ void send_data(){
 /*----------------------------------------Get Sensor Data----------------------------------------*/
 void get_data(){
 
-  // Unconditional state transition, go to charge FSM state
-  system_state_variable = CHARGE_FSM;
+  // Unconditional state transition, go to load prioritizer
+  system_state_variable = SET_DIFFICULTY;
   
   // Get generator voltage and current, multiply to get power
   generator_voltage = measure_generator_voltage();
@@ -151,12 +167,8 @@ void get_data(){
   // Update RPM value
   rpmSensor.update();
 
-  if (generator_voltage >= 40){
-    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
-  }
-  else{
-    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
-  }
+  // Get case temperature
+  temperature_celcius = measure_temperature();
 }
 
 
@@ -165,7 +177,7 @@ void get_data(){
 void set_difficulty(){
 
   // Unconditional state transition, go to charge fsm state
-  system_state_variable = CHARGE_FSM;
+  system_state_variable = LOAD_PRIORITIZER;
 
   user_difficulty = read_serial_int();
 
@@ -178,11 +190,69 @@ void set_difficulty(){
 
 
 
+/*------------------------------------Load Prioritizer Logic-------------------------------------*/
+void load_prioritizer(){
+
+  // Temporary unconditional state transition to charge state
+  // Will be replaced with more complex conditional logic 
+  system_state_variable = CHARGE_FSM;
+
+  // If high temperature flag is set, turn off all loads except fans
+  if (high_temperature_flag){
+
+    // Disable all current flow
+    digitalWrite(LED_MOSFET_PIN, LOW);
+    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+    digitalWrite(INVERTER_MOSFET, LOW);
+    digitalWrite(CHARGING_MOSFET_PIN, LOW);
+
+    // Turn on fans at max speed
+    digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
+    digitalWrite(FAN_MOSFET_PIN, HIGH);
+    analogWrite(FAN1_AUX_PIN, 255);
+    analogWrite(FAN2_AUX_PIN, 255);
+  }
+  
+  // Otherwise if the generator isn't on 
+  else if (generator_voltage < 5.0){
+
+    // Disable current flow from generator
+    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+
+    // Allow battery to power load
+    digitalWrite(INVERTER_MOSFET, HIGH);
+    digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
+  }
+
+  // Otherwise if the generator voltage is too high
+  else if (generator_voltage > 40.0){
+
+    // Maximize load (reduces voltage)
+    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
+    digitalWrite(INVERTER_MOSFET, HIGH);
+    analogWrite(DUMP_LOAD_MOSFET_1, 255);
+    analogWrite(DUMP_LOAD_MOSFET_2, 255);
+  }
+
+  // Otherwise in normal operation
+  else{
+
+    // Allow current to flow from generator and to inverter
+    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
+    digitalWrite(INVERTER_MOSFET, HIGH);
+
+    // Disable battery discharging
+    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
+  }
+}
+
+
+
 /*------------------------------------------Charge FSM-------------------------------------------*/
 void charge_FSM(){
 
-  // Unconditional state transition, go to load prioritizer state
-  system_state_variable = LOAD_PRIORITIZER;
+  // Unconditional state transition, go to LED control state
+  system_state_variable = LED_CONTROL;
 
   // Implements factored charging FSM
   switch(charge_state_variable){
@@ -200,21 +270,11 @@ void charge_FSM(){
 
 
 
-/*------------------------------------Load Prioritizer Logic-------------------------------------*/
-void load_prioritizer(){
+/*---------------------------------------Led Control State---------------------------------------*/
+void led_control(){
 
-  // Unconditional state transition, go to led state
-  system_state_variable = LED_STATE;
-
-}
-
-
-
-/*-------------------------------------------Led State-------------------------------------------*/
-void led_state(){
-
-  // Unconditional state transition, go to sleep state
-  system_state_variable = SYSTEM_SLEEP;
+  // Unconditional state transition, go to temperature monitoring state
+  system_state_variable = TEMP_MONITORING;
 
   // Update the led strip effect
   updateSystemState();
@@ -227,5 +287,39 @@ void led_state(){
   }
 }
 
+
+
+/*------------------------------------Temperature Monitoring-------------------------------------*/
+void temp_monitoring(){
+
+  // Unconditional state transition, go to sleep state
+  system_state_variable = SYSTEM_SLEEP;
+
+  // Check for high temperature
+  if (temperature_celcius > 30.0){
+    
+    // Disable all current flow
+    digitalWrite(LED_MOSFET_PIN, LOW);
+    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+    digitalWrite(INVERTER_MOSFET, LOW);
+    digitalWrite(CHARGING_MOSFET_PIN, LOW);
+
+    // Turn on fans at max speed
+    digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
+    digitalWrite(FAN_MOSFET_PIN, HIGH);
+    analogWrite(FAN1_AUX_PIN, 255);
+    analogWrite(FAN2_AUX_PIN, 255);
+
+    // Set the high temperature flag
+    high_temperature_flag = 1;
+  }
+
+  // If not too hot, clear high temperature flag
+  // DO NOT ENABLE MOSFETs HERE! That is done in
+  // the load prioritizer, which has its own algorithm
+  else {
+    high_temperature_flag = 0;
+  }
+}
 
 #endif
