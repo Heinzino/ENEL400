@@ -5,8 +5,6 @@ Button buttons[4] = {{BTN1, LOW, LOW, 0, 0},
                      {BTN3, LOW, LOW, 0, 0},
                      {BTN4, LOW, LOW, 0, 0}};
 
-static portMUX_TYPE screenSwitchMux = portMUX_INITIALIZER_UNLOCKED;
-
 void IRAM_ATTR buttonISRHandler(void *arg)
 {
     Button *btn = (Button *)arg;
@@ -60,7 +58,6 @@ void buttonTask(void *pvParameters)
                         screenManager.getCurrentScreenObject()->handleButton(static_cast<ButtonID>(i));
 
                         // Notify display task only if a short press was detected
-                        screenManager.display();
                         xTaskNotify(displayTaskHandle, (1 << 0), eSetBits);
                     }
                 }

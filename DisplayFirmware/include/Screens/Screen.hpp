@@ -13,6 +13,7 @@ class Screen
 public:
     virtual void updateScreen() = 0;             // Pure virtual function
     virtual void handleButton(ButtonID btn) = 0; 
+    virtual lv_obj_t* getScreen() = 0;           // Pure virtual function
     virtual ~Screen() = default;                 // Virtual destructor for polymorphic cleanup
 };
 

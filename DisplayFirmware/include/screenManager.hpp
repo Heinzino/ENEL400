@@ -8,20 +8,10 @@
 #include "Screens/PowerScreen.hpp"
 #include "Screens/ResistanceScreen.hpp"
 #include "Screens/HealthMetricsScreen.hpp"
+#include "Screens/PlotScreen.hpp"
+#include "screenEnums.hpp"
 
 class Screen; //Avoid circular dependency
-
-enum class ScreenState {
-    OFF = 0,
-    ON = 1
-};
-
-enum ScreenTitles{
-    POWER_DISPLAY,
-    RESISTANCE_LEVEL,
-    HEALTH_METRICS,
-    SCREEN_COUNT
-};
 
 class ScreenManager {
 public:
@@ -40,7 +30,7 @@ public:
 private:
     ScreenManager(); // Private constructor to prevent multiple instances
     Screen* screens[SCREEN_COUNT];
-    ScreenState screenState = ScreenState::ON;
+    ScreenState screenState = ScreenState::OFF;
     ScreenTitles screenNumber = ScreenTitles::POWER_DISPLAY; // Default to POWER_DISPLAY
 };
 

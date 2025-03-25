@@ -23,7 +23,7 @@ struct Button
 enum class ButtonID
 {
   SHIFT_HRZN_BTN = 0,
-  SHIFT_VERT_BTN = 1,
+  PLOT_BTN = 1,
   FN1_BTN = 2,
   FN2_BTN = 3
 };

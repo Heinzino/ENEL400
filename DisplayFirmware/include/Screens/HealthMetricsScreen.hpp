@@ -13,6 +13,7 @@ class HealthMetricsScreen : public Screen {
 public:
     void updateScreen() override;
     void handleButton(ButtonID btn) override;
+    lv_obj_t* getScreen() override { return ui_Screen3; }
 
     void setCalories(int cals);
     void setCadence(int cad);

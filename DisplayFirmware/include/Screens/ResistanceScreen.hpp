@@ -10,6 +10,7 @@ class ResistanceScreen : public Screen
 public:
     void updateScreen() override;
     void handleButton(ButtonID btn) override;
+    lv_obj_t *getScreen() override { return ui_Screen2; }
 
     void incrementResistance();
     void decrementResistance();

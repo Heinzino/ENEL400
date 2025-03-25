@@ -11,6 +11,7 @@ public:
 
     void updateScreen() override;
     void handleButton(ButtonID btn) override;
+    lv_obj_t *getScreen() override { return ui_Screen1; } //NOTE: Placeholder screen return
 
     void setWheelSize(float sizeInInches);
     float getWheelSizeInInches() const;

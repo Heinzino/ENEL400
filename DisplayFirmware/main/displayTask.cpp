@@ -58,6 +58,7 @@ void displayTask(void *pvParameters)
 
             if (!screenManager.isScreenOn())
             {
+                TimeManager::getInstance().resetWorkoutTime(); 
                 screenManager.updateScreenState(ScreenState::ON);
             }
 
@@ -74,7 +75,6 @@ void displayTask(void *pvParameters)
             if (screenManager.isScreenOn())
             {
                 LOG(LOG_LEVEL_DEBUG, "Turning Screen OFF");
-                TimeManager::getInstance().resetWorkoutTime(); 
                 screenManager.updateScreenState(ScreenState::OFF);
                 digitalWrite(TFT_SCREEN_LED, LOW);
             }

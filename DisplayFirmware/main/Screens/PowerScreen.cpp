@@ -1,7 +1,16 @@
 #include "PowerScreen.hpp"
 
+bool pendingSwitchToResitanceScreen = false;
+
 void PowerScreen::updateScreen()
 {
+
+    if(pendingSwitchToResitanceScreen){
+        pendingSwitchToResitanceScreen = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::RESISTANCE_LEVEL, ui_Screen2);
+        return; // Exit early to prevent chart update
+    }
+
     SensorData &sensorData = SensorData::getInstance();
 
     float voltage = sensorData.getVoltage();
@@ -47,7 +56,11 @@ void PowerScreen::handleButton(ButtonID btn)
     switch (btn)
     {
     case ButtonID::SHIFT_HRZN_BTN:
-        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::RESISTANCE_LEVEL, ui_Screen2);
+        pendingSwitchToResitanceScreen = true;
+        break;
+    case ButtonID::PLOT_BTN:
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::PLOT, ui_Screen4);
+        PlotScreen::plotSetup();
         break;
     default:
         break;

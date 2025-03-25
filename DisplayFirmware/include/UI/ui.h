@@ -66,6 +66,17 @@ extern lv_obj_t * ui_DistanceLabel;
 extern lv_obj_t * ui_DistanceUnit;
 extern lv_obj_t * ui_SpeedValue1;
 
+// SCREEN: ui_Screen4
+void ui_Screen4_screen_init(void);
+extern lv_obj_t * ui_Screen4;
+extern lv_obj_t * ui_Chart1;
+extern lv_obj_t * ui_PlotTitle;
+extern lv_obj_t * ui_XLabel;
+extern lv_obj_t * ui_YLabel;
+extern lv_obj_t * ui_YLabel1;
+
+// CUSTOM VARIABLES
+
 // EVENTS
 
 extern lv_obj_t * ui____initial_actions0;

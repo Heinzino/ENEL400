@@ -4,7 +4,7 @@ TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 QueueHandle_t uartQueue;
 TaskHandle_t buttonTaskHandle;
 TaskHandle_t displayTaskHandle;
-SemaphoreHandle_t lvglMutex = NULL; 
+SemaphoreHandle_t lvglMutex = NULL;
 
 void my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -44,7 +44,6 @@ void setup()
   }
 
   lvglMutex = xSemaphoreCreateMutex();
-
 
   initWiFi();
   TimeManager::getInstance().syncNTP();
