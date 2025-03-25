@@ -62,6 +62,9 @@ void PowerScreen::handleButton(ButtonID btn)
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::PLOT, ui_Screen4);
         PlotScreen::plotSetup();
         break;
+    case ButtonID::FN1_BTN:
+        TimeManager::getInstance().toggleWorkoutTimer();
+        break;
     default:
         break;
     }

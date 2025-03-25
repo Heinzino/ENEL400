@@ -15,6 +15,10 @@ public:
     static TimeManager& getInstance();
 
     void update();  // Call this in displayTask every loop
+
+    void updateWorkoutTimer(uint32_t delta);
+    void updateRealTime(uint32_t delta);
+
     void syncNTP(); // Syncs time with NTP (every hour)
 
     void resetWorkoutTime(); // Resets elapsed time to 0
@@ -22,9 +26,15 @@ public:
     const char* getElapsedTime();  // Returns "MM:SS" string
     const char* getFormattedTime(); // Returns "HH:MM | Month Day, Year"
 
+    void toggleWorkoutTimer();
+    bool isWorkoutPaused() const;
+
+
+
 private:
     TimeManager(); // Private constructor (singleton)
     
+    bool workoutPaused = false;
     uint32_t lastUpdate = 0;
     int elapsedSeconds = 0;
     time_t currentTime;
