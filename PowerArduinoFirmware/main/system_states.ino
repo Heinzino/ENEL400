@@ -176,7 +176,7 @@ void get_data(){
 /*-------------------------------------Set Bike Difficulty---------------------------------------*/
 void set_difficulty(){
 
-  // Unconditional state transition, go to charge fsm state
+  // Unconditional state transition, go to load prioritizer 
   system_state_variable = LOAD_PRIORITIZER;
 
   user_difficulty = read_serial_int();
@@ -217,10 +217,10 @@ void load_prioritizer(){
   else if (generator_voltage < 5.0){
 
     // Disable current flow from generator
-    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
 
     // Allow battery to power load
-    digitalWrite(INVERTER_MOSFET, HIGH);
+    digitalWrite(INVERTER_MOSFET, LOW);
     digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
   }
 
@@ -229,20 +229,31 @@ void load_prioritizer(){
 
     // Maximize load (reduces voltage)
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
+    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
     digitalWrite(INVERTER_MOSFET, HIGH);
     analogWrite(DUMP_LOAD_MOSFET_1, 255);
     analogWrite(DUMP_LOAD_MOSFET_2, 255);
   }
 
   // Otherwise in normal operation
-  else{
+  else if (generator_voltage > 16.0){
 
     // Allow current to flow from generator and to inverter
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
-    digitalWrite(INVERTER_MOSFET, HIGH);
 
     // Disable battery discharging
     digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
+
+    digitalWrite(INVERTER_MOSFET, HIGH);
+  }
+  else{
+    // Allow current to flow from generator and to inverter
+    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
+
+    // Disable battery discharging
+    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
+
+    digitalWrite(INVERTER_MOSFET, LOW);
   }
 }
 
@@ -296,7 +307,7 @@ void temp_monitoring(){
   system_state_variable = SYSTEM_SLEEP;
 
   // Check for high temperature
-  if (temperature_celcius > 30.0){
+  if (temperature_celcius > 30.0 && 0){ // FOR CURRENT PROTOTYPE AS THERE IS NO TEMP SENSOR ATTACHED
     
     // Disable all current flow
     digitalWrite(LED_MOSFET_PIN, LOW);
