@@ -1,6 +1,16 @@
 #include "HealthMetricsScreen.hpp"
 
+//NOTE: Refactor this to a queue for button presses
+bool pendingSwitchToPowerDisplay = false;
+
  void HealthMetricsScreen::updateScreen() {
+
+    if(pendingSwitchToPowerDisplay){
+        pendingSwitchToPowerDisplay = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::POWER_DISPLAY, ui_Screen1);
+        return; // Exit early to prevent chart update
+    }
+
     SensorData &sensorData = SensorData::getInstance();
 
     // Fetch current values from SensorData
@@ -52,7 +62,7 @@
 void HealthMetricsScreen::handleButton(ButtonID btn) {
     switch (btn) {
     case ButtonID::SHIFT_HRZN_BTN:
-        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::POWER_DISPLAY, ui_Screen1);
+        pendingSwitchToPowerDisplay = true;
         break;
     default:
         break;

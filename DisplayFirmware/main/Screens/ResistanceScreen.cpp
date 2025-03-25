@@ -1,10 +1,20 @@
 #include "ResistanceScreen.hpp"
 
+bool pendingSwitchToHealthScreen = false;
+
 void ResistanceScreen::updateScreen()
 {
+    if(pendingSwitchToHealthScreen){
+        pendingSwitchToHealthScreen = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::HEALTH_METRICS, ui_Screen3);  
+        return; // Exit early to prevent chart update
+    }
+    
     LOG(LOG_LEVEL_TRACE, "Current Resistance Level: " + String(resistanceLevelToChar()));
     char levelStr[2] = {resistanceLevelToChar(), '\0'}; // Convert char to null-terminated string
     lv_label_set_text(ui_LEVELVAL, levelStr);
+    lv_timer_handler();
+    lv_task_handler();
     safeLvglRefresh();
 }
 
@@ -13,7 +23,7 @@ void ResistanceScreen::handleButton(ButtonID btn)
     switch (btn)
     {
     case ButtonID::SHIFT_HRZN_BTN:
-        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::HEALTH_METRICS, ui_Screen3);
+        pendingSwitchToHealthScreen = true;
         break;
     case ButtonID::FN1_BTN:
         incrementResistance();
