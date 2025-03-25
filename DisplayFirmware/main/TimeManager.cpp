@@ -88,29 +88,11 @@ void TimeManager::update()
 
     if (now - lastUpdate >= 1000)
     {
-        uint32_t delta = (now - lastUpdate) / 1000;  // How many full seconds passed
-
-        elapsedSeconds += delta;
-        currentTime += delta;
+        uint32_t delta = (now - lastUpdate) / 1000;
         lastUpdate += delta * 1000;
 
-        //  Update elapsed time string (MM:SS)
-        snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "%02d:%02d", elapsedSeconds / 60, elapsedSeconds % 60);
-
-        //  Update formatted real-time string (HH:MM | Month Day, Year)
-        struct tm timeinfo;
-        localtime_r(&currentTime, &timeinfo);
-
-        const char *months[] = {"January", "February", "March", "April", "May", "June",
-                                "July", "August", "September", "October", "November", "December"};
-        snprintf(formattedTimeStr, sizeof(formattedTimeStr), "%02d:%02d | %s %d, %d",
-                 timeinfo.tm_hour, timeinfo.tm_min, months[timeinfo.tm_mon], timeinfo.tm_mday, timeinfo.tm_year + 1900);
-
-        //  Sync NTP every hour
-        if (elapsedSeconds % 3600 == 0)
-        {
-            syncNTP();
-        }
+        updateWorkoutTimer(delta);
+        updateRealTime(delta);
     }
 }
 
@@ -131,4 +113,44 @@ void TimeManager::resetWorkoutTime()
     elapsedSeconds = 0;
     lastUpdate = millis();
     snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "00:00");
+}
+
+void TimeManager::toggleWorkoutTimer()
+{
+    workoutPaused ^= 1; // Toggles between true and false
+}
+
+bool TimeManager::isWorkoutPaused() const
+{
+    return workoutPaused;
+}
+
+void TimeManager::updateWorkoutTimer(uint32_t delta)
+{
+    if (!workoutPaused)
+    {
+        elapsedSeconds += delta;
+        snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "%02d:%02d", elapsedSeconds / 60, elapsedSeconds % 60);
+
+        // Sync NTP every hour (only if workout is running)
+        if (elapsedSeconds % 3600 == 0)
+        {
+            syncNTP();
+        }
+    }
+}
+
+void TimeManager::updateRealTime(uint32_t delta)
+{
+    currentTime += delta;
+
+    struct tm timeinfo;
+    localtime_r(&currentTime, &timeinfo);
+
+    const char *months[] = {"January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"};
+
+    snprintf(formattedTimeStr, sizeof(formattedTimeStr), "%02d:%02d | %s %d, %d",
+             timeinfo.tm_hour, timeinfo.tm_min, months[timeinfo.tm_mon],
+             timeinfo.tm_mday, timeinfo.tm_year + 1900);
 }
