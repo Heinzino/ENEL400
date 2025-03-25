@@ -73,6 +73,7 @@ extern lv_obj_t * ui_Chart1;
 extern lv_obj_t * ui_PlotTitle;
 extern lv_obj_t * ui_XLabel;
 extern lv_obj_t * ui_YLabel;
+extern lv_obj_t * ui_YLabel1;
 
 // CUSTOM VARIABLES
 

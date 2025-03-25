@@ -61,6 +61,7 @@ lv_obj_t * ui_Chart1;
 lv_obj_t * ui_PlotTitle;
 lv_obj_t * ui_XLabel;
 lv_obj_t * ui_YLabel;
+lv_obj_t * ui_YLabel1;
 // CUSTOM VARIABLES
 
 // EVENTS

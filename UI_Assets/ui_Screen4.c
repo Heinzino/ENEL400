@@ -71,5 +71,16 @@ void ui_Screen4_screen_init(void)
     lv_obj_set_style_text_opa(ui_YLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_YLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    ui_YLabel1 = lv_label_create(ui_Screen4);
+    lv_obj_set_width(ui_YLabel1, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_YLabel1, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_YLabel1, 192);
+    lv_obj_set_y(ui_YLabel1, -109);
+    lv_obj_set_align(ui_YLabel1, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_YLabel1, "Current (A)");
+    lv_obj_set_style_text_color(ui_YLabel1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_YLabel1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_YLabel1, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
+
 
 }
