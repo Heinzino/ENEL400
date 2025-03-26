@@ -1,55 +1,72 @@
-#ifndef OLED_INO
-#define OLED_INO
+#define RPM_CONVERSION_FACTOR 60000000  
+#define RPM_TIMEOUT_MS 1000000  // 1 second timeout (in microseconds)
 
-/*-------------------------------------Print Battery Shape---------------------------------------*/
-void OLED_draw_battery(){
+class HallEffectRPM {
+private:
+    volatile unsigned long lastPulseTime = 0;
+    volatile unsigned long pulseDuration = 0;
+    volatile int rpm = 0;  // Encapsulated
 
-   // Clear display to start display in known state
-  display.clearDisplay();
+    static void isrHandler() { 
+        instance->handleInterrupt();
+    }
 
-  // Battery rectangle
-  display.fillRect(8, 8, 104, 48, WHITE); 
-  display.fillRect(10, 10, 100, 44, BLACK);
+    void handleInterrupt() {
+        unsigned long currentTime = micros();
+        pulseDuration = currentTime - lastPulseTime;
+        lastPulseTime = currentTime;
+    }
 
-  // Anode rectangle
-  display.fillRect(112, 24, 8, 16, WHITE);
-  display.fillRect(112, 26, 6, 12, BLACK);
+public:
+    static HallEffectRPM* instance; 
 
-  // Must use display.display() to actually show the changes
-  display.display(); 
+    HallEffectRPM(int pin) : sensorPin(pin) {}
+
+    void begin() {
+        pinMode(sensorPin, INPUT_PULLUP);
+        instance = this;
+        attachInterrupt(digitalPinToInterrupt(sensorPin), isrHandler, FALLING);
+    }
+
+    void update() {
+        unsigned long currentTime = micros();
+
+        noInterrupts();
+        unsigned long durationCopy = pulseDuration;
+        unsigned long lastPulseCopy = lastPulseTime;
+        interrupts();
+
+        if (durationCopy > 0) {
+            rpm = RPM_CONVERSION_FACTOR / durationCopy;
+        }
+
+        if (currentTime - lastPulseCopy > RPM_TIMEOUT_MS) {
+            rpm = 0;
+        }
+    }
+
+    int getRPM() { 
+        return rpm; 
+    }
+
+private:
+    int sensorPin;
+};
+
+// Define static instance
+HallEffectRPM* HallEffectRPM::instance = nullptr;
+
+// Create sensor object
+HallEffectRPM rpmSensor(HALL_EFFECT_SENSOR_PIN);
+
+void setup() {
+    Serial.begin(9600);
+    rpmSensor.begin();
 }
 
-
-
-/*-------------------------------------Print Battery Charge--------------------------------------*/
-void OLED_print_charge(){
-
-  // Draw the rectangle and fill it for the battery percentage
-  display.fillRect(11, 11, 98, 42, BLACK);
-  display.fillRect(11, 11, battery_charge_percentage - 2, 42, WHITE);
-  display.fillRect(41, 24, 38, 16, BLACK);
-
-  // Set text color to white (default is black) and font size to 2
-  display.setTextColor(WHITE);
-  display.setTextSize(2);
-
-  // Set cursor location depending on battery percentage.
-  // To center the text, we need to determine the number of digits
-  if (battery_charge_percentage > 99){
-    display.setCursor(43, 25);
-  }
-  else if (battery_charge_percentage < 10) {
-    display.setCursor(55, 25);
-  }
-  else {
-    display.setCursor(49, 25);
-  }
-
-  // Print the battery percentage
-  display.print(battery_charge_percentage);
-
-  // Must use display.display() to actually show the changes
-  display.display(); 
+void loop() {
+    rpmSensor.update();  
+    Serial.print("RPM: ");
+    Serial.println(rpmSensor.getRPM()); 
+    delay(100);
 }
-
-#endif

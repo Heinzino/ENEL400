@@ -21,6 +21,14 @@ lv_obj_t * ui_Arc3;
 lv_obj_t * ui_Label5;
 lv_obj_t * ui_Label1;
 lv_obj_t * ui_Label6;
+lv_obj_t * ui_BikePic;
+lv_obj_t * ui_BatteryPic;
+lv_obj_t * ui_Panel2;
+lv_obj_t * ui_Panel1;
+lv_obj_t * ui_Panel3;
+lv_obj_t * ui_Panel4;
+lv_obj_t * ui_Panel5;
+lv_obj_t * ui_Panel6;
 // CUSTOM VARIABLES
 
 

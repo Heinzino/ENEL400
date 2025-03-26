@@ -37,6 +37,14 @@ extern lv_obj_t * ui_Arc3;
 extern lv_obj_t * ui_Label5;
 extern lv_obj_t * ui_Label1;
 extern lv_obj_t * ui_Label6;
+extern lv_obj_t * ui_BikePic;
+extern lv_obj_t * ui_BatteryPic;
+extern lv_obj_t * ui_Panel2;
+extern lv_obj_t * ui_Panel1;
+extern lv_obj_t * ui_Panel3;
+extern lv_obj_t * ui_Panel4;
+extern lv_obj_t * ui_Panel5;
+extern lv_obj_t * ui_Panel6;
 // CUSTOM VARIABLES
 
 // SCREEN: ui_Screen2
@@ -80,6 +88,10 @@ extern lv_obj_t * ui_YLabel1;
 // EVENTS
 
 extern lv_obj_t * ui____initial_actions0;
+
+// IMAGES AND IMAGE SETS
+LV_IMG_DECLARE(ui_img_bikeicon_png);    // assets/BikeIcon.png
+LV_IMG_DECLARE(ui_img_batterypic_png);    // assets/BatteryPic.png
 
 // UI INIT
 void ui_init(void);

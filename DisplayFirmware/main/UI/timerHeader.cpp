@@ -33,4 +33,14 @@ void create_time_header() {
     lv_label_set_text(datetime_label, "00:00 | January 1, 1970");
     lv_obj_add_style(datetime_label, &time_style, LV_PART_MAIN);
     lv_obj_align(datetime_label, LV_ALIGN_RIGHT_MID, -10, 0);
+
+    ui_BikePic = lv_img_create(time_header);
+    lv_img_set_src(ui_BikePic, &ui_img_bikeicon_png);
+    lv_obj_set_width(ui_BikePic, LV_SIZE_CONTENT);
+    lv_obj_set_height(ui_BikePic, LV_SIZE_CONTENT);
+    lv_obj_align(ui_BikePic, LV_ALIGN_CENTER, 0, 0);  // Adjust as needed
+    lv_obj_add_flag(ui_BikePic, LV_OBJ_FLAG_ADV_HITTEST);
+    lv_obj_clear_flag(ui_BikePic, LV_OBJ_FLAG_SCROLLABLE);
+    lv_img_set_zoom(ui_BikePic, 40);  // Optional: adjust size
+    
 }

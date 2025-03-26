@@ -7,6 +7,8 @@ idf_component_register(
          "UI/ui_Screen2.cpp"
          "UI/ui_Screen3.cpp"
          "UI/ui_Screen4.c"
+         "UI/ui_img_bikeicon_png.c"
+         "UI/ui_img_batterypic_png.c"
          "UI/timerHeader.cpp"
          "buttonTask.cpp"
          "Screens/PowerScreen.cpp"
