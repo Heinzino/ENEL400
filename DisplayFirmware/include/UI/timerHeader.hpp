@@ -3,6 +3,7 @@
 
 #include "lvgl.h"
 #include "UI/ui.h"
+#include "UI/bike_icon.h"
 
 void create_time_header(); // Initializes the UI header
 extern lv_obj_t *elapsed_label;  // Reference to elapsed time label

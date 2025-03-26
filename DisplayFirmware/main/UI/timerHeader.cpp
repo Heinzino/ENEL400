@@ -34,6 +34,7 @@ void create_time_header() {
     lv_obj_add_style(datetime_label, &time_style, LV_PART_MAIN);
     lv_obj_align(datetime_label, LV_ALIGN_RIGHT_MID, -10, 0);
 
+    init_bike_icon_image();
     ui_BikePic = lv_img_create(time_header);
     lv_img_set_src(ui_BikePic, &ui_img_bikeicon_png);
     lv_obj_set_width(ui_BikePic, LV_SIZE_CONTENT);

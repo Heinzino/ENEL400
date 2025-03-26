@@ -89,7 +89,9 @@
         "variant": "cpp",
         "plotscreen.hpp": "c",
         "powerscreen.hpp": "c",
-        "timemanager.hpp": "c"
+        "timemanager.hpp": "c",
+        "images.h": "c",
+        "bike_icon.h": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

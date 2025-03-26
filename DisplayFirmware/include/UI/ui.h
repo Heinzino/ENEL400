@@ -79,7 +79,7 @@ extern lv_obj_t * ui_YLabel1;
 
 extern lv_obj_t * ui_BikePic;
 
-LV_IMG_DECLARE(ui_img_bikeicon_png);    // assets/BikeIcon.png
+// LV_IMG_DECLARE(ui_img_bikeicon_png);    // assets/BikeIcon.png
 LV_IMG_DECLARE(ui_img_batterypic_png);    // assets/BatteryPic.png
 
 // EVENTS
