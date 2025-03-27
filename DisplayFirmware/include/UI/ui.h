@@ -78,9 +78,10 @@ extern lv_obj_t * ui_YLabel1;
 // CUSTOM VARIABLES
 
 extern lv_obj_t * ui_BikePic;
+extern lv_obj_t * batteryGroup;
 
 // LV_IMG_DECLARE(ui_img_bikeicon_png);    // assets/BikeIcon.png
-LV_IMG_DECLARE(ui_img_batterypic_png);    // assets/BatteryPic.png
+// LV_IMG_DECLARE(ui_img_batterypic_png);    // assets/BatteryPic.png
 
 // EVENTS
 

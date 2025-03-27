@@ -62,6 +62,7 @@ lv_obj_t * ui_YLabel;
 lv_obj_t * ui_YLabel1;
 // CUSTOM VARIABLES
 lv_obj_t * ui_BikePic;
+lv_obj_t * batteryGroup;
 
 // EVENTS
 lv_obj_t * ui____initial_actions0;
