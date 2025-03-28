@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 
 # Read the uploaded bikeData.txt file
-file_path = Path("./thermData.txt")
+file_path = Path("./warningData.txt")
 text = file_path.read_text()
 
 # Extract hex byte values from the C array
@@ -27,16 +27,16 @@ compressed = rle_compress(byte_array)
 
 # Format compressed data as a C array
 lines = []
-lines.append("const uint8_t thermicon_rle[] = {")
+lines.append("const uint8_t warningicon_rle[] = {")
 for i in range(0, len(compressed), 12):
     chunk = ", ".join(f"0x{b:02X}" for b in compressed[i:i+12])
     lines.append("    " + chunk + ",")
 lines[-1] = lines[-1].rstrip(",")  # Remove trailing comma from last line
 lines.append("};")
-lines.append(f"const size_t thermicon_rle_len = sizeof(thermicon_rle);")
+lines.append(f"const size_t warningicon_rle_len = sizeof(warningicon_rle);")
 
 # Save as .h file
-header_path = Path("thermData_rle.h")
+header_path = Path("warningData_rle.h")
 header_path.write_text("\n".join(lines))
 
 header_path.name
