@@ -46,16 +46,10 @@
 #define GET_DATA          2
 #define SEND_DATA         3
 #define SET_DIFFICULTY    4
-#define CHARGE_FSM        5
+#define CHARGE_STATE      5
 #define LOAD_PRIORITIZER  6
 #define LED_CONTROL       7
 #define TEMP_MONITORING   8
-
-
-
-/*-------------------------------------CHARGING FSM DEFINES--------------------------------------*/
-#define CHARGE     0
-#define DISCHARGE  1
 
 
 
@@ -88,14 +82,13 @@ Adafruit_NeoPixel strip(30, LED_MOSFET_PIN, NEO_GRB + NEO_KHZ800);
 
 /*---------------------------------------Global Variables----------------------------------------*/
 // Variables to hold generator metrics
-volatile float generator_voltage;
-float generator_current;
-float generator_power;
+volatile float generator_voltage = 0.0;
+float generator_current = 0.0;
+float generator_power = 0.0;
 
 // Variable to hold battery metrics
-float battery_voltage;
-float battery_current;
-float battery_power;
+float battery_voltage = 0.0;
+float battery_current = 0.0;
 uint8_t battery_charge_percentage = 100;
 
 // Variable to hold dump load metrics
@@ -103,11 +96,11 @@ uint8_t user_difficulty = 0;
 uint8_t dump_load_difficulty = 128;
 
 // Variable to hold inverter load metrics
-float inverter_current;
-float inverter_power;
+float inverter_current = 0.0;
+float inverter_power = 0.0;
 
 // Variables to hold temperature and charging metrics
-float temperature_celcius;
+float temperature_celcius = 20.0;
 uint8_t high_temperature_flag = 0;
 uint8_t duty_cycle = 0;
 uint8_t charging_only_flag = 0;
@@ -115,7 +108,6 @@ uint8_t charging_only_flag = 0;
 // FSM State Variables
 // Make these volatile as they are changed in an ISR
 volatile uint8_t system_state_variable = SYSTEM_INIT; 
-volatile uint8_t charge_state_variable = CHARGE;
 
 // Used by the WDT to determine whether or not it has been fired (ISR)
 volatile bool wdtFired = false;
@@ -160,8 +152,8 @@ void loop() {
     case SET_DIFFICULTY:
       set_difficulty();
       break;
-    case CHARGE_FSM:
-      charge_FSM();
+    case CHARGE_STATE:
+      charge_state();
       break;
     case LOAD_PRIORITIZER:
       load_prioritizer();

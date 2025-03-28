@@ -59,7 +59,7 @@ void system_init(){
   digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
 
   // Turn inverter MOSFET to allow load to be used
-  digitalWrite(INVERTER_MOSFET, HIGH);
+  digitalWrite(INVERTER_MOSFET, LOW);
 
   // Initially disable battery charging and discharging
   digitalWrite(CHARGING_MOSFET_PIN, LOW);
@@ -195,7 +195,7 @@ void load_prioritizer(){
 
   // Temporary unconditional state transition to charge state
   // Will be replaced with more complex conditional logic 
-  system_state_variable = CHARGE_FSM;
+  system_state_variable = CHARGE_STATE;
 
   // If high temperature flag is set, turn off all loads except fans
   if (high_temperature_flag){
@@ -214,7 +214,7 @@ void load_prioritizer(){
   }
   
   // Otherwise if the generator isn't on 
-  else if (generator_voltage < 5.0){
+  else if (generator_voltage <= 16.0){
 
     // Disable current flow from generator
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
@@ -246,6 +246,7 @@ void load_prioritizer(){
 
     digitalWrite(INVERTER_MOSFET, HIGH);
   }
+  /*
   else{
     // Allow current to flow from generator and to inverter
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
@@ -255,27 +256,66 @@ void load_prioritizer(){
 
     digitalWrite(INVERTER_MOSFET, LOW);
   }
+  */
 }
 
 
 
 /*------------------------------------------Charge FSM-------------------------------------------*/
-void charge_FSM(){
+void charge_state(){
 
   // Unconditional state transition, go to LED control state
   system_state_variable = LED_CONTROL;
 
-  // Implements factored charging FSM
-  switch(charge_state_variable){
-    case CHARGE:
-      charge();
-      break;
-    case DISCHARGE:
-      discharge();
-      break;
-    default:
-      discharge();
-      break;
+  // If high temperature flag is set, DO NOT CHARGE
+  if (high_temperature_flag){
+
+    // Disable all current flow
+    digitalWrite(LED_MOSFET_PIN, LOW);
+    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+    digitalWrite(INVERTER_MOSFET, LOW);
+    digitalWrite(CHARGING_MOSFET_PIN, LOW);
+
+    // Turn on fans at max speed
+    digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
+    digitalWrite(FAN_MOSFET_PIN, HIGH);
+    analogWrite(FAN1_AUX_PIN, 255);
+    analogWrite(FAN2_AUX_PIN, 255);
+  }
+
+  else if ((battery_voltage > 14.0) && (duty_cycle == 0)){
+
+    // disable charging
+    analogWrite(CHARGING_MOSFET_PIN, 0);
+  }
+
+  // Otherwise, charging is allowed
+  else {
+    
+    // Disallow charging if current is too high
+    if (generator_current >= 2.0){
+      duty_cycle = 0;
+    }
+
+    // Otherwise allow charging
+    else{
+
+      // If battery voltage is less than 14V, increase charging voltage
+      if ((generator_voltage >= 16.0) && (battery_voltage < 14.0)){
+        if (duty_cycle < 255) duty_cycle++;
+        else duty_cycle = 255;
+      }
+
+      // If battery voltage is greater than 14V, decrease charging voltage
+      else if ((generator_voltage >= 16.0) && (battery_voltage > 14.0)){
+        if (duty_cycle > 0) duty_cycle--;
+        else duty_cycle = 0;
+      }
+    }
+
+    // Disable discharging, and write duty cycle to charging MOSFET
+    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
+    analogWrite(CHARGING_MOSFET_PIN, duty_cycle);
   }
 }
 
@@ -307,7 +347,7 @@ void temp_monitoring(){
   system_state_variable = SYSTEM_SLEEP;
 
   // Check for high temperature
-  if (temperature_celcius > 30.0 && 0){ // FOR CURRENT PROTOTYPE AS THERE IS NO TEMP SENSOR ATTACHED
+  if (temperature_celcius > 30.0 && 0){ // FOR CURRENT PROTOTYPE WITHOUT TEMP SENSOR
     
     // Disable all current flow
     digitalWrite(LED_MOSFET_PIN, LOW);
