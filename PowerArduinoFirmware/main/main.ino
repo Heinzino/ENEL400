@@ -24,7 +24,7 @@
 #define FAN_MOSFET_PIN         4
 #define INVERTER_MOSFET        11
 #define LED_MOSFET_PIN         8
-#define FAN1_AUX_PIN           10
+#define FAN1_AUX_PIN           12
 #define FAN2_AUX_PIN           9
 #define DISCHARGE_MOSFET_PIN   7
 #define SPI_SCK                13
