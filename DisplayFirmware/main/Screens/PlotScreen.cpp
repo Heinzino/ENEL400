@@ -6,6 +6,12 @@ bool pendingSwitchToPowerScreen = false;
 
 void PlotScreen::updateScreen()
 {
+    if(systemHighTempState()){
+        pendingSwitchToPowerScreen = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::TEMP_WARNING, ui_Screen5);
+        return; // Exit early to prevent chart update
+    }
+
     static uint32_t lastUpdate = 0;
     uint32_t now = esp_timer_get_time() / 1000; // ms
 
@@ -49,6 +55,7 @@ void PlotScreen::updateScreen()
     lv_chart_set_next_value(ui_Chart1, current_series, static_cast<lv_coord_t>(current));
 
 
+    lv_timer_handler();
     lv_task_handler();
     safeLvglRefresh();
 }

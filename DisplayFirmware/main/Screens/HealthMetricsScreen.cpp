@@ -5,6 +5,11 @@ bool pendingSwitchToPowerDisplay = false;
 
  void HealthMetricsScreen::updateScreen() {
 
+    if(systemHighTempState()){
+        pendingSwitchToPowerDisplay = false;
+        return; // Exit early to prevent chart update
+    }
+
     if(pendingSwitchToPowerDisplay){
         pendingSwitchToPowerDisplay = false;
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::POWER_DISPLAY, ui_Screen1);

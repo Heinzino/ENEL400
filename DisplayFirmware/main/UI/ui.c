@@ -60,6 +60,16 @@ lv_obj_t * ui_PlotTitle;
 lv_obj_t * ui_XLabel;
 lv_obj_t * ui_YLabel;
 lv_obj_t * ui_YLabel1;
+
+// SCREEN: ui_Screen5
+void ui_Screen5_screen_init(void);
+lv_obj_t * ui_Screen5;
+// lv_obj_t * ui_Image1;
+// lv_obj_t * ui_Image2;
+lv_obj_t * ui_CooldownMessage;
+lv_obj_t * ui_SafeProceedMessage;
+lv_obj_t * ui_Label7;
+
 // CUSTOM VARIABLES
 lv_obj_t * ui_BikePic;
 lv_obj_t * batteryGroup;
@@ -93,6 +103,7 @@ void ui_init(void)
     ui_Screen2_screen_init();
     ui_Screen3_screen_init();
     ui_Screen4_screen_init();
+    ui_Screen5_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_Screen1);
 }

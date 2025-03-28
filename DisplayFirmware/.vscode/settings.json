@@ -92,7 +92,9 @@
         "timemanager.hpp": "c",
         "images.h": "c",
         "bike_icon.h": "c",
-        "battery_icon.h": "c"
+        "battery_icon.h": "c",
+        "temperaturewarningscreen.hpp": "c",
+        "systemstatus.hpp": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

@@ -21,3 +21,8 @@ void SystemStatus::setHighTemperatureFlag(int value) {
 int SystemStatus::getHighTemperatureFlag() const {
     return highTemperatureFlag;
 }
+
+int systemHighTempState(){
+    SystemStatus &systemStatus = SystemStatus::getInstance();
+    return systemStatus.getHighTemperatureFlag();
+}

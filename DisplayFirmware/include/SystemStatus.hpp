@@ -1,6 +1,10 @@
 #ifndef SYSTEM_STATUS_HPP
 #define SYSTEM_STATUS_HPP
 
+#include "screenEnums.hpp"
+#include "UI/ui.h"
+
+int systemHighTempState();
 class SystemStatus {
 private:
     int headerIconFlag = 0;

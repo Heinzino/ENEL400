@@ -10,5 +10,6 @@ enum ScreenTitles{
     RESISTANCE_LEVEL,
     HEALTH_METRICS,
     PLOT,
+    TEMP_WARNING,
     SCREEN_COUNT
 };

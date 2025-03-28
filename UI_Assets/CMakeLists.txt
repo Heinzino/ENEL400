@@ -2,10 +2,13 @@ SET(SOURCES ui_Screen1.c
     ui_Screen2.c
     ui_Screen3.c
     ui_Screen4.c
+    ui_Screen5.c
     ui.c
     ui_comp_hook.c
     ui_helpers.c
     ui_img_bikeicon_png.c
-    ui_img_batterypic_png.c)
+    ui_img_batterypic_png.c
+    ui_img_1796809118.c
+    ui_img_warningneonpng_png.c)
 
 add_library(ui ${SOURCES})

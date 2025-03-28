@@ -8,6 +8,7 @@ idf_component_register(
          "UI/ui_Screen2.cpp"
          "UI/ui_Screen3.cpp"
          "UI/ui_Screen4.c"
+         "UI/ui_Screen5.c"
          "UI/ui_img_bikeicon_png.c"
          "UI/ui_img_batterypic_png.c"
          "UI/images.c"
@@ -18,6 +19,7 @@ idf_component_register(
          "Screens/HealthMetricsScreen.cpp"
          "Screens/SettingsScreen.cpp"
          "Screens/PlotScreen.cpp"
+         "Screens/TemperatureWarningScreen.cpp"
     INCLUDE_DIRS "../include/"
                  "../include/Screens"
 )

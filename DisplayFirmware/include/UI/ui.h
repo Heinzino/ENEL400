@@ -75,6 +75,15 @@ extern lv_obj_t * ui_XLabel;
 extern lv_obj_t * ui_YLabel;
 extern lv_obj_t * ui_YLabel1;
 
+// SCREEN: ui_Screen5
+void ui_Screen5_screen_init(void);
+extern lv_obj_t * ui_Screen5;
+// extern lv_obj_t * ui_Image1;
+// extern lv_obj_t * ui_Image2;
+extern lv_obj_t * ui_CooldownMessage;
+extern lv_obj_t * ui_SafeProceedMessage;
+extern lv_obj_t * ui_Label7;
+
 // CUSTOM VARIABLES
 
 extern lv_obj_t * ui_BikePic;

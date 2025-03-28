@@ -9,6 +9,7 @@
 #include "Screens/ResistanceScreen.hpp"
 #include "Screens/HealthMetricsScreen.hpp"
 #include "Screens/PlotScreen.hpp"
+#include "Screens/TemperatureWarningScreen.hpp"
 #include "screenEnums.hpp"
 
 class Screen; //Avoid circular dependency
