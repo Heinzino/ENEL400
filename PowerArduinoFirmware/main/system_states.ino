@@ -277,7 +277,7 @@ void charge_state(){
     // disable charging
     analogWrite(CHARGING_MOSFET_PIN, 0);
   }
-
+/*
   // Otherwise, charging is allowed
   else {
     
@@ -306,6 +306,8 @@ void charge_state(){
     digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
     analogWrite(CHARGING_MOSFET_PIN, duty_cycle);
   }
+  */
+  
 }
 
 
@@ -315,7 +317,7 @@ void led_control(){
 
   // Unconditional state transition, go to temperature monitoring state
   system_state_variable = TEMP_MONITORING;
-
+  
   // Update the led strip effect
   updateSystemState();
   
