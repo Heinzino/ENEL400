@@ -7,6 +7,7 @@
 #include "WiFi.h"
 #include "secrets.hpp"
 #include "Screens/SettingsScreen.hpp"
+#include "SystemStatus.hpp"
 
 void initWiFi();
 
@@ -26,6 +27,7 @@ public:
     const char* getElapsedTime();  // Returns "MM:SS" string
     const char* getFormattedTime(); // Returns "HH:MM | Month Day, Year"
 
+    void updateHeaderIconVisibility();
     void toggleWorkoutTimer();
     bool isWorkoutPaused() const;
 

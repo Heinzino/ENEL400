@@ -93,6 +93,7 @@ void HeaderManager::update()
 
         updateWorkoutTimer(delta);
         updateRealTime(delta);
+        updateHeaderIconVisibility();
     }
 }
 
@@ -153,4 +154,20 @@ void HeaderManager::updateRealTime(uint32_t delta)
     snprintf(formattedTimeStr, sizeof(formattedTimeStr), "%02d:%02d | %s %d, %d",
              timeinfo.tm_hour, timeinfo.tm_min, months[timeinfo.tm_mon],
              timeinfo.tm_mday, timeinfo.tm_year + 1900);
+}
+
+void HeaderManager::updateHeaderIconVisibility()
+{
+    int headerFlag = SystemStatus::getInstance().getHeaderIconFlag();
+
+    if (headerFlag == 0)
+    {
+        lv_obj_clear_flag(batteryGroup, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_add_flag(ui_BikePic, LV_OBJ_FLAG_HIDDEN);
+    }
+    else
+    {
+        lv_obj_add_flag(batteryGroup, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_flag(ui_BikePic, LV_OBJ_FLAG_HIDDEN);
+    }
 }
