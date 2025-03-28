@@ -20,7 +20,7 @@ void system_init(){
   pinMode(FAN2_AUX_PIN, OUTPUT);
   pinMode(DISCHARGE_MOSFET_PIN, OUTPUT);
 
-  // Set analog output pins
+  // Set analog input pins
   pinMode(TEMPERATURE_SENSOR_PIN, INPUT);
   pinMode(BATTERY_VOLTAGE_PIN, INPUT);
   pinMode(GENERATOR_VOLTAGE_PIN, INPUT);
@@ -58,7 +58,7 @@ void system_init(){
   // Turn on generator MOSFET to allow current flow
   digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
 
-  // Turn inverter MOSFET to allow load to be used
+  // Turn inverter MOSFET off to disallow generator from powering load
   digitalWrite(INVERTER_MOSFET, LOW);
 
   // Initially disable battery charging and discharging
