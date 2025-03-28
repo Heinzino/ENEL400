@@ -143,20 +143,20 @@ void loop() {
     case SYSTEM_SLEEP:
       system_sleep();
       break;
-    case GET_DATA:
-      get_data();
-      break;
     case SEND_DATA:
       send_data();
+      break;
+    case GET_DATA:
+      get_data();
       break;
     case SET_DIFFICULTY:
       set_difficulty();
       break;
-    case CHARGE_STATE:
-      charge_state();
-      break;
     case LOAD_PRIORITIZER:
       load_prioritizer();
+      break;
+    case CHARGE_STATE:
+      charge_state();
       break;
     case LED_CONTROL:
       led_control();
@@ -165,7 +165,7 @@ void loop() {
       temp_monitoring();
       break;
     default:
-      get_data();
+      system_sleep();
       break;
   }
 }
