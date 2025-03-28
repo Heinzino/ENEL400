@@ -98,12 +98,12 @@ uint8_t dump_load_difficulty = 128;
 // Variable to hold inverter load metrics
 float inverter_current = 0.0;
 float inverter_power = 0.0;
+uint8_t load_power_source = 0;
 
 // Variables to hold temperature and charging metrics
 float temperature_celcius = 20.0;
 uint8_t high_temperature_flag = 0;
 uint8_t duty_cycle = 0;
-uint8_t charging_only_flag = 0;
 
 // FSM State Variables
 // Make these volatile as they are changed in an ISR

@@ -123,10 +123,7 @@ void send_data(){
   Serial.print(sanitizeFloat(generator_current) , 2);
   Serial.print(" ");
 
-  Serial.println(rpmSensor.getRPM());
-
   // This code to be used for a later version
-  /*
   // Send wheel RPM
   Serial.print(rpmSensor.getRPM());
   Serial.print(" ");
@@ -137,7 +134,6 @@ void send_data(){
 
   // Send high temperature flag
   Serial.println(high_temperature_flag);
-  */
 
   // Flush the serial buffer 
   Serial.flush();
@@ -222,6 +218,7 @@ void load_prioritizer(){
     // Allow battery to power load
     digitalWrite(INVERTER_MOSFET, LOW);
     digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
+    load_power_source = 0;
   }
 
   // Otherwise if the generator voltage is too high
@@ -233,6 +230,7 @@ void load_prioritizer(){
     digitalWrite(INVERTER_MOSFET, HIGH);
     analogWrite(DUMP_LOAD_MOSFET_1, 255);
     analogWrite(DUMP_LOAD_MOSFET_2, 255);
+    load_power_source = 1;
   }
 
   // Otherwise in normal operation
@@ -245,6 +243,7 @@ void load_prioritizer(){
     digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
 
     digitalWrite(INVERTER_MOSFET, HIGH);
+    load_power_source = 1;
   }
 }
 
