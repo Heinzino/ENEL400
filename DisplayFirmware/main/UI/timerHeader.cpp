@@ -86,7 +86,7 @@ void create_time_header() {
     lv_img_set_src(ui_BikePic, &ui_img_bikeicon_png);
     lv_obj_set_width(ui_BikePic, LV_SIZE_CONTENT);
     lv_obj_set_height(ui_BikePic, LV_SIZE_CONTENT);
-    lv_obj_align(ui_BikePic, LV_ALIGN_CENTER, 0, 0);  // Adjust as needed
+    lv_obj_align(ui_BikePic, LV_ALIGN_CENTER, 9, 0);  // Adjust as needed
     lv_obj_add_flag(ui_BikePic, LV_OBJ_FLAG_ADV_HITTEST);
     lv_obj_clear_flag(ui_BikePic, LV_OBJ_FLAG_SCROLLABLE);
     lv_img_set_zoom(ui_BikePic, 40);  // Optional: adjust size

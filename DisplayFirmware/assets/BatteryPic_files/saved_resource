@@ -1,43 +1,0 @@
-
-var ftGUID_7902650="6265AE3EAC13CE";
-var ftConfID_7902650="0";
-var ftParams_7902650="ft_custom=iW239Y5_7YCfQo-Win2Po5JPlfuPbrPcCeQ=&ftOBA=1&ft_domain=pngtree.com&ft_ifb=1&ft_agentEnv=0&ft_referrer=https%3A%2F%2Fpngtree.com%2F&gdpr=0&ftClick=https://adclick.g.doubleclick.net/aclk?sa=L&ai=CW0dbnc3iZ9CrBKGu5LcP6OPPgQKI76j0XN69t5avAcCNtwEQASAAYP3Q8IDIA4IBF2NhLXB1Yi0xMzM2NjcwODk5MTczMzIzyAEJqAMByAMCqgSDAk_QO0f2hdaPW9qX3JcmrYEZ7Fh5Jghjqe5rIlGm9PeDE5RUWLYE6E5CVOaMxopwyi3huJuecY7vxBv6HemuUR6NVGk5NpLLyknC2D6VprDpb3t0N5mN7VDbLZ_Tnzkt-6M2GZ1CMRuwUV48YuGLqNCE5hUYYJLykj3G8Mg9EzxQcbkWutHnIGkA1b9iTE-0YMrON2pMf7hq2irkxSpaQrSwwWiRAnGLanwww8-BKrrxMyqhf6rJCiqCKgmXL4BrImvzI1ZKmolLkmHuQfZe8Lkn8lS85fsB2MoiTmnNNnqxoxTZaFPPeZkXlfG1S2VstyyoHvFHEUxouJ3CrqagGiGqjCGABpixxJ-c77yLZaAGIagHpr4bqAeW2BuoB6qbsQKoB_-esQKoB9-fsQKoB62-sQLYBwDSCCQIgGEQATICigI6C4BAgMCAgICgqIACSL39wTpYqc2n78eljAP6CwIIAYAMAeoNEwi5kcnvx6WMAxUhF_kAHejxMyDQFQGAFwGyFwIYDA&num=1&sig=AOD64_24IgzEOWpjtn85z9KqMvhdFIWDVA&client=ca-pub-1336670899173323&adurl=https://exch.quantserve.com/r?&a=p-1RYxePXT9bCS2&labels=_qc.clk,_click.adserver.rtb,_click.rand.1638744153&rtbip=192.184.70.74&rtbdata2=EAA6E2h0dHBzOi8vcG5ndHJlZS5jb21aKFJrcVltVVFaejV0ZFNNdlBSUnZYemhOUG1NaGRUOGpORWhpNXpnMEiAAbyx7fsOugEbQ0FFU0VMejNGZWJxY3dsOHBPb2gydVA2QTA4wAH4sQzIAcvbzO_cMtoBFlJkaDdVdjJCREtQVFF0UGFJRko5VGewAgjIAgDQAs7hhvv4n_fMqQHoAq8B8gIPCM3mMBCu79KTu8K5ofEB8gIOCK8BEJT0vLz24N2fvQH4AgCKAxYwLnB1Yi0xMzM2NjcwODk5MTczMzIzmAMAqAMAsgMEiJ_VALoDEgnfSnfj0y8yzBF0lOBtVqlbucIDEgknSTRIlexQ_RHLdIJWXCNOhsgD9IDAE9gD2YC1jQbiAw9wLTFSWXhlUFhUOWJDUzLqAwUI2AUQWvIDCXQybiUyMDFuNPgDAIAEsAKKBAI3N5IEEjU0OTY0NDM5Mzg0NjUxOTI0MZoEEgnHSwoCx0vvTxGiRxYzt7ZYiaIEEgnfSnfj0y8yzBF0lOBtVqlbuaoEEgnfSnfj0y8yzBF0lOBtVqlbubgEwArQBAnyBAJDQYAFAYoFAJAFAbgFAMAF2YC1jQbIBam4qQTSBQYIAxABGAPoBQWaBhQKEgnHSwoCx0vvTxGiRxYzt7ZYiaAGALUGoJ03OboGVgoCQ0ESAkFCGJnPByIHY2FsZ2FyeSoJdDJuJTIwMW40Ohl1bml2ZXJzaXR5JTIwb2YlMjBjYWxnYXJ5Whl1bml2ZXJzaXR5JTIwb2YlMjBjYWxnYXJ5yQaXEEDLxQ3-CdAGONgGOOIGP19mcC5ldmVudC5DQyBQYWlkIENvbnZlcnNpb24sX2ZwLmV2ZW50LkNDIFRyaWFsIENvbnZlcnNpb24sX29yX-oGEWh0dHBzOi8vYWRvYmUuY29t8QYBaEDLxQ3-CfgGA4AHAA&redirecturl3=&site_url=pngtree.com&cachebuster=237461.29810152782";
-var ftKeyword_7902650="";
-var ftCustom_7902650="iW239Y5_7YCfQo-Win2Po5JPlfuPbrPcCeQ=";
-var ftSection_7902650="";
-var ftSegment_7902650="ac54";
-var ftSegmentList_7902650=[{s:'ac54'}];
-var ftRuleMatch_7902650="0";
-var ftTimestamp_7902650="1742917123";
-var ftGeoC2_7902650="ca";
-var ftGeoState_7902650="ab";
-var ftGeoCity_7902650="calgary";
-var ftISP_7902650="university of calgary";
-var ftSpeed_7902650="broadband";
-var ftConnType_7902650="wired";
-var ftDMA_7902650="124825";
-var ftLong_7902650="-114.13";
-var ftLat_7902650="51.07";
-var ftPostal_7902650="t2n 1n4";
-var ftTimeZone_7902650="-600";
-var ftMobileCarrier_7902650="";
-var ftImp7902650 = {};
-ftImp7902650.privacy = "x";
-ftImp7902650.guidAge = "28";
-ftImp7902650.impID = "4B0AB849-677A-D802-18F6-30F9961950CE";
-ftImp7902650.duid = "FT:6265AE3EAC13CE";
-
-ftImp7902650.ft_tpplid = "";
-ftImp7902650.ft_c = {};
-ftImp7902650.gdpr = "0";
-ftImp7902650.gdpr_consent = "";
-ftImp7902650.gdpr_pd = "";
-ftImp7902650.oob_consent = "";
-ftImp7902650.gdprStoredConsent = "";
-ftImp7902650.us_privacy = "";
-ftImp7902650.gpc = "";
-
-ftImp7902650.jsAppend = "1";
-var ftCreativeId_7902650 = "5160142";
-(function(){var tag=document.getElementById("ft_servedby_7902650")||function(s){return s[s.length-1]}(document.getElementsByTagName("script")),js=document.createElement("script");js.src="https://ajs-assets.ftstatic.com/ftUtils.js";js.id="ftscript_m7902650";js.setAttribute("name","ftscript_m7902650");tag.parentNode.insertBefore(js,tag)})();window.fTChecker=window.fTChecker||function(id){if(!id)return false;id=""+id;if(window.hasOwnProperty("ftUtils")){window["ft"+id]=Object.assign({},window.ftUtils.common);window["ft"+id].getBannerConfig(id)}else(function(id){window.setTimeout(function(){window.fTChecker(id)},50)})(id)};window.fTChecker("7902650");
-
