@@ -63,7 +63,7 @@ void PowerScreen::handleButton(ButtonID btn)
         PlotScreen::plotSetup();
         break;
     case ButtonID::FN1_BTN:
-        TimeManager::getInstance().toggleWorkoutTimer();
+        HeaderManager::getInstance().toggleWorkoutTimer();
         break;
     default:
         break;

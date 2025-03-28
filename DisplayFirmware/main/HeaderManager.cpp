@@ -1,4 +1,4 @@
-#include "TimeManager.hpp"
+#include "HeaderManager.hpp"
 #include "esp_log.h"
 #include "lwip/apps/sntp.h"
 
@@ -27,21 +27,21 @@ void initWiFi()
     }
 }
 
-TimeManager::TimeManager()
+HeaderManager::HeaderManager()
 {
     currentTime = 0;
     snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "00:00");
     snprintf(formattedTimeStr, sizeof(formattedTimeStr), "00:00 | January 1, 1970");
 }
 
-TimeManager &TimeManager::getInstance()
+HeaderManager &HeaderManager::getInstance()
 {
-    static TimeManager instance;
+    static HeaderManager instance;
     return instance;
 }
 
 // Sync NTP once per hour
-void TimeManager::syncNTP()
+void HeaderManager::syncNTP()
 {
     LOG(LV_LOG_LEVEL_TRACE, "Syncing time with NTP...");
     sntp_setoperatingmode(SNTP_OPMODE_POLL);
@@ -82,7 +82,7 @@ void TimeManager::syncNTP()
     }
 }
 
-void TimeManager::update()
+void HeaderManager::update()
 {
     uint32_t now = millis();
 
@@ -97,35 +97,35 @@ void TimeManager::update()
 }
 
 //  Get elapsed workout time (MM:SS)
-const char *TimeManager::getElapsedTime()
+const char *HeaderManager::getElapsedTime()
 {
     return elapsedTimeStr;
 }
 
 //  Get formatted current time (HH:MM | Month Day, Year)
-const char *TimeManager::getFormattedTime()
+const char *HeaderManager::getFormattedTime()
 {
     return formattedTimeStr;
 }
 
-void TimeManager::resetWorkoutTime()
+void HeaderManager::resetWorkoutTime()
 {
     elapsedSeconds = 0;
     lastUpdate = millis();
     snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "00:00");
 }
 
-void TimeManager::toggleWorkoutTimer()
+void HeaderManager::toggleWorkoutTimer()
 {
     workoutPaused ^= 1; // Toggles between true and false
 }
 
-bool TimeManager::isWorkoutPaused() const
+bool HeaderManager::isWorkoutPaused() const
 {
     return workoutPaused;
 }
 
-void TimeManager::updateWorkoutTimer(uint32_t delta)
+void HeaderManager::updateWorkoutTimer(uint32_t delta)
 {
     if (!workoutPaused)
     {
@@ -140,7 +140,7 @@ void TimeManager::updateWorkoutTimer(uint32_t delta)
     }
 }
 
-void TimeManager::updateRealTime(uint32_t delta)
+void HeaderManager::updateRealTime(uint32_t delta)
 {
     currentTime += delta;
 

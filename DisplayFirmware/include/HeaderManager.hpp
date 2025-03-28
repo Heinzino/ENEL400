@@ -10,9 +10,9 @@
 
 void initWiFi();
 
-class TimeManager {
+class HeaderManager {
 public:
-    static TimeManager& getInstance();
+    static HeaderManager& getInstance();
 
     void update();  // Call this in displayTask every loop
 
@@ -32,7 +32,7 @@ public:
 
 
 private:
-    TimeManager(); // Private constructor (singleton)
+    HeaderManager(); // Private constructor (singleton)
     
     bool workoutPaused = false;
     uint32_t lastUpdate = 0;

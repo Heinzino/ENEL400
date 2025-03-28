@@ -46,7 +46,7 @@ void setup()
   lvglMutex = xSemaphoreCreateMutex();
 
   initWiFi();
-  TimeManager::getInstance().syncNTP();
+  HeaderManager::getInstance().syncNTP();
   // WiFiSetup();
   // initSDLog(); TODO: Make sure you configure HSPI, VSPI in menuconfig
 

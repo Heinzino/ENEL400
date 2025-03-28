@@ -65,7 +65,7 @@ void HealthMetricsScreen::handleButton(ButtonID btn) {
         pendingSwitchToPowerDisplay = true;
         break;
     case ButtonID::FN1_BTN:
-        TimeManager::getInstance().toggleWorkoutTimer();
+        HeaderManager::getInstance().toggleWorkoutTimer();
         break;
     default:
         break;

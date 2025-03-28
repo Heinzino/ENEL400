@@ -14,6 +14,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "taskSync.hpp"
+#include "SystemStatus.hpp"
 
 #define UART_NUM UART_NUM_2
 #define BUF_SIZE (1024)

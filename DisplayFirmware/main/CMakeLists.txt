@@ -1,5 +1,6 @@
 idf_component_register(
-    SRCS "TimeManager.cpp" "SensorData.cpp" "ScreenManager.cpp" "secrets.cpp" "displayTask.cpp" "main.cpp"
+    SRCS "HeaderManager.cpp" "SensorData.cpp" "ScreenManager.cpp" "secrets.cpp" "displayTask.cpp" "main.cpp"
+         "SystemStatus.cpp"
          "sd_log.cpp"
          "uart.cpp"
          "UI/ui.c"

@@ -6,7 +6,7 @@
 #include "SensorData.hpp"
 #include <cmath>
 #include <cstdio>
-#include "TimeManager.hpp"
+#include "HeaderManager.hpp"
 
 class PowerScreen : public Screen {
 public:

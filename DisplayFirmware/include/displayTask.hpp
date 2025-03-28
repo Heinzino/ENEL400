@@ -3,7 +3,7 @@
 #include "main.hpp"
 #include "taskSync.hpp"
 #include "UI/timerHeader.hpp"
-#include "TimeManager.hpp"
+#include "HeaderManager.hpp"
 
 #define DISPLAY_SCREEN_TIMEOUT_MS 15000
 
