@@ -236,7 +236,7 @@ void load_prioritizer(){
   }
 
   // Otherwise in normal operation
-  else if (generator_voltage > 16.0){
+  else{
 
     // Allow current to flow from generator and to inverter
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
@@ -246,17 +246,6 @@ void load_prioritizer(){
 
     digitalWrite(INVERTER_MOSFET, HIGH);
   }
-  /*
-  else{
-    // Allow current to flow from generator and to inverter
-    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
-
-    // Disable battery discharging
-    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
-
-    digitalWrite(INVERTER_MOSFET, LOW);
-  }
-  */
 }
 
 
