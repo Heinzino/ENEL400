@@ -69,8 +69,8 @@ void system_init(){
   TCCR2B = TCCR2B & B11111000 | 0x03;
 
   // Write initial high load to prevent voltage spikes
-  analogWrite(DUMP_LOAD_MOSFET_1, 255);
-  analogWrite(DUMP_LOAD_MOSFET_2, 255);
+  //analogWrite(DUMP_LOAD_MOSFET_1, 255);
+  //analogWrite(DUMP_LOAD_MOSFET_2, 255);
 
   // Enable the fans at highest speed
   digitalWrite(FAN_MOSFET_PIN, HIGH);
@@ -180,8 +180,8 @@ void set_difficulty(){
   dump_load_difficulty = ((uint16_t)user_difficulty * 168) / 10 + 102;
   //dump_load_difficulty = read_value * 28;
 
-  analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
-  analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
+  //analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
+  //analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
 }
 
 
@@ -337,7 +337,7 @@ void temp_monitoring(){
   system_state_variable = SYSTEM_SLEEP;
 
   // Check for high temperature
-  if (temperature_celcius > 30.0 && 0){ // FOR CURRENT PROTOTYPE WITHOUT TEMP SENSOR
+  if (temperature_celcius > 30.0){ // FOR CURRENT PROTOTYPE WITHOUT TEMP SENSOR
     
     // Disable all current flow
     digitalWrite(LED_MOSFET_PIN, LOW);
