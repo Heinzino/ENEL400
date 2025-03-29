@@ -68,10 +68,6 @@ void system_init(){
   // Set PWM frequency to 1kHz (using Timer 2)
   TCCR2B = TCCR2B & B11111000 | 0x03;
 
-  // Write initial high load to prevent voltage spikes
-  //analogWrite(DUMP_LOAD_MOSFET_1, 255);
-  //analogWrite(DUMP_LOAD_MOSFET_2, 255);
-
   // Enable the fans at highest speed
   digitalWrite(FAN_MOSFET_PIN, HIGH);
   analogWrite(FAN1_AUX_PIN, 255);
@@ -179,9 +175,6 @@ void set_difficulty(){
 
   dump_load_difficulty = ((uint16_t)user_difficulty * 168) / 10 + 102;
   //dump_load_difficulty = read_value * 28;
-
-  //analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
-  //analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
 }
 
 
@@ -189,8 +182,7 @@ void set_difficulty(){
 /*------------------------------------Load Prioritizer Logic-------------------------------------*/
 void load_prioritizer(){
 
-  // Temporary unconditional state transition to charge state
-  // Will be replaced with more complex conditional logic 
+  // Unconditional state transition to charge state
   system_state_variable = CHARGE_STATE;
 
   // If high temperature flag is set, turn off all loads except fans
@@ -218,6 +210,8 @@ void load_prioritizer(){
     // Allow battery to power load
     digitalWrite(INVERTER_MOSFET, LOW);
     digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
+    digitalWrite(DUMP_LOAD_MOSFET_1, LOW);
+    digitalWrite(DUMP_LOAD_MOSFET_2, LOW);
     load_power_source = 0;
   }
 
@@ -228,8 +222,8 @@ void load_prioritizer(){
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
     digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
     digitalWrite(INVERTER_MOSFET, HIGH);
-    analogWrite(DUMP_LOAD_MOSFET_1, 255);
-    analogWrite(DUMP_LOAD_MOSFET_2, 255);
+    //digitalWrite(DUMP_LOAD_MOSFET_1, HIGH);
+    //digitalWrite(DUMP_LOAD_MOSFET_2, HIGH);
     load_power_source = 1;
   }
 
@@ -243,6 +237,8 @@ void load_prioritizer(){
     digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
 
     digitalWrite(INVERTER_MOSFET, HIGH);
+    //analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
+    //analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
     load_power_source = 1;
   }
 }
@@ -271,42 +267,37 @@ void charge_state(){
     analogWrite(FAN2_AUX_PIN, 255);
   }
 
-  else if ((battery_voltage > 14.0) && (duty_cycle == 0)){
-
-    // disable charging
-    analogWrite(CHARGING_MOSFET_PIN, 0);
-  }
-/*
   // Otherwise, charging is allowed
   else {
     
     // Disallow charging if current is too high
     if (generator_current >= 2.0){
       duty_cycle = 0;
+      digitalWrite(CHARGING_MOSFET_PIN, LOW);
     }
 
-    // Otherwise allow charging
-    else{
+    // Allow charging if generator voltage is sufficient
+    else if (generator_voltage >= 16.0){
 
       // If battery voltage is less than 14V, increase charging voltage
-      if ((generator_voltage >= 16.0) && (battery_voltage < 14.0)){
+      if (battery_voltage < 14.0){
         if (duty_cycle < 255) duty_cycle++;
         else duty_cycle = 255;
       }
 
       // If battery voltage is greater than 14V, decrease charging voltage
-      else if ((generator_voltage >= 16.0) && (battery_voltage > 14.0)){
+      else if (battery_voltage > 14.0){
         if (duty_cycle > 0) duty_cycle--;
         else duty_cycle = 0;
       }
+      digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
+      //analogWrite(CHARGING_MOSFET_PIN, duty_cycle); // THIS LINE CAUSES GENERATOR VOLTAGE TO DROP AFTER SOME TIME
     }
 
-    // Disable discharging, and write duty cycle to charging MOSFET
-    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
-    analogWrite(CHARGING_MOSFET_PIN, duty_cycle);
+    else{
+      digitalWrite(CHARGING_MOSFET_PIN, LOW);
+    }
   }
-  */
-  
 }
 
 
