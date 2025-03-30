@@ -11,5 +11,6 @@ enum ScreenTitles{
     HEALTH_METRICS,
     PLOT,
     TEMP_WARNING,
+    SPOTIFY,
     SCREEN_COUNT
 };

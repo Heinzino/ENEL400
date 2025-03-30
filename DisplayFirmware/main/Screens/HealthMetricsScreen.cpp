@@ -17,6 +17,12 @@ bool pendingSwitchToPowerDisplay = false;
         return; // Exit early to prevent chart update
     }
 
+    if (goToSpotify) {
+        goToSpotify = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::SPOTIFY, ui_SpotifyScreen);
+        return; // Exit early to prevent chart update
+    }
+
     SensorData &sensorData = SensorData::getInstance();
 
     // Fetch current values from SensorData
@@ -72,6 +78,9 @@ void HealthMetricsScreen::handleButton(ButtonID btn) {
         break;
     case ButtonID::FN1_BTN:
         HeaderManager::getInstance().toggleWorkoutTimer();
+        break;
+    case ButtonID::FN2_BTN:
+        goToSpotify = true;
         break;
     default:
         break;

@@ -8,7 +8,6 @@ constexpr uint32_t C_SPOTIFY_BLACK = 0x000000;
 constexpr uint32_t C_WHITE = 0xFFFFFF;
 
 
-
 void SpotifyScreen::updateScreen()
 {
     if (pendingSwitchToHomeScreen)
