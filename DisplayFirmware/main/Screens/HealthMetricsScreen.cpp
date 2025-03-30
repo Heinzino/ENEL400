@@ -53,7 +53,7 @@ bool pendingSwitchToPowerDisplay = false;
     }
 
     // Update Distance Label (only if change is greater than 0.1 km)
-    if (fabs(current_distance - last_distance) > 0.1) {
+    if (fabs(current_distance - last_distance) >= 0.01) {
         static char distance_str[16];
         snprintf(distance_str, sizeof(distance_str), "%.2f", current_distance);
         lv_label_set_text(ui_SpeedValue1, distance_str); // ui_SpeedValue1 is actually the Distance Label

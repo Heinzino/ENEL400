@@ -75,6 +75,7 @@ void displayTask(void *pvParameters)
             if (screenManager.isScreenOn())
             {
                 LOG(LOG_LEVEL_DEBUG, "Turning Screen OFF");
+                SensorData::getInstance().resetData(); // Reset data when screen is off 
                 screenManager.updateScreenState(ScreenState::OFF);
                 digitalWrite(TFT_SCREEN_LED, LOW);
             }
