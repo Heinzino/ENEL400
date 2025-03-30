@@ -1,5 +1,5 @@
 idf_component_register(
-    SRCS "HeaderManager.cpp" "SensorData.cpp" "ScreenManager.cpp" "secrets.cpp" "displayTask.cpp" "main.cpp"
+    SRCS "spotify_api.cpp" "HeaderManager.cpp" "SensorData.cpp" "ScreenManager.cpp" "secrets.cpp" "displayTask.cpp" "main.cpp"
          "SystemStatus.cpp"
          "sd_log.cpp"
          "uart.cpp"
@@ -20,6 +20,7 @@ idf_component_register(
          "Screens/SettingsScreen.cpp"
          "Screens/PlotScreen.cpp"
          "Screens/TemperatureWarningScreen.cpp"
+         "Screens/SpotifyScreen.cpp"
     INCLUDE_DIRS "../include/"
                  "../include/Screens"
 )
