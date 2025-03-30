@@ -6,37 +6,15 @@
 #include "UI/ui.h"
 
 void ui_Screen5_screen_init(void)
-{
+{    
     ui_Screen5 = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_Screen5, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-
-    // ui_Image1 = lv_img_create(ui_Screen5);
-    // lv_img_set_src(ui_Image1, &ui_img_1796809118);
-    // lv_obj_set_width(ui_Image1, LV_SIZE_CONTENT);   /// 360
-    // lv_obj_set_height(ui_Image1, LV_SIZE_CONTENT);    /// 360
-    // lv_obj_set_x(ui_Image1, 8);
-    // lv_obj_set_y(ui_Image1, -6);
-    // lv_obj_set_align(ui_Image1, LV_ALIGN_CENTER);
-    // lv_obj_add_flag(ui_Image1, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    // lv_obj_clear_flag(ui_Image1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    // lv_img_set_zoom(ui_Image1, 100);
-
-    // ui_Image2 = lv_img_create(ui_Screen5);
-    // lv_img_set_src(ui_Image2, &ui_img_warningneonpng_png);
-    // lv_obj_set_width(ui_Image2, LV_SIZE_CONTENT);   /// 360
-    // lv_obj_set_height(ui_Image2, LV_SIZE_CONTENT);    /// 360
-    // lv_obj_set_x(ui_Image2, -186);
-    // lv_obj_set_y(ui_Image2, -82);
-    // lv_obj_set_align(ui_Image2, LV_ALIGN_CENTER);
-    // lv_obj_add_flag(ui_Image2, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    // lv_obj_clear_flag(ui_Image2, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    // lv_img_set_zoom(ui_Image2, 50);
 
     ui_CooldownMessage = lv_label_create(ui_Screen5);
     lv_obj_set_width(ui_CooldownMessage, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_CooldownMessage, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_CooldownMessage, 1);
-    lv_obj_set_y(ui_CooldownMessage, 98);
+    lv_obj_set_x(ui_CooldownMessage, -1);
+    lv_obj_set_y(ui_CooldownMessage, 42);
     lv_obj_set_align(ui_CooldownMessage, LV_ALIGN_CENTER);
     lv_label_set_text(ui_CooldownMessage, "Please wait for the system to cool down.\n");
     lv_obj_set_style_text_color(ui_CooldownMessage, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -46,8 +24,8 @@ void ui_Screen5_screen_init(void)
     ui_SafeProceedMessage = lv_label_create(ui_Screen5);
     lv_obj_set_width(ui_SafeProceedMessage, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_SafeProceedMessage, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_SafeProceedMessage, 5);
-    lv_obj_set_y(ui_SafeProceedMessage, 113);
+    lv_obj_set_x(ui_SafeProceedMessage, 1);
+    lv_obj_set_y(ui_SafeProceedMessage, 56);
     lv_obj_set_align(ui_SafeProceedMessage, LV_ALIGN_CENTER);
     lv_label_set_text(ui_SafeProceedMessage, "Safe to proceed. Press any button to continue.");
     lv_obj_set_style_text_color(ui_SafeProceedMessage, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -57,13 +35,12 @@ void ui_Screen5_screen_init(void)
     ui_Label7 = lv_label_create(ui_Screen5);
     lv_obj_set_width(ui_Label7, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label7, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label7, 5);
-    lv_obj_set_y(ui_Label7, -95);
+    lv_obj_set_x(ui_Label7, 2);
+    lv_obj_set_y(ui_Label7, -51);
     lv_obj_set_align(ui_Label7, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label7, "Device Overheated!");
     lv_obj_set_style_text_color(ui_Label7, lv_color_hex(0xEC2A09), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label7, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label7, &lv_font_montserrat_28, LV_PART_MAIN | LV_STATE_DEFAULT);
-
+    lv_obj_set_style_text_font(ui_Label7, &lv_font_montserrat_44, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 }

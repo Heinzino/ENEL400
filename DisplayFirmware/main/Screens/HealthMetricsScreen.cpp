@@ -7,6 +7,7 @@ bool pendingSwitchToPowerDisplay = false;
 
     if(systemHighTempState()){
         pendingSwitchToPowerDisplay = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::TEMP_WARNING, ui_Screen5);
         return; // Exit early to prevent chart update
     }
 

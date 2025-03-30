@@ -76,8 +76,6 @@ lv_obj_t * ui_YLabel1;
 // SCREEN: ui_Screen5
 void ui_Screen5_screen_init(void);
 lv_obj_t * ui_Screen5;
-lv_obj_t * ui_Image1;
-lv_obj_t * ui_Image2;
 lv_obj_t * ui_CooldownMessage;
 lv_obj_t * ui_SafeProceedMessage;
 lv_obj_t * ui_Label7;
@@ -88,6 +86,7 @@ lv_obj_t * ui____initial_actions0;
 
 // IMAGES AND IMAGE SETS
 const lv_img_dsc_t * ui_imgset_1435312883[1] = {&ui_img_1796809118};
+const lv_img_dsc_t * ui_imgset_1724752112[1] = {&ui_img_701068026};
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16
