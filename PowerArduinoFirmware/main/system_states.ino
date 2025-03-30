@@ -175,6 +175,9 @@ void set_difficulty(){
 
   dump_load_difficulty = ((uint16_t)user_difficulty * 168) / 10 + 102;
   //dump_load_difficulty = read_value * 28;
+
+  analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
+  analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
 }
 
 
@@ -210,8 +213,6 @@ void load_prioritizer(){
     // Allow battery to power load
     digitalWrite(INVERTER_MOSFET, LOW);
     digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
-    digitalWrite(DUMP_LOAD_MOSFET_1, LOW);
-    digitalWrite(DUMP_LOAD_MOSFET_2, LOW);
     load_power_source = 0;
   }
 
@@ -222,8 +223,8 @@ void load_prioritizer(){
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
     digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
     digitalWrite(INVERTER_MOSFET, HIGH);
-    //digitalWrite(DUMP_LOAD_MOSFET_1, HIGH);
-    //digitalWrite(DUMP_LOAD_MOSFET_2, HIGH);
+    digitalWrite(DUMP_LOAD_MOSFET_1, HIGH);
+    digitalWrite(DUMP_LOAD_MOSFET_2, HIGH);
     load_power_source = 1;
   }
 
@@ -237,8 +238,6 @@ void load_prioritizer(){
     digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
 
     digitalWrite(INVERTER_MOSFET, HIGH);
-    //analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
-    //analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
     load_power_source = 1;
   }
 }
@@ -271,7 +270,7 @@ void charge_state(){
   else {
     
     // Disallow charging if current is too high
-    if (generator_current >= 2.0){
+    if (battery_current >= 2.0){
       duty_cycle = 0;
       digitalWrite(CHARGING_MOSFET_PIN, LOW);
     }
