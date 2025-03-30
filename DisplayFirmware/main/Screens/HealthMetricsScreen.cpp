@@ -5,6 +5,12 @@ bool pendingSwitchToPowerDisplay = false;
 
  void HealthMetricsScreen::updateScreen() {
 
+    if(systemHighTempState()){
+        pendingSwitchToPowerDisplay = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::TEMP_WARNING, ui_Screen5);
+        return; // Exit early to prevent chart update
+    }
+
     if(pendingSwitchToPowerDisplay){
         pendingSwitchToPowerDisplay = false;
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::POWER_DISPLAY, ui_Screen1);
@@ -65,7 +71,7 @@ void HealthMetricsScreen::handleButton(ButtonID btn) {
         pendingSwitchToPowerDisplay = true;
         break;
     case ButtonID::FN1_BTN:
-        TimeManager::getInstance().toggleWorkoutTimer();
+        HeaderManager::getInstance().toggleWorkoutTimer();
         break;
     default:
         break;

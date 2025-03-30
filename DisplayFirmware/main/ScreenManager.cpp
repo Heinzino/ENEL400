@@ -20,6 +20,7 @@ ScreenManager::ScreenManager()
     screens[RESISTANCE_LEVEL] = new ResistanceScreen();
     screens[HEALTH_METRICS] = new HealthMetricsScreen();
     screens[PLOT] = new PlotScreen();
+    screens[TEMP_WARNING] = new TemperatureWarningScreen();
 }
 
 Screen *ScreenManager::getCurrentScreenObject()

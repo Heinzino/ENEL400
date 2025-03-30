@@ -5,6 +5,12 @@ bool pendingSwitchToResitanceScreen = false;
 void PowerScreen::updateScreen()
 {
 
+    if(systemHighTempState()){
+        pendingSwitchToResitanceScreen = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::TEMP_WARNING, ui_Screen5);
+        return; // Exit early to prevent chart update
+    }
+
     if(pendingSwitchToResitanceScreen){
         pendingSwitchToResitanceScreen = false;
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::RESISTANCE_LEVEL, ui_Screen2);
@@ -63,7 +69,7 @@ void PowerScreen::handleButton(ButtonID btn)
         PlotScreen::plotSetup();
         break;
     case ButtonID::FN1_BTN:
-        TimeManager::getInstance().toggleWorkoutTimer();
+        HeaderManager::getInstance().toggleWorkoutTimer();
         break;
     default:
         break;

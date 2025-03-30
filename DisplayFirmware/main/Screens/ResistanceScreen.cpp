@@ -4,6 +4,13 @@ bool pendingSwitchToHealthScreen = false;
 
 void ResistanceScreen::updateScreen()
 {
+
+    if(systemHighTempState()){
+        pendingSwitchToHealthScreen = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::TEMP_WARNING, ui_Screen5);
+        return; // Exit early to prevent chart update
+    }
+
     if(pendingSwitchToHealthScreen){
         pendingSwitchToHealthScreen = false;
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::HEALTH_METRICS, ui_Screen3);  

@@ -14,7 +14,6 @@
 #include "Wifi.h"
 #include "sd_log.hpp"
 #include "pins.hpp"
-#include "wifiTask.hpp"
 #include "displayTask.hpp"
 #include "buttonTask.hpp"
 

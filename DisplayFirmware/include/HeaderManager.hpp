@@ -7,12 +7,13 @@
 #include "WiFi.h"
 #include "secrets.hpp"
 #include "Screens/SettingsScreen.hpp"
+#include "SystemStatus.hpp"
 
 void initWiFi();
 
-class TimeManager {
+class HeaderManager {
 public:
-    static TimeManager& getInstance();
+    static HeaderManager& getInstance();
 
     void update();  // Call this in displayTask every loop
 
@@ -26,13 +27,14 @@ public:
     const char* getElapsedTime();  // Returns "MM:SS" string
     const char* getFormattedTime(); // Returns "HH:MM | Month Day, Year"
 
+    void updateHeaderIconVisibility();
     void toggleWorkoutTimer();
     bool isWorkoutPaused() const;
 
 
 
 private:
-    TimeManager(); // Private constructor (singleton)
+    HeaderManager(); // Private constructor (singleton)
     
     bool workoutPaused = false;
     uint32_t lastUpdate = 0;

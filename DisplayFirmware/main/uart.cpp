@@ -56,23 +56,28 @@ void readUART2()
         LOG(LOG_LEVEL_TRACE, String("Received UART Data: ") + (char *)data + '\n');
 
         float voltage = 0.0f, current = 0.0f;
-        int rpm = 0; // Default to -1 if RPM is not provided
-        int parsedValues = sscanf((char *)data, "%f %f %d", &voltage, &current, &rpm);
+        int rpm = 0;
+        int headerIconFlag = 0;
+        int highTemperatureFlag = 0;
 
-        if (parsedValues >= 2)
+        int parsedValues = sscanf((char *)data, "%f %f %d %d %d", &voltage, &current, &rpm, &headerIconFlag, &highTemperatureFlag);
+
+        if (parsedValues == 5)
         {
             SensorData &sensorData = SensorData::getInstance();
             sensorData.setVoltage(voltage);
             sensorData.setCurrent(current);
+            sensorData.setRPM(rpm);
+
+            SystemStatus &status = SystemStatus::getInstance();
+            status.setHeaderIconFlag(headerIconFlag);
+            status.setHighTemperatureFlag(highTemperatureFlag);
 
             LOG(LOG_LEVEL_TRACE, "Updated Voltage: " + String(voltage) + " V\n");
             LOG(LOG_LEVEL_TRACE, "Updated Current: " + String(current) + " A\n");
-
-            if (parsedValues == 3)
-            {
-                sensorData.setRPM(rpm);
-                LOG(LOG_LEVEL_TRACE, "Updated RPM: " + String(rpm) + " rpm\n");
-            }
+            LOG(LOG_LEVEL_TRACE, "Updated RPM: " + String(rpm) + " rpm\n");
+            LOG(LOG_LEVEL_TRACE, "Updated Header Icon Flag: " + String(headerIconFlag) + '\n');
+            LOG(LOG_LEVEL_TRACE, "Updated High Temperature Flag: " + String(highTemperatureFlag) + '\n');
 
             sensorData.recordDataPoint();
         }

@@ -58,6 +58,7 @@ float SensorData::getSpeed() const
 // Record timestamp and data points
 void SensorData::recordDataPoint()
 {
+    //TODO Optimize space just keep last two values and integrate them, then update
     uint32_t now = esp_timer_get_time() / 1000; // Convert microseconds to milliseconds
     timestamps.push_back(now);
     speedValues.push_back(getSpeed());

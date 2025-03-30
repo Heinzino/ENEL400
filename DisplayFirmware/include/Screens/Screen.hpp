@@ -5,6 +5,7 @@
 #include "UI/ui.h"
 #include "UI/lv_conf.h"
 #include "UI/ui_helpers.h"
+#include "SystemStatus.hpp"
 
 enum class ButtonID; //Reduce circular dependency
 

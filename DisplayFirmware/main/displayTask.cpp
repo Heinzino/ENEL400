@@ -15,7 +15,7 @@ void safeLvglRefresh(unsigned long minIntervalMs)
 
 void updateTimeHeader()
 {
-    TimeManager &timeManager = TimeManager::getInstance();
+    HeaderManager &timeManager = HeaderManager::getInstance();
     timeManager.update();
     lv_label_set_text(elapsed_label, timeManager.getElapsedTime());
     lv_label_set_text(datetime_label, timeManager.getFormattedTime());
@@ -58,7 +58,7 @@ void displayTask(void *pvParameters)
 
             if (!screenManager.isScreenOn())
             {
-                TimeManager::getInstance().resetWorkoutTime(); 
+                HeaderManager::getInstance().resetWorkoutTime(); 
                 screenManager.updateScreenState(ScreenState::ON);
             }
 

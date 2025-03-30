@@ -6,7 +6,7 @@
 #include "lvgl.h"
 #include "UI/ui.h"  // Ensure UI elements are properly included
 #include <math.h>
-#include "TimeManager.hpp"
+#include "HeaderManager.hpp"
 
 enum class ButtonID; // Forward declare to avoid circular dependency
 

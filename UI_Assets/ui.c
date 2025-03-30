@@ -21,6 +21,14 @@ lv_obj_t * ui_Arc3;
 lv_obj_t * ui_Label5;
 lv_obj_t * ui_Label1;
 lv_obj_t * ui_Label6;
+lv_obj_t * ui_BikePic;
+lv_obj_t * ui_BatteryPic;
+lv_obj_t * ui_Panel2;
+lv_obj_t * ui_Panel1;
+lv_obj_t * ui_Panel3;
+lv_obj_t * ui_Panel4;
+lv_obj_t * ui_Panel5;
+lv_obj_t * ui_Panel6;
 // CUSTOM VARIABLES
 
 
@@ -64,10 +72,21 @@ lv_obj_t * ui_YLabel;
 lv_obj_t * ui_YLabel1;
 // CUSTOM VARIABLES
 
+
+// SCREEN: ui_Screen5
+void ui_Screen5_screen_init(void);
+lv_obj_t * ui_Screen5;
+lv_obj_t * ui_CooldownMessage;
+lv_obj_t * ui_SafeProceedMessage;
+lv_obj_t * ui_Label7;
+// CUSTOM VARIABLES
+
 // EVENTS
 lv_obj_t * ui____initial_actions0;
 
 // IMAGES AND IMAGE SETS
+const lv_img_dsc_t * ui_imgset_1435312883[1] = {&ui_img_1796809118};
+const lv_img_dsc_t * ui_imgset_1724752112[1] = {&ui_img_701068026};
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16
@@ -93,6 +112,7 @@ void ui_init(void)
     ui_Screen2_screen_init();
     ui_Screen3_screen_init();
     ui_Screen4_screen_init();
+    ui_Screen5_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_Screen1);
 }

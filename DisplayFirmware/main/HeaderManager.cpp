@@ -1,4 +1,4 @@
-#include "TimeManager.hpp"
+#include "HeaderManager.hpp"
 #include "esp_log.h"
 #include "lwip/apps/sntp.h"
 
@@ -27,21 +27,21 @@ void initWiFi()
     }
 }
 
-TimeManager::TimeManager()
+HeaderManager::HeaderManager()
 {
     currentTime = 0;
     snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "00:00");
     snprintf(formattedTimeStr, sizeof(formattedTimeStr), "00:00 | January 1, 1970");
 }
 
-TimeManager &TimeManager::getInstance()
+HeaderManager &HeaderManager::getInstance()
 {
-    static TimeManager instance;
+    static HeaderManager instance;
     return instance;
 }
 
 // Sync NTP once per hour
-void TimeManager::syncNTP()
+void HeaderManager::syncNTP()
 {
     LOG(LV_LOG_LEVEL_TRACE, "Syncing time with NTP...");
     sntp_setoperatingmode(SNTP_OPMODE_POLL);
@@ -82,7 +82,7 @@ void TimeManager::syncNTP()
     }
 }
 
-void TimeManager::update()
+void HeaderManager::update()
 {
     uint32_t now = millis();
 
@@ -93,39 +93,40 @@ void TimeManager::update()
 
         updateWorkoutTimer(delta);
         updateRealTime(delta);
+        updateHeaderIconVisibility();
     }
 }
 
 //  Get elapsed workout time (MM:SS)
-const char *TimeManager::getElapsedTime()
+const char *HeaderManager::getElapsedTime()
 {
     return elapsedTimeStr;
 }
 
 //  Get formatted current time (HH:MM | Month Day, Year)
-const char *TimeManager::getFormattedTime()
+const char *HeaderManager::getFormattedTime()
 {
     return formattedTimeStr;
 }
 
-void TimeManager::resetWorkoutTime()
+void HeaderManager::resetWorkoutTime()
 {
     elapsedSeconds = 0;
     lastUpdate = millis();
     snprintf(elapsedTimeStr, sizeof(elapsedTimeStr), "00:00");
 }
 
-void TimeManager::toggleWorkoutTimer()
+void HeaderManager::toggleWorkoutTimer()
 {
     workoutPaused ^= 1; // Toggles between true and false
 }
 
-bool TimeManager::isWorkoutPaused() const
+bool HeaderManager::isWorkoutPaused() const
 {
     return workoutPaused;
 }
 
-void TimeManager::updateWorkoutTimer(uint32_t delta)
+void HeaderManager::updateWorkoutTimer(uint32_t delta)
 {
     if (!workoutPaused)
     {
@@ -140,7 +141,7 @@ void TimeManager::updateWorkoutTimer(uint32_t delta)
     }
 }
 
-void TimeManager::updateRealTime(uint32_t delta)
+void HeaderManager::updateRealTime(uint32_t delta)
 {
     currentTime += delta;
 
@@ -153,4 +154,20 @@ void TimeManager::updateRealTime(uint32_t delta)
     snprintf(formattedTimeStr, sizeof(formattedTimeStr), "%02d:%02d | %s %d, %d",
              timeinfo.tm_hour, timeinfo.tm_min, months[timeinfo.tm_mon],
              timeinfo.tm_mday, timeinfo.tm_year + 1900);
+}
+
+void HeaderManager::updateHeaderIconVisibility()
+{
+    int headerFlag = SystemStatus::getInstance().getHeaderIconFlag();
+
+    if (headerFlag == 0)
+    {
+        lv_obj_clear_flag(batteryGroup, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_add_flag(ui_BikePic, LV_OBJ_FLAG_HIDDEN);
+    }
+    else
+    {
+        lv_obj_add_flag(batteryGroup, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_flag(ui_BikePic, LV_OBJ_FLAG_HIDDEN);
+    }
 }

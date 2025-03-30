@@ -1,5 +1,6 @@
 idf_component_register(
-    SRCS "TimeManager.cpp" "SensorData.cpp" "ScreenManager.cpp" "secrets.cpp" "displayTask.cpp" "wifiTask.cpp" "main.cpp"
+    SRCS "HeaderManager.cpp" "SensorData.cpp" "ScreenManager.cpp" "secrets.cpp" "displayTask.cpp" "main.cpp"
+         "SystemStatus.cpp"
          "sd_log.cpp"
          "uart.cpp"
          "UI/ui.c"
@@ -7,6 +8,10 @@ idf_component_register(
          "UI/ui_Screen2.cpp"
          "UI/ui_Screen3.cpp"
          "UI/ui_Screen4.c"
+         "UI/ui_Screen5.c"
+         "UI/ui_img_bikeicon_png.c"
+         "UI/ui_img_batterypic_png.c"
+         "UI/images.c"
          "UI/timerHeader.cpp"
          "buttonTask.cpp"
          "Screens/PowerScreen.cpp"
@@ -14,6 +19,7 @@ idf_component_register(
          "Screens/HealthMetricsScreen.cpp"
          "Screens/SettingsScreen.cpp"
          "Screens/PlotScreen.cpp"
+         "Screens/TemperatureWarningScreen.cpp"
     INCLUDE_DIRS "../include/"
                  "../include/Screens"
 )

@@ -39,7 +39,7 @@ void ui_Screen4_screen_init(void)
     lv_obj_set_x(ui_PlotTitle, 3);
     lv_obj_set_y(ui_PlotTitle, -110);
     lv_obj_set_align(ui_PlotTitle, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_PlotTitle, "VOLTAGE OVER TIME");
+    lv_label_set_text(ui_PlotTitle, "METRICS OVER TIME");
     lv_obj_set_style_text_color(ui_PlotTitle, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PlotTitle, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PlotTitle, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -66,7 +66,7 @@ void ui_Screen4_screen_init(void)
     lv_obj_set_y(ui_YLabel, -111);
     lv_obj_set_align(ui_YLabel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_YLabel, "Voltage (V)");
-    lv_obj_set_style_text_color(ui_YLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_color(ui_YLabel, lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_YLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_YLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -77,7 +77,7 @@ void ui_Screen4_screen_init(void)
     lv_obj_set_y(ui_YLabel1, -109);
     lv_obj_set_align(ui_YLabel1, LV_ALIGN_CENTER);
     lv_label_set_text(ui_YLabel1, "Current (A)");
-    lv_obj_set_style_text_color(ui_YLabel1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_color(ui_YLabel1, lv_palette_main(LV_PALETTE_RED), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_YLabel1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_YLabel1, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
