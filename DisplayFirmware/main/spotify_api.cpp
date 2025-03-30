@@ -1,6 +1,9 @@
+ // Replaced all Serial.* calls with LOG(LOG_LEVEL_TRACE, ...)
+
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include "spotify_api.h"
+#include "logging.hpp"
 
 const int HTTP_RESPONSE_CODE_UNAUTHORIZED = 401;
 const int HTTP_RESPONSE_CODE_OK = 200;
@@ -32,8 +35,8 @@ String SpotifyApi::refreshAccessToken()
 
   if (httpResponseCode != HTTP_RESPONSE_CODE_OK)
   {
-    Serial.println("Got error " + String(httpResponseCode));
-    Serial.println("Failed to refresh access token");
+    LOG(LOG_LEVEL_TRACE, "Got error " + String(httpResponseCode));
+    LOG(LOG_LEVEL_TRACE, "Failed to refresh access token");
     return "";
   }
 
@@ -51,7 +54,7 @@ bool SpotifyApi::performHttpRequestWithRetry(HTTPClient &http, String &apiUrl, S
 
   if (accessToken == "")
   {
-    Serial.println("Failed to refresh access token");
+    LOG(LOG_LEVEL_TRACE, "Failed to refresh access token");
     return false;
   }
 
@@ -67,7 +70,7 @@ bool SpotifyApi::performHttpRequestWithRetry(HTTPClient &http, String &apiUrl, S
   }
   else
   {
-    Serial.println("HTTP request failed with error: " + String(httpResponseCode));
+    LOG(LOG_LEVEL_TRACE, "HTTP request failed with error: " + String(httpResponseCode));
     return false;
   }
 }
@@ -130,7 +133,7 @@ TrackInfo SpotifyApi::getCurrentTrackInfo()
   }
   else
   {
-    Serial.println("HTTP request failed with error: " + String(httpResponseCode));
+    LOG(LOG_LEVEL_TRACE, "HTTP request failed with error: " + String(httpResponseCode));
     SpotifyApi::errorCount++;
   }
 
@@ -152,14 +155,14 @@ std::tuple<Device *, size_t> SpotifyApi::getDevicesList()
   {
     if (!performHttpRequestWithRetry(http, apiUrl, response))
     {
-      Serial.println("Failed to get devices list");
+      LOG(LOG_LEVEL_TRACE, "Failed to get devices list");
       http.end();
       return std::make_tuple(nullptr, 0);
     }
   }
   else if (httpResponseCode <= 0)
   {
-    Serial.println("HTTP request failed with error: " + String(httpResponseCode));
+    LOG(LOG_LEVEL_TRACE, "HTTP request failed with error: " + String(httpResponseCode));
     http.end();
     return std::make_tuple(nullptr, 0);
   }
@@ -175,7 +178,7 @@ std::tuple<Device *, size_t> SpotifyApi::getDevicesList()
   Device *deviceList = new (std::nothrow) Device[devices.size()];
   if (deviceList == nullptr)
   {
-    Serial.println("Failed to allocate memory for device list");
+    LOG(LOG_LEVEL_TRACE, "Failed to allocate memory for device list");
     http.end();
     return std::make_tuple(nullptr, 0);
   }
@@ -189,8 +192,7 @@ std::tuple<Device *, size_t> SpotifyApi::getDevicesList()
   }
   http.end();
 
-  Serial.print("Number of devices: ");
-  Serial.println(devices.size());
+  LOG(LOG_LEVEL_TRACE, "Number of devices: " + String(devices.size()));
 
   return std::make_tuple(deviceList, devices.size());
 }
@@ -212,20 +214,20 @@ void SpotifyApi::setActiveDevice(String deviceId)
     String response;
     if (performHttpRequestWithRetry(http, apiUrl, response))
     {
-      Serial.println("Successfully set the active device.");
+      LOG(LOG_LEVEL_TRACE, "Successfully set the active device.");
     }
     else
     {
-      Serial.printf("Failed to set active device, error: %d with id: %s \n", httpResponseCode, deviceId.c_str());
+      LOG(LOG_LEVEL_TRACE, "Failed to set active device, error: " + String(httpResponseCode) + " with id: " + deviceId);
     }
   }
   else if (httpResponseCode != HTTP_RESPONSE_CODE_NO_CONTENT)
   {
-    Serial.printf("Failed to set active device, error: %d with id: %s \n", httpResponseCode, deviceId.c_str());
+    LOG(LOG_LEVEL_TRACE, "Failed to set active device, error: " + String(httpResponseCode) + " with id: " + deviceId);
   }
   else
   {
-    Serial.println("Successfully set the active device.");
+    LOG(LOG_LEVEL_TRACE, "Successfully set the active device.");
   }
 
   http.end();
@@ -253,7 +255,7 @@ String SpotifyApi::getUsername()
     }
     else
     {
-      Serial.println("Failed to get username");
+      LOG(LOG_LEVEL_TRACE, "Failed to get username");
       http.end();
       return "Unknown User";
     }
@@ -269,7 +271,7 @@ String SpotifyApi::getUsername()
   }
   else
   {
-    Serial.println("HTTP request failed with error: " + String(httpResponseCode));
+    LOG(LOG_LEVEL_TRACE, "HTTP request failed with error: " + String(httpResponseCode));
     http.end();
     return "Unknown User";
   }
@@ -300,20 +302,20 @@ void SpotifyApi::controlSpotify(String command)
   {
     if (!performHttpRequestWithRetry(http, apiUrl, response))
     {
-      Serial.printf("Failed to send %s command\n", command.c_str());
+      LOG(LOG_LEVEL_TRACE, "Failed to send " + command + " command");
     }
     else
     {
-      Serial.printf("Successfully sent %s command to Spotify\n", command.c_str());
+      LOG(LOG_LEVEL_TRACE, "Successfully sent " + command + " command to Spotify");
     }
   }
   else if (httpResponseCode > 0)
   {
-    Serial.printf("Successfully sent %s command to Spotify\n", command.c_str());
+    LOG(LOG_LEVEL_TRACE, "Successfully sent " + command + " command to Spotify");
   }
   else
   {
-    Serial.printf("Failed to send %s command\n", command.c_str());
+    LOG(LOG_LEVEL_TRACE, "Failed to send " + command + " command");
   }
 
   http.end();
@@ -335,20 +337,20 @@ void SpotifyApi::setVolume(int volume)
     String response;
     if (!performHttpRequestWithRetry(http, apiUrl, response))
     {
-      Serial.printf("Failed to set volume to %d\n", volume);
+      LOG(LOG_LEVEL_TRACE, "Failed to set volume to " + String(volume));
     }
     else
     {
-      Serial.printf("Successfully set volume to %d\n", volume);
+      LOG(LOG_LEVEL_TRACE, "Successfully set volume to " + String(volume));
     }
   }
   else if (httpResponseCode > 0)
   {
-    Serial.printf("Successfully set volume to %d\n", volume);
+    LOG(LOG_LEVEL_TRACE, "Successfully set volume to " + String(volume));
   }
   else
   {
-    Serial.printf("Failed to set volume to %d\n", volume);
+    LOG(LOG_LEVEL_TRACE, "Failed to set volume to " + String(volume));
   }
 
   http.end();
@@ -368,14 +370,14 @@ std::tuple<FeaturedPlaylist *, size_t> SpotifyApi::getFeaturedPlaylists(int limi
   {
     if (!performHttpRequestWithRetry(http, apiUrl, response))
     {
-      Serial.println("Failed to get featured playlists");
+      LOG(LOG_LEVEL_TRACE, "Failed to get featured playlists");
       http.end();
       return std::make_tuple(nullptr, 0);
     }
   }
   else if (httpResponseCode <= 0)
   {
-    Serial.println("HTTP request failed with error: " + String(httpResponseCode));
+    LOG(LOG_LEVEL_TRACE, "HTTP request failed with error: " + String(httpResponseCode));
     http.end();
     return std::make_tuple(nullptr, 0);
   }
@@ -391,7 +393,7 @@ std::tuple<FeaturedPlaylist *, size_t> SpotifyApi::getFeaturedPlaylists(int limi
   FeaturedPlaylist *playlistList = new (std::nothrow) FeaturedPlaylist[playlists.size()];
   if (playlistList == nullptr)
   {
-    Serial.println("Failed to allocate memory for playlist list");
+    LOG(LOG_LEVEL_TRACE, "Failed to allocate memory for playlist list");
     http.end();
     return std::make_tuple(nullptr, 0);
   }
@@ -426,12 +428,12 @@ void SpotifyApi::playPlaylist(String playlistId)
     String response;
     if (!performHttpRequestWithRetry(http, apiUrl, response))
     {
-      Serial.println("Failed to play playlist");
+      LOG(LOG_LEVEL_TRACE, "Failed to play playlist");
     }
   }
   else if (httpResponseCode <= 0)
   {
-    Serial.println("HTTP request failed with error: " + String(httpResponseCode));
+    LOG(LOG_LEVEL_TRACE, "HTTP request failed with error: " + String(httpResponseCode));
   }
 
   http.end();
@@ -449,7 +451,7 @@ std::tuple<FeaturedPlaylist *, size_t> SpotifyApi::getUserPlaylists(int limit, i
 
   if (httpResponseCode != HTTP_CODE_OK)
   {
-    Serial.println("Failed to get user playlists, error: " + String(httpResponseCode));
+    LOG(LOG_LEVEL_TRACE, "Failed to get user playlists, error: " + String(httpResponseCode));
     http.end();
     return std::make_tuple(nullptr, 0);
   }
@@ -464,10 +466,10 @@ std::tuple<FeaturedPlaylist *, size_t> SpotifyApi::getUserPlaylists(int limit, i
 
   if (playlistList == nullptr)
   {
-    Serial.println("Failed to allocate memory for playlist list");
+    LOG(LOG_LEVEL_TRACE, "Failed to allocate memory for playlist list");
     http.end();
     return std::make_tuple(nullptr, 0);
-  }
+  } 
 
   int index = 0;
   for (JsonVariant playlist : playlists)

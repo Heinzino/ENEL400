@@ -83,7 +83,7 @@ void readUART2()
         }
         else
         {
-            Serial.println("Failed to parse UART data");
+            LOG(LOG_LEVEL_TRACE, "Failed to parse UART data");
         }
     }
 }
