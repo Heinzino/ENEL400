@@ -33,7 +33,11 @@ void ui_SpotifyScreen_screen_init(void)
     ui_LabelTrack = lv_label_create(textContainer);
     lv_label_set_text(ui_LabelTrack, "Track");
     lv_obj_set_style_text_font(ui_LabelTrack, &lv_font_montserrat_28, 0);
+    lv_obj_set_width(ui_LabelTrack, 380);
+    lv_obj_set_style_text_align(ui_LabelTrack, LV_TEXT_ALIGN_CENTER, 0);  // Center it
     lv_label_set_long_mode(ui_LabelTrack, LV_LABEL_LONG_SCROLL_CIRCULAR);
+    lv_obj_set_style_anim_speed(ui_LabelTrack, 25, 0); // Lower = slower scroll
+
 
     ui_LabelArtist = lv_label_create(textContainer);
     lv_label_set_text(ui_LabelArtist, "Artist");
