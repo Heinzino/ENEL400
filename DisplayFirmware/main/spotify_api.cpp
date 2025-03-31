@@ -120,7 +120,7 @@ TrackInfo SpotifyApi::getCurrentTrackInfo()
   {
     response = http.getString();
     LOG(LOG_LEVEL_INFO, "Current access token: " + accessToken);
-    LOG(LOG_LEVEL_INFO, response);
+    LOG(LOG_LEVEL_TRACE, response);
     SpotifyApi::errorCount = 0;
 
     DynamicJsonDocument doc(1024);
