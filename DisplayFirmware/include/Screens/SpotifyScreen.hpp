@@ -4,6 +4,10 @@
 #include "screenEnums.hpp"
 #include "screenManager.hpp"
 #include "secrets.hpp"
+#include "spotify_api.h"
+#include <lvgl.h>
+
+extern SpotifyApi apiClient; // Spotify API client instance
 
 class SpotifyScreen : public Screen
 {

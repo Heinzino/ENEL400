@@ -1,5 +1,4 @@
 #include "SpotifyScreen.hpp"
-#include "spotify_api.h"
 
 const char *spotifyBaseApiUrl = "https://api.spotify.com/v1";
 
@@ -16,6 +15,11 @@ void SpotifyScreen::updateScreen()
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::POWER_DISPLAY, ui_Screen1);
         return;
     }
+
+    TrackInfo trackInfo = apiClient.getCurrentTrackInfo();
+
+    lv_label_set_text(ui_LabelTrack, trackInfo.name.c_str());
+    lv_label_set_text(ui_LabelArtist, trackInfo.artistName.c_str());
 
     lv_task_handler();
     lv_timer_handler();

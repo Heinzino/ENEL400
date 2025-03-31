@@ -96,7 +96,8 @@
         "temperaturewarningscreen.hpp": "c",
         "systemstatus.hpp": "c",
         "screenenums.hpp": "c",
-        "spotifyscreen.hpp": "c"
+        "spotifyscreen.hpp": "c",
+        "secrets.hpp": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

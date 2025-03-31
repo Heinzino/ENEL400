@@ -16,6 +16,7 @@
 #include "pins.hpp"
 #include "displayTask.hpp"
 #include "buttonTask.hpp"
+#include "spotify_api.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
