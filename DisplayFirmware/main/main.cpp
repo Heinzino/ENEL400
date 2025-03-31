@@ -1,5 +1,6 @@
 #include "main.hpp"
 
+TaskHandle_t fetchTrackImageTaskHandle = NULL;
 SpotifyApi apiClient(spotifyClientId, spotifyClientSecret, accessToken, refreshToken);
 
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance

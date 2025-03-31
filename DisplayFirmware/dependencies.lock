@@ -132,6 +132,16 @@ dependencies:
       registry_url: https://components.espressif.com/
       type: service
     version: 1.2.2
+  espressif/esp_jpeg:
+    component_hash: 14c7335ea46c9ba51af8222ce7c31fe8c4f3417bece0287fdb4152f81cb6af95
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.2.1
   espressif/esp_modem:
     component_hash: 681d7c8417ce0f2a11a562c6998b7b379a4847be41d84673c11c0c7a6b00e918
     dependencies:
@@ -330,6 +340,7 @@ direct_dependencies:
 - espressif/esp_diag_data_store
 - espressif/esp_diagnostics
 - espressif/esp_insights
+- espressif/esp_jpeg
 - espressif/esp_modem
 - espressif/esp_rainmaker
 - espressif/libsodium
@@ -340,6 +351,6 @@ direct_dependencies:
 - idf
 - joltwallet/littlefs
 - lvgl/lvgl
-manifest_hash: 6dba0f27f1d175417b5b15735a4ca797f4b6858b90b3c547efb4bb62045c1050
+manifest_hash: 7c927f0122f7bcc30e6e307a0332049f33f4e5cec149e7a231e284236ca5a7d7
 target: esp32s3
 version: 2.0.0

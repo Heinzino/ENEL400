@@ -97,7 +97,8 @@
         "systemstatus.hpp": "c",
         "screenenums.hpp": "c",
         "spotifyscreen.hpp": "c",
-        "secrets.hpp": "c"
+        "secrets.hpp": "c",
+        "freertos.h": "c"
     },
     "idf.flashType": "UART",
     "idf.customExtraVars": {

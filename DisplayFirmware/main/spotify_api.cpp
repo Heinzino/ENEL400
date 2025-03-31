@@ -119,8 +119,8 @@ TrackInfo SpotifyApi::getCurrentTrackInfo()
   else if (httpResponseCode > 0)
   {
     response = http.getString();
-    LOG(LOG_LEVEL_ERROR, "Current access token: " + accessToken);
-    LOG(LOG_LEVEL_ERROR, response);
+    LOG(LOG_LEVEL_INFO, "Current access token: " + accessToken);
+    LOG(LOG_LEVEL_INFO, response);
     SpotifyApi::errorCount = 0;
 
     DynamicJsonDocument doc(1024);
