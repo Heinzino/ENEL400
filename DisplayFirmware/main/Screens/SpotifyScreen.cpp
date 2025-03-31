@@ -23,7 +23,7 @@ void SpotifyScreen::updateScreen()
         if (!fetchTrackImageTaskHandle)
         {
             char *urlCopy = strdup(currentTrackImageUrl.c_str());
-            xTaskCreatePinnedToCore(fetchTrackImage, "FetchTrackImage", 50 * 1024, (void *)urlCopy, 13, &fetchTrackImageTaskHandle, 0);
+            xTaskCreatePinnedToCore(fetchTrackImage, "FetchTrackImage", 30 * 1024, (void *)urlCopy, 13, &fetchTrackImageTaskHandle, 0);
         }
     }
 
@@ -68,7 +68,6 @@ void fetchTrackImage(void *parameter)
 {
     const char *imageUrl = (const char *)parameter;
     LOG(LOG_LEVEL_INFO, "Fetching album art from: " + String(imageUrl));
-
     LOG(LOG_LEVEL_INFO, "Free heap before HTTP GET: " + String(esp_get_free_heap_size()));
 
     HTTPClient http;
@@ -83,7 +82,6 @@ void fetchTrackImage(void *parameter)
 
         if (jpegBuffer && stream->readBytes(jpegBuffer, jpegSize) == jpegSize)
         {
-            // Close stream now that we’ve read all data
             stream->stop();
             http.end();
 
@@ -128,7 +126,13 @@ void fetchTrackImage(void *parameter)
                         img_dsc->data_size = out.width * out.height * 2;
                         img_dsc->data = rgbBuffer;
 
-                        lv_img_set_src(ui_ImageAlbumCover, img_dsc);
+                        // Async UI update to ensure it's on the LVGL thread
+                        lv_async_call([](void *param) {
+                            lv_img_dsc_t *img = (lv_img_dsc_t *)param;
+                            lv_img_set_src(ui_ImageAlbumCover, img);
+                            lv_obj_invalidate(ui_ImageAlbumCover); // Force refresh
+                        }, img_dsc);
+
                         prevImg = img_dsc;
                     }
                     else
@@ -154,7 +158,7 @@ void fetchTrackImage(void *parameter)
         {
             LOG(LOG_LEVEL_ERROR, "Failed to download full JPEG stream");
             if (jpegBuffer) free(jpegBuffer);
-            http.end(); // Ensure this is still called on failure
+            http.end();
         }
     }
     else
