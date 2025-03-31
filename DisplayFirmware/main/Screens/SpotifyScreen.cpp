@@ -8,6 +8,13 @@ constexpr uint32_t C_WHITE = 0xFFFFFF;
 
 void SpotifyScreen::updateScreen()
 {
+
+    if(systemHighTempState()){
+        pendingSwitchToHomeScreen = false;
+        ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::TEMP_WARNING, ui_Screen5);
+        return; // Exit early to prevent chart update
+    }
+
     if (pendingSwitchToHomeScreen)
     {
         pendingSwitchToHomeScreen = false;
