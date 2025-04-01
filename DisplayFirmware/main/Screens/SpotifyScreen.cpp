@@ -9,7 +9,8 @@ constexpr uint32_t C_WHITE = 0xFFFFFF;
 void SpotifyScreen::updateScreen()
 {
 
-    if(systemHighTempState()){
+    if (systemHighTempState())
+    {
         pendingSwitchToHomeScreen = false;
         ScreenManager::getInstance().safeSwitchToScreen(ScreenTitles::TEMP_WARNING, ui_Screen5);
         return; // Exit early to prevent chart update
@@ -23,6 +24,13 @@ void SpotifyScreen::updateScreen()
     }
 
     TrackInfo trackInfo = apiClient.getCurrentTrackInfo();
+
+    isPlaying = trackInfo.isPlaying;
+    lv_obj_t *label = lv_obj_get_child(ui_ButtonPlayPause, 0);
+    if (isPlaying)
+    {
+        lv_label_set_text(label, isPlaying ? LV_SYMBOL_PAUSE : LV_SYMBOL_PLAY);
+    }
 
     if (trackInfo.coverUrl != currentTrackImageUrl)
     {
@@ -66,9 +74,28 @@ void SpotifyScreen::handleButton(ButtonID btn)
     case ButtonID::SHIFT_HRZN_BTN:
         pendingSwitchToHomeScreen = true;
         break;
+    case ButtonID::PLOT_BTN:
+        apiClient.controlSpotify("previous");
+        break;
+    case ButtonID::FN1_BTN:
+        if (isPlaying)
+        {
+            apiClient.controlSpotify("pause");
+        }
+        else
+        {
+            apiClient.controlSpotify("play");
+        }
+        isPlaying = !isPlaying; // Update local sta
+        break;
+    case ButtonID::FN2_BTN:
+        apiClient.controlSpotify("next");
+        break;
     default:
         break;
     }
+
+    lastActivityTime = millis();
 }
 
 void fetchTrackImage(void *parameter)
@@ -104,8 +131,7 @@ void fetchTrackImage(void *parameter)
                     .indata_size = (uint32_t)jpegSize,
                     .outbuf = rgbBuffer,
                     .outbuf_size = rgbSize,
-                    .out_format = JPEG_IMAGE_FORMAT_RGB565
-                };
+                    .out_format = JPEG_IMAGE_FORMAT_RGB565};
 
                 esp_jpeg_image_output_t out;
                 esp_err_t res = esp_jpeg_decode(&cfg, &out);
@@ -134,11 +160,13 @@ void fetchTrackImage(void *parameter)
                         img_dsc->data = rgbBuffer;
 
                         // Async UI update to ensure it's on the LVGL thread
-                        lv_async_call([](void *param) {
-                            lv_img_dsc_t *img = (lv_img_dsc_t *)param;
-                            lv_img_set_src(ui_ImageAlbumCover, img);
-                            lv_obj_invalidate(ui_ImageAlbumCover); // Force refresh
-                        }, img_dsc);
+                        lv_async_call([](void *param)
+                                      {
+                                          lv_img_dsc_t *img = (lv_img_dsc_t *)param;
+                                          lv_img_set_src(ui_ImageAlbumCover, img);
+                                          lv_obj_invalidate(ui_ImageAlbumCover); // Force refresh
+                                      },
+                                      img_dsc);
 
                         prevImg = img_dsc;
                     }
@@ -164,7 +192,8 @@ void fetchTrackImage(void *parameter)
         else
         {
             LOG(LOG_LEVEL_ERROR, "Failed to download full JPEG stream");
-            if (jpegBuffer) free(jpegBuffer);
+            if (jpegBuffer)
+                free(jpegBuffer);
             http.end();
         }
     }
