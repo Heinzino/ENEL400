@@ -21,6 +21,7 @@ ScreenManager::ScreenManager()
     screens[HEALTH_METRICS] = new HealthMetricsScreen();
     screens[PLOT] = new PlotScreen();
     screens[TEMP_WARNING] = new TemperatureWarningScreen();
+    screens[SPOTIFY] = new SpotifyScreen();
 }
 
 Screen *ScreenManager::getCurrentScreenObject()

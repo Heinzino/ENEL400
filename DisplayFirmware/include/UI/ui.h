@@ -84,6 +84,20 @@ extern lv_obj_t * ui_CooldownMessage;
 extern lv_obj_t * ui_SafeProceedMessage;
 extern lv_obj_t * ui_Label7;
 
+// SCREEN: ui_SpotifyScreen
+void ui_SpotifyScreen_screen_init(void);
+
+extern lv_obj_t *ui_SpotifyScreen;
+extern lv_obj_t *ui_LabelTrack;
+extern lv_obj_t *ui_LabelArtist;
+extern lv_obj_t *ui_ImageAlbumCover;
+extern lv_obj_t *ui_ProgressBar;
+extern lv_obj_t *ui_LabelTimeCurrent;
+extern lv_obj_t *ui_LabelTimeTotal;
+extern lv_obj_t *ui_ButtonPlayPause;
+extern lv_obj_t *ui_ButtonPrev;
+extern lv_obj_t *ui_ButtonNext;
+
 // CUSTOM VARIABLES
 
 extern lv_obj_t * ui_BikePic;

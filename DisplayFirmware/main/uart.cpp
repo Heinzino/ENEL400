@@ -4,22 +4,22 @@ void uart_event_task(void *pvParameters)
 {
     uart_event_t event;
 
-    LOG(LOG_LEVEL_DEBUG, "In UART EVENT TASK");
+    LOG(LOG_LEVEL_TRACE, "In UART EVENT TASK");
     while (1)
     {
 
         if (xQueueReceive(uartQueue, (void *)&event, (TickType_t)portMAX_DELAY))
         {
-            LOG(LOG_LEVEL_DEBUG, "Recieved a UART EVENT");
+            LOG(LOG_LEVEL_TRACE, "Recieved a UART EVENT");
             switch (event.type)
             {
             case UART_DATA:
-                LOG(LOG_LEVEL_DEBUG, "UART DATA Event");
+                LOG(LOG_LEVEL_TRACE, "UART DATA Event");
                 readUART2();
                 xTaskNotify(displayTaskHandle, (1 << 1), eSetBits);
                 break;
             default:
-                LOG(LOG_LEVEL_DEBUG, "NOT UART DATA Event");
+                LOG(LOG_LEVEL_TRACE, "NOT UART DATA Event");
                 break;
             }
         }
@@ -83,7 +83,7 @@ void readUART2()
         }
         else
         {
-            Serial.println("Failed to parse UART data");
+            LOG(LOG_LEVEL_TRACE, "Failed to parse UART data");
         }
     }
 }

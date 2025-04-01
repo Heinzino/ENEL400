@@ -132,6 +132,16 @@ dependencies:
       registry_url: https://components.espressif.com/
       type: service
     version: 1.2.2
+  espressif/esp_jpeg:
+    component_hash: 14c7335ea46c9ba51af8222ce7c31fe8c4f3417bece0287fdb4152f81cb6af95
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.2.1
   espressif/esp_modem:
     component_hash: 681d7c8417ce0f2a11a562c6998b7b379a4847be41d84673c11c0c7a6b00e918
     dependencies:
@@ -265,7 +275,7 @@ dependencies:
       type: service
     version: 1.0.20~2
   espressif/mdns:
-    component_hash: 77ece55f01ce3723d8f1baff6e586fdb342adcbf956e39509a4fa323f278f290
+    component_hash: 3ec0af5f6bce310512e90f482388d21cc7c0e99668172d2f895356165fc6f7c5
     dependencies:
     - name: idf
       require: private
@@ -273,7 +283,7 @@ dependencies:
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 1.8.1
+    version: 1.8.2
   espressif/network_provisioning:
     component_hash: ef2e10182fd1861e68b821491916327c25416ca7ae70e5a6e43313dbc71fe993
     dependencies:
@@ -330,6 +340,7 @@ direct_dependencies:
 - espressif/esp_diag_data_store
 - espressif/esp_diagnostics
 - espressif/esp_insights
+- espressif/esp_jpeg
 - espressif/esp_modem
 - espressif/esp_rainmaker
 - espressif/libsodium
@@ -340,6 +351,6 @@ direct_dependencies:
 - idf
 - joltwallet/littlefs
 - lvgl/lvgl
-manifest_hash: ad1eecf4258c3465a6875187e1c8bdf11595216a41588ed252b086362cffbd7c
+manifest_hash: 7c927f0122f7bcc30e6e307a0332049f33f4e5cec149e7a231e284236ca5a7d7
 target: esp32s3
 version: 2.0.0

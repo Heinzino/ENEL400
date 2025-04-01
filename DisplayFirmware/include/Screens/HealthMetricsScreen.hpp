@@ -26,6 +26,8 @@ private:
     int cadence = 0;
     float speed = 0.0;
     float distance = 0.0;
+
+    bool goToSpotify = false;
 };
 
 #endif // HEALTH_METRICS_SCREEN_HPP

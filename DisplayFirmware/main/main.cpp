@@ -1,5 +1,8 @@
 #include "main.hpp"
 
+TaskHandle_t fetchTrackImageTaskHandle = NULL;
+SpotifyApi apiClient(spotifyClientId, spotifyClientSecret, accessToken, refreshToken);
+
 TFT_eSPI tftDisplay = TFT_eSPI(); // TFT Instance
 QueueHandle_t uartQueue;
 TaskHandle_t buttonTaskHandle;
@@ -31,6 +34,8 @@ void setup()
 {
   initArduino();
   lv_init();
+
+  LOG(LOG_LEVEL_ERROR, "Access token: " + accessToken);
 
   // Serial2.begin(115200,SERIAL_8N1,ESP32_RX_PIN,ESP32_TX_PIN);
   Serial.begin(115200);
@@ -74,7 +79,7 @@ void setup()
   ScreenManager::getInstance().display();
   Serial.println("Initialzed Screen");
 
-  xTaskCreatePinnedToCore(displayTask, "display_task", 4096, NULL, 12, &displayTaskHandle, 0);
+  xTaskCreatePinnedToCore(displayTask, "display_task", 12288, NULL, 12, &displayTaskHandle, 0);
   xTaskCreatePinnedToCore(buttonTask, "ButtonTask", 4096, NULL, 11, &buttonTaskHandle, 1);
   xTaskCreatePinnedToCore(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL, 1);
   // xTaskCreate(uart_event_task, "uart_event_task", 4096, NULL, 10, NULL);
