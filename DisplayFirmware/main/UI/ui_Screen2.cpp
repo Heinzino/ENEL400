@@ -15,7 +15,7 @@ void ui_Screen2_screen_init(void)
     ui_IncrementLevelBTN = lv_btn_create(ui_Screen2);
     lv_obj_set_width(ui_IncrementLevelBTN, 60);
     lv_obj_set_height(ui_IncrementLevelBTN, 60);
-    lv_obj_set_x(ui_IncrementLevelBTN, 65);
+    lv_obj_set_x(ui_IncrementLevelBTN, 97);
     lv_obj_set_y(ui_IncrementLevelBTN, 100);
     lv_obj_set_align(ui_IncrementLevelBTN, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_IncrementLevelBTN, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
@@ -59,7 +59,7 @@ void ui_Screen2_screen_init(void)
     ui_IncrementSign = lv_label_create(ui_Screen2);
     lv_obj_set_width(ui_IncrementSign, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_IncrementSign, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_IncrementSign, 65);
+    lv_obj_set_x(ui_IncrementSign, 97);
     lv_obj_set_y(ui_IncrementSign, 100);
     lv_obj_set_align(ui_IncrementSign, LV_ALIGN_CENTER);
     lv_label_set_text(ui_IncrementSign, "+");
@@ -70,7 +70,7 @@ void ui_Screen2_screen_init(void)
     ui_IncrementLevelBTN1 = lv_btn_create(ui_Screen2);
     lv_obj_set_width(ui_IncrementLevelBTN1, 60);
     lv_obj_set_height(ui_IncrementLevelBTN1, 60);
-    lv_obj_set_x(ui_IncrementLevelBTN1, 169);
+    lv_obj_set_x(ui_IncrementLevelBTN1, 196);
     lv_obj_set_y(ui_IncrementLevelBTN1, 100);
     lv_obj_set_align(ui_IncrementLevelBTN1, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_IncrementLevelBTN1, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
@@ -92,7 +92,7 @@ void ui_Screen2_screen_init(void)
     ui_DecrementSign = lv_label_create(ui_Screen2);
     lv_obj_set_width(ui_DecrementSign, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_DecrementSign, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_DecrementSign, 169);
+    lv_obj_set_x(ui_DecrementSign, 196);
     lv_obj_set_y(ui_DecrementSign, 100);
     lv_obj_set_align(ui_DecrementSign, LV_ALIGN_CENTER);
     lv_label_set_text(ui_DecrementSign, "-");
