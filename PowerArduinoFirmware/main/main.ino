@@ -105,6 +105,11 @@ float temperature_celcius = 20.0;
 uint8_t high_temperature_flag = 0;
 uint8_t duty_cycle = 0;
 
+// Variables to hold OLED display state information
+volatile uint8_t display_state_counter = 0; // count to a max of 156 (5 seconds)
+volatile uint8_t display_state_flag = 0; // 0 for battery charge, 1 for temperature
+
+
 // FSM State Variables
 // Make these volatile as they are changed in an ISR
 volatile uint8_t system_state_variable = SYSTEM_INIT; 

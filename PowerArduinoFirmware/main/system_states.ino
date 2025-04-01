@@ -40,11 +40,9 @@ void system_init(){
   // Calibrate the inverter current sensor
   ACS_inverter.autoMidPoint();
 
-  // Begin the display and draw battery outline
+  // Begin the display and clear it
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
-  display.setTextColor(WHITE);
-  OLED_draw_battery();
 
   // Begin the led strip
   digitalWrite(LED_MOSFET_PIN, HIGH);
@@ -110,6 +108,19 @@ void send_data(){
 
   // Unconditional state transition, go to get data state
   system_state_variable = GET_DATA;
+
+  // If display state is 0, display battery charge
+  if (!display_state_flag){
+    display.clearDisplay();
+    get_battery_charge();
+    OLED_draw_battery();
+    OLED_print_charge();
+  }
+  // otherwise display case temperature 
+  else{
+    display.clearDisplay();
+    OLED_print_temperature();
+  }
   
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(sanitizeFloat(generator_voltage) , 2);

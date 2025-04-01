@@ -98,4 +98,27 @@ float measure_temperature(){
   return return_temp;
 }
 
+
+
+/*-----------------------------------Temperature Measurement-------------------------------------*/
+// Function to convert battery voltage to a percentage value
+void get_battery_charge(){
+
+  // Apply linear battery charge model (maps 12.89V to 100% and 11.63V to 0%)
+  // use f notation to force compiler to use floating point rather than doubles
+  float intermediate_value = 79.37f * (battery_voltage - 11.63f);
+
+  // Make sure to clamp any outliers (if battery is non-standard)
+  if (intermediate_value <= 0){
+    intermediate_value = 0;
+  }
+
+  if (intermediate_value >= 100){
+    intermediate_value = 100;
+  }
+
+  // Hand over the value cast as an unsigned 8 bit integer
+  battery_charge_percentage = (uint8_t) intermediate_value;
+}
+
 #endif

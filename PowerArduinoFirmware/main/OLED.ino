@@ -52,4 +52,16 @@ void OLED_print_charge(){
   display.display(); 
 }
 
+
+
+/*------------------------------------Print Case Temperature-------------------------------------*/
+void OLED_print_temperature(){
+
+  // Set text color to white (default is black) and font size to 2
+  display.setTextColor(WHITE);
+  display.setTextSize(2);
+  display.setCursor(10, 10);
+  display.print(temperature_celcius, 2);
+}
+
 #endif
