@@ -91,8 +91,7 @@ float measure_inverter_current(){
 float measure_temperature(){
 
   // Measure the temperature from the LM35 sensor
-  //float return_temp = temperature.cel();
-  float return_temp = 20.0;
+  float return_temp = temperature.cel();
 
   // Return this value 
   return return_temp;

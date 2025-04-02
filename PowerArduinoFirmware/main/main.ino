@@ -17,26 +17,26 @@
 #define UART_RX_PIN            0
 #define UART_TX_PIN            1
 #define HALL_EFFECT_SENSOR_PIN 2
-#define CHARGING_MOSFET_PIN    5
-#define GENERATOR_MOSFET_PIN   3
-#define DUMP_LOAD_MOSFET_1     6
-#define DUMP_LOAD_MOSFET_2     10
-#define FAN_MOSFET_PIN         4
-#define INVERTER_MOSFET        11
-#define LED_MOSFET_PIN         8
-#define FAN1_AUX_PIN           12
-#define FAN2_AUX_PIN           9
-#define DISCHARGE_MOSFET_PIN   7
+#define CHARGING_MOSFET_PIN    3
+#define GENERATOR_MOSFET_PIN   4
+#define DUMP_LOAD_MOSFET_1     5
+#define DUMP_LOAD_MOSFET_2     6
+#define FAN_MOSFET_PIN         7
+#define INVERTER_MOSFET        8
+#define LED_MOSFET_PIN         9
+#define FAN1_AUX_PIN           10
+#define FAN2_AUX_PIN           11
+#define DISCHARGE_MOSFET_PIN   12
 #define SPI_SCK                13
 
-#define TEMPERATURE_SENSOR_PIN A3
+#define TEMPERATURE_SENSOR_PIN A0
 #define BATTERY_VOLTAGE_PIN    A1
 #define GENERATOR_VOLTAGE_PIN  A2
-#define INVERTER_CURRENT_PIN   A0
+#define INVERTER_CURRENT_PIN   A3
 #define I2C_SDA                A4
 #define I2C_SCL                A5
 #define GENERATOR_CURRENT_PIN  A6
-#define BATTERY_CURRENT_PIN    A7 
+#define BATTERY_CURRENT_PIN    A7   
 
 
 

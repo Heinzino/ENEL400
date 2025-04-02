@@ -140,7 +140,8 @@ void send_data(){
   Serial.print(" ");
 
   // Send high temperature flag
-  Serial.println(high_temperature_flag);
+  //Serial.println(high_temperature_flag);
+  Serial.println(temperature_celcius, 2);
 
   // Flush the serial buffer 
   Serial.flush();
@@ -218,6 +219,8 @@ void load_prioritizer(){
   // Otherwise if the generator isn't on 
   else if (generator_voltage <= 16.0){
 
+    digitalWrite(LED_MOSFET_PIN, HIGH);
+
     // Disable current flow from generator
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
 
@@ -231,6 +234,7 @@ void load_prioritizer(){
   else if (generator_voltage > 40.0){
 
     // Maximize load (reduces voltage)
+    digitalWrite(LED_MOSFET_PIN, HIGH);
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
     digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
     digitalWrite(INVERTER_MOSFET, HIGH);
@@ -241,6 +245,8 @@ void load_prioritizer(){
 
   // Otherwise in normal operation
   else{
+
+    digitalWrite(LED_MOSFET_PIN, HIGH);
 
     // Allow current to flow from generator and to inverter
     digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
