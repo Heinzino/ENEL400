@@ -9,7 +9,7 @@ float measure_generator_voltage(){
   uint16_t digital_generator_voltage = analogRead(GENERATOR_VOLTAGE_PIN);
 
   // Convert the 10 bit value to a float representing the voltage in volts (maps 1023 to 50V)
-  float calibrated_value = 21.55; // Uncalibrated value: 20.46
+  float calibrated_value = 19.274; // Uncalibrated value: 20.46
   float generator_volts = digital_generator_voltage / calibrated_value;
 
   // Return the value 
@@ -26,7 +26,7 @@ float measure_battery_voltage(){
   uint16_t digital_battery_voltage = analogRead(BATTERY_VOLTAGE_PIN);
 
   // Convert the 10 bit value to a float representing the voltage in volts (maps 1023 to 20V)
-  float calibrated_value = 51.54; // Uncalibrated value: 49.69
+  float calibrated_value = 50.797; // Uncalibrated value: 49.69
   float battery_volts = digital_battery_voltage / calibrated_value;
 
   // Return the value 

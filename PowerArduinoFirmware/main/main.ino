@@ -14,27 +14,27 @@
 
 
 /*-----------------------------------------DEFINE PINS-------------------------------------------*/
-#define UART_RX_PIN            0
-#define UART_TX_PIN            1
-#define HALL_EFFECT_SENSOR_PIN 2
+#define UART_RX_PIN            0 // VERIFIED
+#define UART_TX_PIN            1 // VERIFIED
+#define HALL_EFFECT_SENSOR_PIN 2 // VERIFIED
 #define CHARGING_MOSFET_PIN    3
 #define GENERATOR_MOSFET_PIN   4
 #define DUMP_LOAD_MOSFET_1     5
 #define DUMP_LOAD_MOSFET_2     6
-#define FAN_MOSFET_PIN         7
-#define INVERTER_MOSFET        8
-#define LED_MOSFET_PIN         9
-#define FAN1_AUX_PIN           10
-#define FAN2_AUX_PIN           11
-#define DISCHARGE_MOSFET_PIN   12
-#define SPI_SCK                13
+#define FAN_MOSFET_PIN         7 // VERIFIED
+#define INVERTER_MOSFET        8 // VERIFIED
+#define LED_MOSFET_PIN         9 // VERIFIED
+#define FAN1_AUX_PIN           10 // VERIFIED
+#define FAN2_AUX_PIN           11 // VERIFIED
+#define DISCHARGE_MOSFET_PIN   12 // VERIFIED
+#define LED_PWM_CONTROL_PIN    13 // VERIFIED
 
 #define TEMPERATURE_SENSOR_PIN A0
 #define BATTERY_VOLTAGE_PIN    A1
 #define GENERATOR_VOLTAGE_PIN  A2
 #define INVERTER_CURRENT_PIN   A3
-#define I2C_SDA                A4
-#define I2C_SCL                A5
+#define I2C_SDA                A4 // VERIFIED
+#define I2C_SCL                A5 // VERIFIED
 #define GENERATOR_CURRENT_PIN  A6
 #define BATTERY_CURRENT_PIN    A7   
 
@@ -57,8 +57,8 @@
 // Declare ACS712 30A sensor object to measure generator current. 5V, 1023 steps, 66mV/A
 ACS712  ACS_generator(GENERATOR_CURRENT_PIN, 5.0, 1023, 66);
 
-// Declare ACS712 20A sensor object to measure battery current. 5V, 1023 steps, 100mV/A
-ACS712  ACS_battery(BATTERY_CURRENT_PIN, 5.0, 1023, 100);
+// Declare ACS712 30A sensor object to measure battery current. 5V, 1023 steps, 66mV/A
+ACS712  ACS_battery(BATTERY_CURRENT_PIN, 5.0, 1023, 66);
 
 // Declare ACS712 30A sensor object to measure inverter current. 5V, 1023 steps, 66mV/A
 ACS712 ACS_inverter(INVERTER_CURRENT_PIN, 5.0, 1023, 66);
@@ -101,14 +101,14 @@ float inverter_power = 0.0;
 uint8_t load_power_source = 0;
 
 // Variables to hold temperature and charging metrics
-float temperature_celcius = 20.0;
+float temperature_celcius = 0.0;
 uint8_t high_temperature_flag = 0;
 uint8_t duty_cycle = 0;
 
 // Variables to hold OLED display state information
 volatile uint8_t display_state_counter = 0; // count to a max of 156 (5 seconds)
 volatile uint8_t display_state_flag = 0; // 0 for battery charge, 1 for temperature
-
+volatile uint8_t display_change_flag = 0;
 
 // FSM State Variables
 // Make these volatile as they are changed in an ISR
@@ -171,6 +171,7 @@ void loop() {
       break;
     default:
       system_sleep();
+      send_data();
       break;
   }
 }

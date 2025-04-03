@@ -19,6 +19,7 @@ void system_init(){
   pinMode(FAN1_AUX_PIN, OUTPUT);
   pinMode(FAN2_AUX_PIN, OUTPUT);
   pinMode(DISCHARGE_MOSFET_PIN, OUTPUT);
+  pinMode(LED_PWM_CONTROL_PIN, OUTPUT);
 
   // Set analog input pins
   pinMode(TEMPERATURE_SENSOR_PIN, INPUT);
@@ -73,6 +74,9 @@ void system_init(){
   
   // Unconditional transition, go to system sleep state
   system_state_variable = SYSTEM_SLEEP; 
+
+  // Debug message 
+  Serial.println("Booting Up");
 }
 
 
@@ -81,7 +85,7 @@ void system_init(){
 void system_sleep(){
 
   // Enable interrupts during sleep
-  sei();
+  //sei();
 
   while (!wdtFired){
     set_sleep_mode(SLEEP_MODE_IDLE);
@@ -93,7 +97,7 @@ void system_sleep(){
   wdtFired = false;
 
   // Disable interrupts after sleep
-  cli();
+  //cli();
 }
 
 
@@ -109,19 +113,39 @@ void send_data(){
   // Unconditional state transition, go to get data state
   system_state_variable = GET_DATA;
 
-  // If display state is 0, display battery charge
-  if (!display_state_flag){
+  // If display state just changed, clear it
+  if (display_change_flag == 1){
+    display_change_flag = 0;
     display.clearDisplay();
-    get_battery_charge();
-    OLED_draw_battery();
-    OLED_print_charge();
+
+    // If display state is 0, display battery charge
+    if (display_state_flag == 0){
+      get_battery_charge();
+      OLED_draw_battery();
+      OLED_print_charge();
+    }
+
+    // otherwise display case temperature 
+    else if (display_state_flag == 1){
+      OLED_print_temperature();
+    }
   }
-  // otherwise display case temperature 
-  else{
-    display.clearDisplay();
-    OLED_print_temperature();
-  }
-  
+
+  Serial.print(sanitizeFloat(generator_voltage) , 2);
+  Serial.print(" ");
+
+  Serial.print(sanitizeFloat(generator_current) , 2);
+  Serial.print(" ");
+
+  Serial.print(sanitizeFloat(battery_voltage) , 2);
+  Serial.print(" ");
+
+  Serial.print(sanitizeFloat(battery_current) , 2);
+  Serial.print(" ");
+
+  Serial.println(inverter_current, 2);
+
+/*
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(sanitizeFloat(generator_voltage) , 2);
   Serial.print(" ");
@@ -140,9 +164,8 @@ void send_data(){
   Serial.print(" ");
 
   // Send high temperature flag
-  //Serial.println(high_temperature_flag);
-  Serial.println(temperature_celcius, 2);
-
+  Serial.println(high_temperature_flag);
+*/
   // Flush the serial buffer 
   Serial.flush();
 }
@@ -344,7 +367,7 @@ void temp_monitoring(){
   system_state_variable = SYSTEM_SLEEP;
 
   // Check for high temperature
-  if (temperature_celcius > 30.0){ // FOR CURRENT PROTOTYPE WITHOUT TEMP SENSOR
+  if (temperature_celcius > 30.0){
     
     // Disable all current flow
     digitalWrite(LED_MOSFET_PIN, LOW);

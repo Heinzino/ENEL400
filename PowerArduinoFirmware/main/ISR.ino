@@ -13,8 +13,14 @@ ISR(WDT_vect) {
 
   // Invert the display state flag
   if (display_state_counter > 156){
-    display_state_flag = !display_state_flag;
+    if (display_state_flag){
+      display_state_flag = 0;
+    }
+    else{
+      display_state_flag = 1;
+    }
     display_state_counter = 0;
+    display_change_flag = 1;
   }
 
   // Increment display state change counter
