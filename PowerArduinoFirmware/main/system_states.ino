@@ -85,9 +85,6 @@ void system_init(){
 /*--------------------------------------System Sleep (Idle)--------------------------------------*/
 void system_sleep(){
 
-  // Enable interrupts during sleep
-  //sei();
-
   while (!wdtFired){
     set_sleep_mode(SLEEP_MODE_IDLE);
     sleep_enable();
@@ -96,9 +93,6 @@ void system_sleep(){
   }
 
   wdtFired = false;
-
-  // Disable interrupts after sleep
-  //cli();
 }
 
 
@@ -119,6 +113,7 @@ void send_data(){
     Serial.println("Display Change");
     display_change_flag = 0;
     display.clearDisplay();
+    display.display();
 
     // If display state is 0, display battery charge
     if (display_state_flag == 1){

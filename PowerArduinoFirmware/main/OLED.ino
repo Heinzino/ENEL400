@@ -47,6 +47,9 @@ void OLED_print_charge(){
 
   // Print the battery percentage
   display.print(battery_charge_percentage);
+  
+  // Get rid of glitchy white spots
+  display.fillRect(64, 56, 128, 64, BLACK); 
 
   // Must use display.display() to actually show the changes
   display.display(); 
@@ -71,7 +74,10 @@ void OLED_print_temperature(){
   display.setCursor(display.getCursorX() + 8, display.getCursorY()); // Move cursor right for the 'C'
   display.print("C");
 
+  // Get rid of glitchy white spots
+  display.fillRect(64, 48, 128, 64, BLACK); 
 
+  // Must use display.display() to actually show the changes
   display.display();
 }
 
