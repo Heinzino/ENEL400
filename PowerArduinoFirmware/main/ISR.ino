@@ -11,8 +11,12 @@ ISR(WDT_vect) {
   // Make sure the next state we enter is the send data state
   system_state_variable = SEND_DATA;
 
+  // Increment display state change counter
+  display_state_counter++;
+
   // Invert the display state flag
   if (display_state_counter > 156){
+
     if (display_state_flag){
       display_state_flag = 0;
     }
@@ -22,9 +26,6 @@ ISR(WDT_vect) {
     display_state_counter = 0;
     display_change_flag = 1;
   }
-
-  // Increment display state change counter
-  display_state_counter++;
 }
 
 #endif

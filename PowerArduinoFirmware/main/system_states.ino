@@ -44,6 +44,7 @@ void system_init(){
   // Begin the display and clear it
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
+  display.display();
 
   // Begin the led strip
   digitalWrite(LED_MOSFET_PIN, HIGH);
@@ -115,22 +116,26 @@ void send_data(){
 
   // If display state just changed, clear it
   if (display_change_flag == 1){
+    Serial.println("Display Change");
     display_change_flag = 0;
     display.clearDisplay();
 
     // If display state is 0, display battery charge
-    if (display_state_flag == 0){
+    if (display_state_flag == 1){
+      Serial.println("Battery");
       get_battery_charge();
       OLED_draw_battery();
       OLED_print_charge();
     }
 
     // otherwise display case temperature 
-    else if (display_state_flag == 1){
+    else if (display_state_flag == 0){
+      Serial.println("Temperature");
       OLED_print_temperature();
     }
   }
 
+  /*
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(sanitizeFloat(generator_voltage) , 2);
   Serial.print(" ");
@@ -139,7 +144,6 @@ void send_data(){
   Serial.print(sanitizeFloat(generator_current) , 2);
   Serial.print(" ");
 
-  // This code to be used for a later version
   // Send wheel RPM
   Serial.print(rpmSensor.getRPM());
   Serial.print(" ");
@@ -150,7 +154,13 @@ void send_data(){
 
   // Send high temperature flag
   Serial.println(high_temperature_flag);
-  //Serial.println(temperature_celcius, 2);
+*/
+
+  Serial.print(display_state_counter);
+  Serial.print(" ");
+  Serial.print(display_state_flag);
+  Serial.print(" ");
+  Serial.println(display_change_flag);
 
   // Flush the serial buffer 
   Serial.flush();

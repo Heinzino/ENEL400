@@ -4,7 +4,7 @@
 /*-------------------------------------Print Battery Shape---------------------------------------*/
 void OLED_draw_battery(){
 
-   // Clear display to start display in known state
+  // Clear display to start display in known state
   display.clearDisplay();
 
   // Battery rectangle
@@ -57,11 +57,22 @@ void OLED_print_charge(){
 /*------------------------------------Print Case Temperature-------------------------------------*/
 void OLED_print_temperature(){
 
+  // Clear display to start display in known state
+  display.clearDisplay();
+
   // Set text color to white (default is black) and font size to 2
   display.setTextColor(WHITE);
   display.setTextSize(2);
-  display.setCursor(10, 10);
+  display.setCursor(20, 20);
   display.print(temperature_celcius, 2);
+
+  // Now draw a small degree circle manually
+  display.drawCircle(display.getCursorX() + 2, display.getCursorY(), 3, SSD1306_WHITE); // X = cursor after "25", Y offset to align
+  display.setCursor(display.getCursorX() + 8, display.getCursorY()); // Move cursor right for the 'C'
+  display.print("C");
+
+
+  display.display();
 }
 
 #endif

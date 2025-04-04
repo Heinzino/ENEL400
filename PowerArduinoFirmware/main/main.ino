@@ -106,8 +106,8 @@ uint8_t high_temperature_flag = 0;
 uint8_t duty_cycle = 0;
 
 // Variables to hold OLED display state information
-volatile uint8_t display_state_counter = 0; // count to a max of 156 (5 seconds)
-volatile uint8_t display_state_flag = 0; // 0 for battery charge, 1 for temperature
+volatile uint8_t display_state_counter = 152; // count to a max of 156 (5 seconds)
+volatile uint8_t display_state_flag = 1; // 0 for battery charge, 1 for temperature
 volatile uint8_t display_change_flag = 0;
 
 // FSM State Variables
