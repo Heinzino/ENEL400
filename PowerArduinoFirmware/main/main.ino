@@ -133,6 +133,44 @@ SystemState currentState = IDLE;
 
 
 
+/*-------------------------------------Function Prototypes---------------------------------------*/
+void system_init();
+void system_sleep();
+void send_data();
+void get_data();
+void set_difficulty();
+void load_prioritizer();
+void charge_state();
+void led_control();
+void temp_monitoring();
+
+float measure_generator_voltage();
+float measure_battery_voltage();
+float measure_generator_current();
+float measure_battery_current();
+float measure_inverter_current();
+float measure_temperature();
+void get_battery_charge();
+
+uint8_t read_serial_int();
+
+void setup_WDT();
+void disableWDT();
+void enableWDT();
+
+void OLED_draw_battery();
+void OLED_print_charge();
+void OLED_print_temperature();
+
+void runActiveEffect();
+void runIdleEffect();
+uint32_t calculateLevelColor(int level);
+void updateSystemState();
+void fillStrip(uint32_t color);
+uint8_t getPowerLevel();
+
+
+
 /*-----------------------------------------System Setup------------------------------------------*/
 void setup() {
   system_init();

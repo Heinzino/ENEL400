@@ -338,6 +338,14 @@ void led_control(){
   // Unconditional state transition, go to temperature monitoring state
   system_state_variable = TEMP_MONITORING;
   
+
+  /*
+  for(int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.color(255, 255, 255));
+  }
+  */
+
+  /*
   // Update the led strip effect
   updateSystemState();
   
@@ -347,6 +355,7 @@ void led_control(){
   } else {
     runActiveEffect();
   }
+  */
 }
 
 
