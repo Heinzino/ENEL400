@@ -26,7 +26,7 @@ float measure_battery_voltage(){
   uint16_t digital_battery_voltage = analogRead(BATTERY_VOLTAGE_PIN);
 
   // Convert the 10 bit value to a float representing the voltage in volts (maps 1023 to 20V)
-  float calibrated_value = 50.797; // Uncalibrated value: 49.69
+  float calibrated_value = 50.48; // Uncalibrated value: 49.69
   float battery_volts = digital_battery_voltage / calibrated_value;
 
   // Return the value 
@@ -43,11 +43,11 @@ float measure_generator_current(){
   int generator_current_mA = ACS_generator.mA_DC(10);
 
   // Convert the value in mA to A
-  float calibrated_value = -983.1; // Uncalibrated value: -1000.0
+  float calibrated_value = 983.1; // Uncalibrated value: -1000.0
   float generator_current_A = generator_current_mA / calibrated_value;
 
   // Return the generator current in Amps as a float
-  return generator_current_A;
+  return generator_current_A;// + 0.320;
 }
 
 
@@ -64,7 +64,7 @@ float measure_battery_current(){
   float battery_current_A = battery_current_mA / calibrated_value;
 
   // Return the load current in Amps as a float
-  return battery_current_A;
+  return battery_current_A + 0.2507;
 }
 
 

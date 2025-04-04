@@ -131,21 +131,6 @@ void send_data(){
     }
   }
 
-  Serial.print(sanitizeFloat(generator_voltage) , 2);
-  Serial.print(" ");
-
-  Serial.print(sanitizeFloat(generator_current) , 2);
-  Serial.print(" ");
-
-  Serial.print(sanitizeFloat(battery_voltage) , 2);
-  Serial.print(" ");
-
-  Serial.print(sanitizeFloat(battery_current) , 2);
-  Serial.print(" ");
-
-  Serial.println(inverter_current, 2);
-
-/*
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(sanitizeFloat(generator_voltage) , 2);
   Serial.print(" ");
@@ -165,7 +150,8 @@ void send_data(){
 
   // Send high temperature flag
   Serial.println(high_temperature_flag);
-*/
+  //Serial.println(temperature_celcius, 2);
+
   // Flush the serial buffer 
   Serial.flush();
 }
@@ -208,8 +194,8 @@ void set_difficulty(){
 
   user_difficulty = read_serial_int();
 
-  dump_load_difficulty = ((uint16_t)user_difficulty * 168) / 10 + 102;
-  //dump_load_difficulty = read_value * 28;
+  //dump_load_difficulty = ((uint16_t)user_difficulty * 168) / 10 + 102;
+  dump_load_difficulty = user_difficulty * 28;
 
   analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
   analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
