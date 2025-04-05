@@ -14,27 +14,27 @@
 
 
 /*-----------------------------------------DEFINE PINS-------------------------------------------*/
-#define UART_RX_PIN            0 // VERIFIED
-#define UART_TX_PIN            1 // VERIFIED
-#define HALL_EFFECT_SENSOR_PIN 2 // VERIFIED
+#define UART_RX_PIN            0
+#define UART_TX_PIN            1
+#define HALL_EFFECT_SENSOR_PIN 2
 #define CHARGING_MOSFET_PIN    3
 #define GENERATOR_MOSFET_PIN   4
 #define DUMP_LOAD_MOSFET_1     5
 #define DUMP_LOAD_MOSFET_2     6
-#define FAN_MOSFET_PIN         7 // VERIFIED
-#define INVERTER_MOSFET        8 // VERIFIED
-#define LED_MOSFET_PIN         9 // VERIFIED
-#define FAN1_AUX_PIN           10 // VERIFIED
-#define FAN2_AUX_PIN           11 // VERIFIED
-#define DISCHARGE_MOSFET_PIN   12 // VERIFIED
-#define LED_PWM_CONTROL_PIN    13 // VERIFIED
+#define FAN_MOSFET_PIN         7
+#define INVERTER_MOSFET        8
+#define LED_MOSFET_PIN         9
+#define FAN1_AUX_PIN           10
+#define FAN2_AUX_PIN           11
+#define DISCHARGE_MOSFET_PIN   12
+#define LED_PWM_CONTROL_PIN    13
 
 #define TEMPERATURE_SENSOR_PIN A0
 #define BATTERY_VOLTAGE_PIN    A1
 #define GENERATOR_VOLTAGE_PIN  A2
 #define INVERTER_CURRENT_PIN   A3
-#define I2C_SDA                A4 // VERIFIED
-#define I2C_SCL                A5 // VERIFIED
+#define I2C_SDA                A4
+#define I2C_SCL                A5
 #define GENERATOR_CURRENT_PIN  A6
 #define BATTERY_CURRENT_PIN    A7   
 
@@ -125,11 +125,11 @@ const int USER_LEVELS = 10;   // 0-9 (green to red)
 const int POWER_LEVELS = 6;   // 0-5 (0 = idle)
 int userLevel = 0;   
 int powerLevel = 0;
-const uint16_t pulsePeriods[POWER_LEVELS] = {0, 7000, 4000, 1500, 900, 500};
+const uint16_t pulsePeriods[POWER_LEVELS] = {1, 7000, 4000, 1500, 900, 500};
 const uint8_t pulsePeaks[POWER_LEVELS] = {255, 255, 255, 255, 255, 255}; 
 uint32_t currentColor = strip.Color(0, 0, 0); 
 enum SystemState {IDLE, ACTIVE};
-SystemState currentState = IDLE;
+SystemState currentState = ACTIVE;
 
 
 
@@ -183,9 +183,11 @@ void loop() {
 
   // Implements system FSM
   switch(system_state_variable){
+    /*
     case SYSTEM_SLEEP:
       system_sleep();
       break;
+    */
     case SEND_DATA:
       send_data();
       break;
@@ -208,7 +210,7 @@ void loop() {
       temp_monitoring();
       break;
     default:
-      system_sleep();
+      //system_sleep();
       send_data();
       break;
   }

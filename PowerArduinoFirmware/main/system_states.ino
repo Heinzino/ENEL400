@@ -52,8 +52,8 @@ void system_init(){
   strip.show();
 
   // Setup the watchdog timer
-  setup_WDT();
-  enableWDT();
+  //setup_WDT();
+  //enableWDT();
 
   // Turn on generator MOSFET to allow current flow
   digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
@@ -70,11 +70,12 @@ void system_init(){
 
   // Enable the fans at highest speed
   digitalWrite(FAN_MOSFET_PIN, HIGH);
-  analogWrite(FAN1_AUX_PIN, 255);
-  analogWrite(FAN2_AUX_PIN, 255);
+  digitalWrite(FAN1_AUX_PIN, HIGH);
+  digitalWrite(FAN2_AUX_PIN, HIGH);
   
   // Unconditional transition, go to system sleep state
-  system_state_variable = SYSTEM_SLEEP; 
+  //system_state_variable = SYSTEM_SLEEP;
+  system_state_variable = SEND_DATA;
 
   // Debug message 
   Serial.println("Booting Up");
@@ -91,7 +92,6 @@ void system_sleep(){
     sleep_cpu();
     sleep_disable();
   }
-
   wdtFired = false;
 }
 
@@ -110,14 +110,12 @@ void send_data(){
 
   // If display state just changed, clear it
   if (display_change_flag == 1){
-    Serial.println("Display Change");
     display_change_flag = 0;
     display.clearDisplay();
     display.display();
 
     // If display state is 0, display battery charge
     if (display_state_flag == 1){
-      Serial.println("Battery");
       get_battery_charge();
       OLED_draw_battery();
       OLED_print_charge();
@@ -125,12 +123,10 @@ void send_data(){
 
     // otherwise display case temperature 
     else if (display_state_flag == 0){
-      Serial.println("Temperature");
       OLED_print_temperature();
     }
   }
 
-  /*
   // Send generator voltage with 2 decimal places accuracy
   Serial.print(sanitizeFloat(generator_voltage) , 2);
   Serial.print(" ");
@@ -149,13 +145,6 @@ void send_data(){
 
   // Send high temperature flag
   Serial.println(high_temperature_flag);
-*/
-
-  Serial.print(display_state_counter);
-  Serial.print(" ");
-  Serial.print(display_state_flag);
-  Serial.print(" ");
-  Serial.println(display_change_flag);
 
   // Flush the serial buffer 
   Serial.flush();
@@ -202,8 +191,8 @@ void set_difficulty(){
   //dump_load_difficulty = ((uint16_t)user_difficulty * 168) / 10 + 102;
   dump_load_difficulty = user_difficulty * 28;
 
-  analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
-  analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
+  //analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
+  //analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
 }
 
 
@@ -226,8 +215,8 @@ void load_prioritizer(){
     // Turn on fans at max speed
     digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
     digitalWrite(FAN_MOSFET_PIN, HIGH);
-    analogWrite(FAN1_AUX_PIN, 255);
-    analogWrite(FAN2_AUX_PIN, 255);
+    digitalWrite(FAN1_AUX_PIN, HIGH);
+    digitalWrite(FAN2_AUX_PIN, HIGH);
   }
   
   // Otherwise if the generator isn't on 
@@ -293,8 +282,8 @@ void charge_state(){
     // Turn on fans at max speed
     digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
     digitalWrite(FAN_MOSFET_PIN, HIGH);
-    analogWrite(FAN1_AUX_PIN, 255);
-    analogWrite(FAN2_AUX_PIN, 255);
+    digitalWrite(FAN1_AUX_PIN, HIGH);
+    digitalWrite(FAN2_AUX_PIN, HIGH);
   }
 
   // Otherwise, charging is allowed
@@ -337,20 +326,16 @@ void led_control(){
 
   // Unconditional state transition, go to temperature monitoring state
   system_state_variable = TEMP_MONITORING;
-  
 
-  /*
-  for(int i = 0; i < NUM_LEDS; i++) {
-    strip.setPixelColor(i, strip.color(255, 255, 255));
-  }
-  */
+  strip.setPixelColor(0, strip.Color(0, 0, 255));
+  strip.show();
 
   /*
   // Update the led strip effect
   updateSystemState();
   
   // Execute the led strip effect
-  if(currentState == IDLE) {
+  if(currentState == ACTIVE) {
     runIdleEffect();
   } else {
     runActiveEffect();
