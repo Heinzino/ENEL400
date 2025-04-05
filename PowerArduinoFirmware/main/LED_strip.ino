@@ -3,6 +3,7 @@
 
 /*----------------------------------Active Mode Pulsing Effect-----------------------------------*/
 void runActiveEffect() {
+  /*
   static float pulsePhase = 0.0;
   int pwrIndex = constrain(powerLevel, 1, POWER_LEVELS-1);
   
@@ -17,8 +18,8 @@ void runActiveEffect() {
   float pulseValue = (sin(pulsePhase) + 1.0) * 0.5; // Range 0-1
   uint8_t brightness = BASE_BRIGHTNESS + 
                       strip.gamma8(pulseValue * (pulsePeaks[pwrIndex] - BASE_BRIGHTNESS));
-
-  strip.setBrightness(brightness);
+  */
+  strip.setBrightness(255);
   fillStrip(currentColor);
   strip.show();
 }
@@ -34,7 +35,6 @@ void runIdleEffect() {
   strip.setBrightness(IDLE_BRIGHTNESS);
   strip.show();
   hue += 128; // Slower color cycling
-  delay(20);
 }
 
 

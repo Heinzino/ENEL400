@@ -52,11 +52,11 @@ void system_init(){
   strip.show();
 
   // Setup the watchdog timer
-  //setup_WDT();
-  //enableWDT();
+  setup_WDT();
+  enableWDT();
 
   // Turn on generator MOSFET to allow current flow
-  digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
+  digitalWrite(GENERATOR_MOSFET_PIN, LOW);
 
   // Turn inverter MOSFET off to disallow generator from powering load
   digitalWrite(INVERTER_MOSFET, LOW);
@@ -74,11 +74,7 @@ void system_init(){
   digitalWrite(FAN2_AUX_PIN, HIGH);
   
   // Unconditional transition, go to system sleep state
-  //system_state_variable = SYSTEM_SLEEP;
-  system_state_variable = SEND_DATA;
-
-  // Debug message 
-  Serial.println("Booting Up");
+  system_state_variable = SYSTEM_SLEEP;
 }
 
 
@@ -188,11 +184,10 @@ void set_difficulty(){
 
   user_difficulty = read_serial_int();
 
-  //dump_load_difficulty = ((uint16_t)user_difficulty * 168) / 10 + 102;
   dump_load_difficulty = user_difficulty * 28;
 
-  //analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
-  //analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
+  analogWrite(DUMP_LOAD_MOSFET_1, dump_load_difficulty);
+  analogWrite(DUMP_LOAD_MOSFET_2, dump_load_difficulty);
 }
 
 
@@ -310,7 +305,7 @@ void charge_state(){
         else duty_cycle = 0;
       }
       digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
-      //analogWrite(CHARGING_MOSFET_PIN, duty_cycle); // THIS LINE CAUSES GENERATOR VOLTAGE TO DROP AFTER SOME TIME
+      analogWrite(CHARGING_MOSFET_PIN, duty_cycle); // THIS LINE CAUSES GENERATOR VOLTAGE TO DROP AFTER SOME TIME
     }
 
     else{
@@ -327,9 +322,12 @@ void led_control(){
   // Unconditional state transition, go to temperature monitoring state
   system_state_variable = TEMP_MONITORING;
 
-  strip.setPixelColor(0, strip.Color(0, 0, 255));
-  strip.show();
+  uint16_t generator_power_int = (uint16_t) generator_power;
 
+  for (uint8_t i = 0; i < NUM_LEDS; i++){
+    strip.setPixelColor(i, generator_power_int, 255 - generator_power_int, 0);
+  }
+  strip.show();
   /*
   // Update the led strip effect
   updateSystemState();
@@ -341,7 +339,6 @@ void led_control(){
     runActiveEffect();
   }
   */
-  
 }
 
 

@@ -76,7 +76,7 @@ HallEffectRPM rpmSensor(HALL_EFFECT_SENSOR_PIN);
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
 // Declare neopixel led strip object to write to the led strip
-Adafruit_NeoPixel strip(30, LED_MOSFET_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip(30, LED_PWM_CONTROL_PIN, NEO_GRB + NEO_KHZ800);
 
 
 
@@ -183,11 +183,9 @@ void loop() {
 
   // Implements system FSM
   switch(system_state_variable){
-    /*
     case SYSTEM_SLEEP:
       system_sleep();
       break;
-    */
     case SEND_DATA:
       send_data();
       break;
@@ -210,8 +208,7 @@ void loop() {
       temp_monitoring();
       break;
     default:
-      //system_sleep();
-      send_data();
+      system_sleep();
       break;
   }
 }
