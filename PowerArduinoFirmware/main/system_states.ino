@@ -341,6 +341,7 @@ void led_control(){
     runActiveEffect();
   }
   */
+  
 }
 
 
@@ -363,8 +364,8 @@ void temp_monitoring(){
     // Turn on fans at max speed
     digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
     digitalWrite(FAN_MOSFET_PIN, HIGH);
-    analogWrite(FAN1_AUX_PIN, 255);
-    analogWrite(FAN2_AUX_PIN, 255);
+    digitalWrite(FAN1_AUX_PIN, HIGH);
+    digitalWrite(FAN2_AUX_PIN, HIGH);
 
     // Set the high temperature flag
     high_temperature_flag = 1;
