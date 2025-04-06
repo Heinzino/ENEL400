@@ -360,7 +360,7 @@ void temp_monitoring(){
   system_state_variable = SYSTEM_SLEEP;
 
   // Check for high temperature
-  if (temperature_celcius > 30.0){
+  if (temperature_celcius > 40.0){
     
     // Disable all current flow
     digitalWrite(LED_MOSFET_PIN, LOW);
