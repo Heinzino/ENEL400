@@ -206,9 +206,9 @@ void load_prioritizer(){
     digitalWrite(GENERATOR_MOSFET_PIN, LOW);
     digitalWrite(INVERTER_MOSFET, LOW);
     digitalWrite(CHARGING_MOSFET_PIN, LOW);
+    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
 
     // Turn on fans at max speed
-    digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
     digitalWrite(FAN_MOSFET_PIN, HIGH);
     digitalWrite(FAN1_AUX_PIN, HIGH);
     digitalWrite(FAN2_AUX_PIN, HIGH);
@@ -233,12 +233,10 @@ void load_prioritizer(){
 
     // Maximize load (reduces voltage)
     digitalWrite(LED_MOSFET_PIN, HIGH);
-    digitalWrite(GENERATOR_MOSFET_PIN, HIGH);
-    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
-    digitalWrite(INVERTER_MOSFET, HIGH);
-    digitalWrite(DUMP_LOAD_MOSFET_1, HIGH);
-    digitalWrite(DUMP_LOAD_MOSFET_2, HIGH);
-    load_power_source = 1;
+    digitalWrite(GENERATOR_MOSFET_PIN, LOW);
+    digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
+    digitalWrite(INVERTER_MOSFET, LOW);
+    load_power_source = 0;
   }
 
   // Otherwise in normal operation
@@ -273,9 +271,9 @@ void charge_state(){
     digitalWrite(GENERATOR_MOSFET_PIN, LOW);
     digitalWrite(INVERTER_MOSFET, LOW);
     digitalWrite(CHARGING_MOSFET_PIN, LOW);
+    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
 
     // Turn on fans at max speed
-    digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
     digitalWrite(FAN_MOSFET_PIN, HIGH);
     digitalWrite(FAN1_AUX_PIN, HIGH);
     digitalWrite(FAN2_AUX_PIN, HIGH);
@@ -285,7 +283,7 @@ void charge_state(){
   else {
     
     // Disallow charging if current is too high
-    if (battery_current >= 2.0){
+    if (battery_current >= 2.0 || generator_voltage > 40.0){
       duty_cycle = 0;
       digitalWrite(CHARGING_MOSFET_PIN, LOW);
     }
@@ -322,23 +320,24 @@ void led_control(){
   // Unconditional state transition, go to temperature monitoring state
   system_state_variable = TEMP_MONITORING;
 
-  uint16_t generator_power_int = (uint16_t) generator_power;
+  // Convert generator power to a scaled integer between 0 and 255
+  // 200 = max power color
+  float generator_power_scaled;
+  if (generator_power < 0.0){
+    generator_power_scaled = 0.0;
+  }
+  else if (generator_power > 200.0){
+    generator_power_scaled = 255.0;
+  }
+  else{
+    generator_power_scaled = generator_power * 1.275;
+  }
+  uint8_t generator_power_int = (uint8_t) generator_power_scaled;
 
   for (uint8_t i = 0; i < NUM_LEDS; i++){
     strip.setPixelColor(i, generator_power_int, 255 - generator_power_int, 0);
   }
   strip.show();
-  /*
-  // Update the led strip effect
-  updateSystemState();
-  
-  // Execute the led strip effect
-  if(currentState == ACTIVE) {
-    runIdleEffect();
-  } else {
-    runActiveEffect();
-  }
-  */
 }
 
 
@@ -357,9 +356,9 @@ void temp_monitoring(){
     digitalWrite(GENERATOR_MOSFET_PIN, LOW);
     digitalWrite(INVERTER_MOSFET, LOW);
     digitalWrite(CHARGING_MOSFET_PIN, LOW);
+    digitalWrite(DISCHARGE_MOSFET_PIN, LOW);
 
     // Turn on fans at max speed
-    digitalWrite(DISCHARGE_MOSFET_PIN, HIGH);
     digitalWrite(FAN_MOSFET_PIN, HIGH);
     digitalWrite(FAN1_AUX_PIN, HIGH);
     digitalWrite(FAN2_AUX_PIN, HIGH);
