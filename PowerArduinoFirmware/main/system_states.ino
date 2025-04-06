@@ -112,15 +112,25 @@ void send_data(){
 
     // If display state is 0, display battery charge
     if (display_state_flag == 1){
-      get_battery_charge();
+      battery_charge_percentage = (uint8_t) (battery_charge_percentage_sum / 156.0);
       OLED_draw_battery();
       OLED_print_charge();
+      battery_charge_percentage_sum = 0;
     }
 
     // otherwise display case temperature 
     else if (display_state_flag == 0){
+      temperature_celcius = temperature_celcius_sum / 156.0;
       OLED_print_temperature();
+      temperature_celcius_sum = 0.0;
     }
+  }
+
+  if (display_state_flag == 1){
+    temperature_celcius_sum += temperature_celcius_single;
+  }
+  else {
+    battery_charge_percentage_sum += battery_charge_percentage_single;
   }
 
   // Send generator voltage with 2 decimal places accuracy
@@ -162,6 +172,7 @@ void get_data(){
   // Get battery voltage and current
   battery_voltage = measure_battery_voltage();
   battery_current = measure_battery_current();
+  battery_charge_percentage_single = get_battery_charge();
 
   // Get inverter current, multiply to get power
   inverter_current = measure_inverter_current();
@@ -171,7 +182,7 @@ void get_data(){
   rpmSensor.update();
 
   // Get case temperature
-  temperature_celcius = measure_temperature();
+  temperature_celcius_single = measure_temperature();
 }
 
 

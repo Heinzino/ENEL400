@@ -89,7 +89,9 @@ float generator_power = 0.0;
 // Variable to hold battery metrics
 float battery_voltage = 0.0;
 float battery_current = 0.0;
-uint8_t battery_charge_percentage = 100;
+uint8_t battery_charge_percentage_single = 0;
+float battery_charge_percentage_sum = 0.0;
+uint8_t battery_charge_percentage = 0;
 
 // Variable to hold dump load metrics
 uint8_t user_difficulty = 0;
@@ -101,12 +103,14 @@ float inverter_power = 0.0;
 uint8_t load_power_source = 0;
 
 // Variables to hold temperature and charging metrics
+float temperature_celcius_single = 0.0;
+float temperature_celcius_sum = 0.0;
 float temperature_celcius = 0.0;
 uint8_t high_temperature_flag = 0;
 uint8_t duty_cycle = 0;
 
 // Variables to hold OLED display state information
-volatile uint8_t display_state_counter = 152; // count to a max of 156 (5 seconds)
+volatile uint8_t display_state_counter = 0; // count to a max of 156 (5 seconds)
 volatile uint8_t display_state_flag = 0; // 0 for battery charge, 1 for temperature
 volatile uint8_t display_change_flag = 0;
 
@@ -150,7 +154,7 @@ float measure_generator_current();
 float measure_battery_current();
 float measure_inverter_current();
 float measure_temperature();
-void get_battery_charge();
+uint8_t get_battery_charge();
 
 uint8_t read_serial_int();
 
